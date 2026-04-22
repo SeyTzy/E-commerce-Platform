@@ -1,0 +1,26 @@
+.rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.filled {
+  fill: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.empty {
+  fill: transparent;
+  color: var(--color-text-muted);
+}
+
+.value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}

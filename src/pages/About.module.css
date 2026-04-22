@@ -1,0 +1,237 @@
+.about {
+  padding-bottom: var(--space-16);
+}
+
+.hero {
+  padding: var(--space-16) 0;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: var(--font-size-4xl);
+  color: var(--color-text-inverse);
+  margin-bottom: var(--space-4);
+}
+
+.hero p {
+  font-size: var(--font-size-xl);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Story */
+.story {
+  padding: var(--space-16) 0;
+}
+
+.storyContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.storyText h2 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-6);
+}
+
+.storyText p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+.storyImage img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Stats */
+.stats {
+  padding: var(--space-16) 0;
+  background-color: var(--color-surface);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+}
+
+.stat {
+  text-align: center;
+}
+
+.statValue {
+  display: block;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.statLabel {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+}
+
+/* Values */
+.values {
+  padding: var(--space-16) 0;
+}
+
+.values h2 {
+  text-align: center;
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-12);
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.valueCard {
+  padding: var(--space-8);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.valueIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--space-4);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+}
+
+.valueCard h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-2);
+}
+
+.valueCard p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Team */
+.team {
+  padding: var(--space-16) 0;
+  background-color: var(--color-surface);
+}
+
+.team h2 {
+  text-align: center;
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-12);
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.memberCard {
+  text-align: center;
+}
+
+.memberCard img {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+}
+
+.memberCard h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-1);
+}
+
+.memberCard span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* CTA */
+.cta {
+  padding: var(--space-16) 0;
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+}
+
+.cta h2 {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-inverse);
+  margin-bottom: var(--space-2);
+}
+
+.cta p {
+  font-size: var(--font-size-lg);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--space-6);
+}
+
+.cta a {
+  text-decoration: none;
+}
+
+@media (max-width: 1023px) {
+  .storyContent {
+    grid-template-columns: 1fr;
+  }
+
+  .statsGrid,
+  .valuesGrid,
+  .teamGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  .hero h1 {
+    font-size: var(--font-size-3xl);
+  }
+
+  .storyText p {
+    font-size: var(--font-size-base);
+  }
+
+  .statsGrid,
+  .valuesGrid,
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statValue {
+    font-size: var(--font-size-3xl);
+  }
+
+  .memberCard img {
+    width: 120px;
+    height: 120px;
+  }
+}

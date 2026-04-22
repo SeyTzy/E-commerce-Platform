@@ -1,0 +1,455 @@
+.product {
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  min-height: 60vh;
+  text-align: center;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--color-primary);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.mainImage {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-surface-elevated);
+}
+
+.mainImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.discount,
+.newBadge {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+}
+
+.newBadge {
+  left: auto;
+  right: var(--space-4);
+}
+
+.thumbnails {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  background: none;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+  border-color: var(--color-primary);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.category {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+.name {
+  font-size: var(--font-size-3xl);
+  line-height: 1.2;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.rating span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.currentPrice {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.originalPrice {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xl);
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.description {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.feature svg {
+  color: var(--color-primary);
+}
+
+.feature h4 {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.feature p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.quantityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.quantityRow > span {
+  font-weight: var(--font-weight-medium);
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.quantity button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quantity button:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.quantity span {
+  min-width: 40px;
+  text-align: center;
+  font-weight: var(--font-weight-semibold);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.actions a:first-child {
+  flex: 1;
+}
+
+.actions button:first-child {
+  flex: 1;
+}
+
+.stock {
+  margin-top: var(--space-2);
+}
+
+.inStock {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-success);
+}
+
+.stockDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-success);
+  border-radius: 50%;
+}
+
+.outOfStock {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+/* Tabs */
+.tabs {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.tabHeader {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tabHeader button {
+  flex: 1;
+  padding: var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tabHeader button:hover {
+  color: var(--color-text-primary);
+}
+
+.tabHeader button.active {
+  color: var(--color-primary);
+  box-shadow: inset 0 -2px 0 var(--color-primary);
+}
+
+.tabContent {
+  padding: var(--space-8);
+}
+
+.descriptionTab p {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.specsTab table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.specsTab td {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.specsTab td:first-child {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  width: 40%;
+}
+
+/* Reviews */
+.reviewsSummary {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-8);
+  padding-bottom: var(--space-8);
+  margin-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.reviewsAverage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.average {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.reviewsBars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.reviewBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.reviewBar span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  min-width: 60px;
+}
+
+.bar {
+  flex: 1;
+  height: 8px;
+  background-color: var(--color-surface-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-full);
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.review {
+  padding: var(--space-4);
+  background-color: var(--color-surface-elevated);
+  border-radius: var(--radius-md);
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.reviewHeader h4 {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.review p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.reviewDate {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.noReviews {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-8);
+}
+
+@media (max-width: 1023px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .reviewsSummary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 639px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  .name {
+    font-size: var(--font-size-2xl);
+  }
+
+  .currentPrice {
+    font-size: var(--font-size-2xl);
+  }
+
+  .tabHeader button {
+    padding: var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .tabContent {
+    padding: var(--space-4);
+  }
+}
