@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=JetBrains+Mono:wght@400;500&family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap');
 
 :root {
   /* Colors - Light Mode */
@@ -32,9 +32,10 @@
   --color-info-light: #DBEAFE;
 
   /* Typography */
-  --font-primary: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-primary: 'DM Sans', 'Kantumruy Pro', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Playfair Display', Georgia, serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-khmer: 'Kantumruy Pro', 'Khmer OS', sans-serif;
 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -168,6 +169,16 @@ a {
 
 a:hover {
   color: var(--color-primary-hover);
+}
+
+/* Khmer Text */
+:lang(km) {
+  font-family: var(--font-khmer);
+}
+
+html[lang="km"] body,
+body[lang="km"] {
+  font-family: var(--font-khmer);
 }
 
 /* Utility Classes */

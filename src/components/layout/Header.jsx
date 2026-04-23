@@ -99,7 +99,7 @@ const Header = () => {
               to={link.path} 
               className={`${styles.navLink} ${location.pathname === link.path ? styles.navLinkActive : ''}`}
             >
-              {link.name}
+              <span>{link.name}</span>
             </Link>
           ))}
         </nav>

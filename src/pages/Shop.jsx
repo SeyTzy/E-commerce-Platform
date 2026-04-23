@@ -14,6 +14,7 @@ const Shop = () => {
   const [category, setCategory] = useState(searchParams.get('category') || '')
   const [priceMin, setPriceMin] = useState(0)
   const [priceMax, setPriceMax] = useState(1000)
+  const [priceRange, setPriceRange] = useState([0, 1000])
   const [rating, setRating] = useState(0)
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'popular')
   const [search, setSearch] = useState(searchParams.get('search') || '')
@@ -33,12 +34,12 @@ const Shop = () => {
       result = result.filter(p => p.category.toLowerCase() === category.toLowerCase())
     }
 
-    if (priceMin > 0) {
-      result = result.filter(p => p.price >= priceMin)
+    if (priceRange[0] > 0) {
+      result = result.filter(p => p.price >= priceRange[0])
     }
 
-    if (priceMax < 1000) {
-      result = result.filter(p => p.price <= priceMax)
+    if (priceRange[1] < 1000) {
+      result = result.filter(p => p.price <= priceRange[1])
     }
 
     if (rating > 0) {
@@ -63,7 +64,7 @@ const Shop = () => {
     }
 
     return result
-  }, [category, priceMin, priceMax, rating, sortBy, search])
+  }, [category, priceRange, rating, sortBy, search])
 
   const handleCategoryChange = (value) => {
     setCategory(value)
@@ -87,15 +88,14 @@ const Shop = () => {
 
   const handleClearFilters = () => {
     setCategory('')
-    setPriceMin(0)
-    setPriceMax(1000)
+    setPriceRange([0, 1000])
     setRating(0)
     setSortBy('popular')
     setSearch('')
     setSearchParams({})
   }
 
-  const hasActiveFilters = category || priceMin > 0 || priceMax < 1000 || rating > 0 || search
+  const hasActiveFilters = category || priceRange[0] > 0 || priceRange[1] < 1000 || rating > 0 || search
 
   const sortOptions = [
     { value: 'popular', label: 'Most Popular' },
@@ -184,20 +184,49 @@ const Shop = () => {
 
             <div className={styles.filterGroup}>
               <h4>Price Range</h4>
-              <div className={styles.priceInputs}>
+              <div className={styles.priceDisplay}>
+                <span className={styles.priceValue}>${priceRange[0]}</span>
+                <span className={styles.priceDash}>—</span>
+                <span className={styles.priceValue}>${priceRange[1]}</span>
+              </div>
+              <div className={styles.sliderContainer}>
+                <div className={styles.sliderTrack}>
+                  <div 
+                    className={styles.sliderFill} 
+                    style={{
+                      left: `${(priceRange[0] / 1000) * 100}%`,
+                      right: `${100 - (priceRange[1] / 1000) * 100}%`
+                    }}
+                  />
+                </div>
                 <input
-                  type="number"
-                  placeholder="Min"
-                  value={priceMin}
-                  onChange={(e) => setPriceMin(Number(e.target.value))}
+                  type="range"
+                  min="0"
+                  max="1000"
+                  step="10"
+                  value={priceRange[0]}
+                  onChange={(e) => {
+                    const val = Number(e.target.value)
+                    if (val < priceRange[1]) setPriceRange([val, priceRange[1]])
+                  }}
+                  className={styles.sliderInput}
                 />
-                <span>—</span>
                 <input
-                  type="number"
-                  placeholder="Max"
-                  value={priceMax}
-                  onChange={(e) => setPriceMax(Number(e.target.value))}
+                  type="range"
+                  min="0"
+                  max="1000"
+                  step="10"
+                  value={priceRange[1]}
+                  onChange={(e) => {
+                    const val = Number(e.target.value)
+                    if (val > priceRange[0]) setPriceRange([priceRange[0], val])
+                  }}
+                  className={styles.sliderInput}
                 />
+              </div>
+              <div className={styles.priceLabels}>
+                <span>$0</span>
+                <span>$1000+</span>
               </div>
             </div>
 

@@ -2,14 +2,14 @@ export const products = [
   {
     id: '1',
     name: 'Premium Wireless Headphones',
-    category: 'Electronics',
+    category: 'Accessories',
     price: 299.99,
     originalPrice: 399.99,
     description: 'Experience crystal-clear audio with our premium wireless headphones. Features active noise cancellation, 30-hour battery life, and ultra-comfortable ear cushions.',
     images: [
-      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800',
-      'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800',
-      'https://images.unsplash.com/photo-1484704849700-f032a568e14?w=800'
+      'https://morpheus360.com/cdn/shop/products/HP9750HDcopy.jpg?v=1660232271&width=1946',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoUnqvbo5FMJrZ0rFRffnFgAQ36KONtIoa1w&s',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNAHVaXL_rWzQ0jT1qDyV3UzeM7swE402Gqg&s'
     ],
     rating: 4.8,
     reviews: [
@@ -62,7 +62,7 @@ export const products = [
   {
     id: '4',
     name: 'Smart Fitness Tracker',
-    category: 'Electronics',
+    category: 'Accessories',
     price: 149.99,
     originalPrice: 179.99,
     description: 'Track your health metrics 24/7 with GPS, heart rate monitoring, sleep tracking, and 7-day battery life.',
@@ -102,7 +102,7 @@ export const products = [
   {
     id: '6',
     name: 'Bluetooth Speaker',
-    category: 'Electronics',
+    category: 'Accessories',
     price: 79.99,
     originalPrice: 99.99,
     description: 'Waterproof speaker with 360° sound. 12 hours playtime and rugged design for outdoor adventures.',
@@ -164,8 +164,8 @@ export const products = [
     originalPrice: null,
     description: 'Extra thick eco-friendly yoga mat with alignment lines. Non-slip surface for perfect grip.',
     images: [
-      'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=800',
-      'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800'
+      'https://cdn.thewirecutter.com/wp-content/media/2024/07/yoga-mat-2048px-1629-3x2-1.jpg?auto=webp&quality=75&crop=4:3,smart&width=1024',
+      'https://www.gaiam.com/cdn/shop/products/05-64756GAIAMPREMIUMREVERSIBLELUNARWAVEYOGAMAT_B_1.jpg?v=1665154212'
     ],
     rating: 4.6,
     reviews: [
@@ -216,7 +216,7 @@ export const products = [
   {
     id: '12',
     name: 'Gaming Mouse RGB',
-    category: 'Electronics',
+    category: 'Accessories',
     price: 59.99,
     originalPrice: 79.99,
     description: 'Precision gaming mouse with customizable RGB lighting. 6 buttons and adjustable DPI.',
@@ -283,7 +283,7 @@ export const products = [
     description: 'High-performance gaming laptop with NVIDIA RTX graphics, Intel i9 processor, and 32GB RAM.',
     images: [
       'https://dlcdnwebimgs.asus.com/gain/ECB739CB-4E3F-4B1E-89DF-A17A9D75E2DD',
-      'https://dlcdnwebimgs.asus.com/gain/ECB739CB-4E3F-4B1E-89DF-A17A9D75E2DD'
+      'https://dlcdnwebimgs.asus.com/gain/736A72C5-AC53-4D86-B4A1-008B7826AE4F'
     ],
     rating: 4.4,
     reviews: [
@@ -302,7 +302,7 @@ export const products = [
     description: 'High-performance gaming laptop with NVIDIA RTX graphics, Intel i7 processor, and 16GB RAM.',
     images: [
       'https://dlcdnwebimgs.asus.com/gain/9AC8B0E4-AF64-46FF-AEF7-A4827521671F',
-      'https://dlcdnwebimgs.asus.com/gain/9AC8B0E4-AF64-46FF-AEF7-A4827521671F'
+      'https://dlcdnwebimgs.asus.com/files/media/135b75ed-c0f7-4bb9-928f-2b1a1e9cb34f/v2/img/design/color/strix-g-2022-green.png'
     ],
     rating: 4.5,
     reviews: [
@@ -397,7 +397,7 @@ export const products = [
     description: 'High-performance gaming laptop with NVIDIA RTX graphics, Intel i7 processor, and 16GB RAM.',
     images: [
       'https://dlcdnwebimgs.asus.com/files/media/d5444a20-d912-40e3-9a48-bbacc1e3a4e6/v1/images/Strix_G18_KV_16x9.webp',
-      'https://dlcdnwebimgs.asus.com/files/media/d5444a20-d912-40e3-9a48-bbacc1e3a4e6/v1/images/Strix_G18_KV_16x9.webp'
+      'https://dlcdnwebimgs.asus.com/gain/DF5BB4C7-EC0E-49F0-A4B9-02F5868E24F6/w1000/h732'
     ],
     rating: 4.9,
     reviews: [
