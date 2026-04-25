@@ -406,6 +406,120 @@ export const products = [
     stock: 10,
     isNew: true,
     sales: 150 
+  },
+  {
+    id: '22',
+    name: 'MSI Stealth GS77', 
+    category: 'Electronics',
+    price: 1799.99,
+    originalPrice: 1999.99,
+    description: 'High-performance gaming laptop with NVIDIA RTX graphics, Intel i9 processor, and 32GB RAM.',
+    images: [
+      'https://i5.walmartimages.com/asr/7f312a28-f96f-46cf-b5e5-ce72704f1f78.1b83b656fa536e22690b9796719e6f6b.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
+      'https://media.ldlc.com/r1600/ld/products/00/05/93/81/LD0005938158_1_0005992188.jpg'
+    ],
+    rating: 4.7,
+    reviews: [
+      { id: 1, user: 'Emily R.', rating: 4, text: 'Works well and looks great', date: '2024-01-17' }
+    ],
+    stock: 20,
+    isNew: false,
+    sales: 200
+  },
+  {
+    id: '23',
+    name: 'Alienware x17 R2', 
+    category: 'Electronics',
+    price: 2199.99,
+    originalPrice: 2499.99,
+    description: 'High-performance gaming laptop with NVIDIA RTX graphics, Intel i9 processor, and 64GB RAM.',
+    images: [
+      'https://www.techspot.com/articles-info/2530/images/2022-09-18-image-2.jpg',
+      'https://www.digitaltrends.com/tachyon/2022/09/alienware-x17-r2-review-12.jpg?resize=1200%2C720'
+    ],
+    rating: 4.8,
+    reviews: [
+      { id: 1, user: 'GamerPro', rating: 5, text: 'Incredible performance for gaming!', date: '2025-01-11' }
+    ],
+    stock: 15,
+    isNew: true,
+    sales: 120
+  },
+  {
+    id: '24',
+    name: 'Razer Blade 15', 
+    category: 'Electronics',
+    price: 1599.99,
+    originalPrice: 1799.99,
+    description: 'High-performance gaming laptop with NVIDIA RTX graphics, Intel i7 processor, and 16GB RAM.',
+    images: [
+      'https://www.notebookcheck.net/fileadmin/Notebooks/Razer/Blade_15_Base_Model/Blade_15_Fall_2018_Base_Model_Render_13.png',
+      'https://i5.walmartimages.com/seo/Razer-Blade-15-6-FHD-i7-10875H-16-512-SSD-RTX-2070-SUPER-RZ09-03304E42-R3U1_58715c0c-160c-442e-b837-d1f1d629109b.6afe0ae769ee2952cdf2a890bf7f58e1.jpeg'
+    ],
+    rating: 4.6,
+    reviews: [
+      { id: 1, user: 'TechGuru', rating: 4, text: 'Very convenient for smart home setup', date: '2024-01-18' }
+    ],
+    stock: 25,
+    isNew: false,
+    sales: 180
+  },
+  {
+    id: '25',
+    name: 'ASUS TUF Gaming F15', 
+    category: 'Electronics',
+    price: 999.99,
+    originalPrice: 1199.99,
+    description: 'High-performance gaming laptop with NVIDIA RTX graphics, Intel i5 processor, and 8GB RAM.',
+    images: [
+      'https://shop.villman.com/cdn/shop/files/1_16_d6111a21-2d8f-4459-a8b1-e79dfb749294_800x.jpg?v=1699945499',
+      'https://www.gigahertz.com.ph/cdn/shop/files/asus-tuf-gaming-f15-2022-fx507zc4-hn081w-i5-12500h-geforce-rtx-3050-8gb-ram-512gb-ssd-win-11-asus-gigahertz-200318.jpg?v=1721109907&width=1200'
+    ],
+    rating: 4.5,
+    reviews: [
+      { id: 1, user: 'Michael S.', rating: 4, text: 'Great sound for the price', date: '2024-01-16' }
+    ],
+    stock: 40,
+    isNew: false,
+    sales: 300
+  },
+  {
+    id: '26',
+    name: 'Lenovo Legion 5', 
+    category: 'Electronics',
+    price: 1099.99,
+    originalPrice: 1299.99,
+    description: 'High-performance gaming laptop with NVIDIA RTX graphics, AMD Ryzen 7 processor, and 16GB RAM.',
+    images: [
+      'https://www.bhphotovideo.com/images/fb/lenovo_82jh008jus_legion_5i_i7_16g_1669912.jpg',
+      'https://p2-ofp.static.pub/fes/cms/2022/06/24/lk85guee450vthrvz638kisz3k79nc125094.png'
+    ],
+    rating: 4.7,
+    reviews: [
+      { id: 1, user: 'GamerPro', rating: 5, text: 'Incredible performance for gaming!', date: '2025-01-11' }
+    ],
+    stock: 30,
+    isNew: false,
+    sales: 250
+  },
+  {
+    id: '27',
+    name: 'HP Omen 15', 
+    category: 'Electronics',
+    price: 1199.99,
+    originalPrice: 1399.99,
+    description: 'High-performance gaming laptop with NVIDIA RTX graphics, Intel i7 processor, and 16GB RAM.',
+    images: [
+      'https://static.beebom.com/wp-content/uploads/2018/08/omen-15-battery.jpg',
+      'https://www.hp.com/content/dam/sites/omen/worldwide/laptops/2022-omen-15-laptop-amd-2-0/VALKYR~3.png'
+    ],
+    rating: 4.6,
+    reviews: [
+      { id: 1, user: 'TechGuru', rating: 4, text: 'Very convenient for smart home setup', date: '2024-01-18' }
+    ],
+    stock: 20,
+    isNew: false,
+    sales: 150
   }
 ]
 
