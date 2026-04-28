@@ -138,7 +138,7 @@ const Auth = () => {
       } else if (error.code === 'auth/email-already-in-use') {
         toast.error('Email already in use')
       } else if (error.code === 'auth/weak-password') {
-        toast.error('Password should be at least 6 characters')
+        toast.error('Password should be at least 4 characters')
       } else {
         toast.error(error.message)
       }
@@ -200,7 +200,7 @@ const Auth = () => {
               error={errors.password?.message}
               {...register('password', { 
                 required: 'Password is required',
-                minLength: { value: 6, message: 'Password must be at least 6 characters' }
+                minLength: { value: 4, message: 'Password must be at least 4 characters' }
               })}
             />
 

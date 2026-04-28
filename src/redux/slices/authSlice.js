@@ -4,9 +4,10 @@ const getStoredAuth = () => {
   try {
     const user = localStorage.getItem('luxecart_user')
     const token = localStorage.getItem('luxecart_token')
-    return { user: user ? JSON.parse(user) : null, token }
+    const email = localStorage.getItem('luxecart_email')
+    return { user: user ? JSON.parse(user) : null, token, email }
   } catch {
-    return { user: null, token: null }
+    return { user: null, token: null, email: null }
   }
 }
 
@@ -33,6 +34,7 @@ const authSlice = createSlice({
       state.error = null
       localStorage.setItem('luxecart_user', JSON.stringify(user))
       localStorage.setItem('luxecart_token', token)
+      localStorage.setItem('luxecart_email', user?.email || '')
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload
@@ -49,6 +51,7 @@ const authSlice = createSlice({
       state.error = null
       localStorage.removeItem('luxecart_user')
       localStorage.removeItem('luxecart_token')
+      localStorage.removeItem('luxecart_email')
     },
     updateUser: (state, action) => {
       state.user = { ...state.user, ...action.payload }

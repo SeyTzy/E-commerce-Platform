@@ -10,9 +10,9 @@ import { setProducts, setCategories } from '../redux/slices/productSlice'
 import styles from './Home.module.css'
 
 const heroImages = [
-  { src: 'https://storage-asset.msi.com/global/picture/banner/banner_17718336283bc6a5ead82ee8d0ce753c015701d7fc.jpeg', alt: 'Hero Image 1' },
-  { src: 'https://i.dell.com/is/image/DellContent/content/dam/ss2/non-product-images/alienware-difference/aw-difference-lp-laptops-hero-aa16250nt-aa18250nt-product-only.psd?fmt=png-alpha&wid=1680&hei=1071', alt: 'Hero Image 2' },
-  { src: 'https://storage-asset.msi.com/global/picture/banner/banner_17756159791c43d9bafcf0618af7ccb0afddb06703.jpeg', alt: 'Hero Image 3' }
+  { src: 'https://images.steamusercontent.com/ugc/946219717597970362/CB88BD1F0C823F2002DDFEAC39B406D6F383196C/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false', alt: 'Rog Poster' },
+  { src: 'https://c4.wallpaperflare.com/wallpaper/98/814/561/alienware-games-abstract-software-digital-art-logo-alienware-poster-wallpaper-preview.jpg', alt: 'Alienware Poster' },
+  { src: 'https://dlcdnwebimgs.asus.com/files/media/d5444a20-d912-40e3-9a48-bbacc1e3a4e6/v1/images/Strix_G18_KV_16x9.webp', alt: 'Hero Image 3' }
 ]
 
 const iconMap = {
@@ -96,7 +96,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  Discover Your <span>Style</span>
+                  Buy Everything <span>You Want</span>
                 </motion.h1>
                 <motion.p 
                   className={styles.heroDesc}
