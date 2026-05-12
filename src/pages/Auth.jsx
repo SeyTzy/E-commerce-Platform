@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { Mail, Lock, User, ArrowRight } from 'lucide-react'
+import { Mail, Lock, User, ArrowRight, CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Button, Input } from '../components/common'
 import { setCredentials, setLoading, setError, selectAuthLoading, selectAuthError } from '../redux/slices/authSlice'
 import styles from './Auth.module.css'
 
-const isFirebaseConfigured = import.meta.env.VITE_FIREBASE_API_KEY && import.meta.env.VITE_FIREBASE_API_KEY !== 'YOUR_API_KEY'
+const isFirebaseConfigured = true
 
 let firebaseAuth = null
 
@@ -18,6 +18,9 @@ const Auth = () => {
   const navigate = useNavigate()
   const [isLogin, setIsLogin] = useState(true)
   const [firebaseReady, setFirebaseReady] = useState(false)
+  const [unverifiedEmail, setUnverifiedEmail] = useState(null)
+  const [resending, setResending] = useState(false)
+  const pendingCreds = useRef(null)
   const isLoading = useSelector(selectAuthLoading)
   const authError = useSelector(selectAuthError)
 
@@ -64,6 +67,26 @@ const Auth = () => {
     }
   }
 
+  const handleResendVerification = async () => {
+    if (!pendingCreds.current) return
+    setResending(true)
+    try {
+      const cred = await firebaseAuth.signInWithEmail(pendingCreds.current.email, pendingCreds.current.password)
+      await firebaseAuth.sendEmailVerification(cred.user)
+      await firebaseAuth.signOutUser()
+      toast.success('Verification email resent!')
+    } catch (error) {
+      toast.error('Failed to resend: ' + error.message)
+    }
+    setResending(false)
+  }
+
+  const handleBackToLogin = () => {
+    setUnverifiedEmail(null)
+    pendingCreds.current = null
+    setIsLogin(true)
+  }
+
   const onSubmit = async (data) => {
     if (!isFirebaseConfigured || !firebaseAuth) {
       if (isLogin) {
@@ -102,6 +125,16 @@ const Auth = () => {
       if (isLogin) {
         const result = await firebaseAuth.signInWithEmail(data.email, data.password)
         const user = result.user
+
+        if (!user.emailVerified) {
+          await firebaseAuth.signOutUser()
+          setUnverifiedEmail(data.email)
+          pendingCreds.current = { email: data.email, password: data.password }
+          dispatch(setLoading(false))
+          toast.error('Please verify your email before signing in')
+          return
+        }
+
         dispatch(setCredentials({
           user: {
             id: user.uid,
@@ -115,17 +148,13 @@ const Auth = () => {
       } else {
         const result = await firebaseAuth.signUpWithEmail(data.email, data.password)
         const user = result.user
-        await user.updateProfile({ displayName: data.name })
-        dispatch(setCredentials({
-          user: {
-            id: user.uid,
-            email: user.email,
-            name: data.name
-          },
-          token: user.accessToken
-        }))
-        toast.success('Account created successfully!')
-        navigate('/')
+        await firebaseAuth.updateUserProfile(user, { displayName: data.name })
+        await firebaseAuth.sendEmailVerification(user)
+        await firebaseAuth.signOutUser()
+        setUnverifiedEmail(data.email)
+        pendingCreds.current = { email: data.email, password: data.password }
+        dispatch(setLoading(false))
+        toast.success('Account created! Please verify your email.')
       }
     } catch (error) {
       dispatch(setError(error.message))
@@ -148,6 +177,72 @@ const Auth = () => {
   const toggleMode = () => {
     setIsLogin(!isLogin)
     reset()
+  }
+
+  if (unverifiedEmail) {
+    return (
+      <div className={styles.auth}>
+        <motion.div
+          className={styles.container}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <div className={styles.leftPanel}>
+            <div className={styles.logoWrapper}>
+              <img
+                src="/assets/images/LogoLuxCart.png"
+                alt="LuxeCart"
+                className={styles.logoImage}
+              />
+              <h2 className={styles.brandTitle}>LuxeCart</h2>
+              <p className={styles.brandSubtitle}>Premium Shopping Experience</p>
+            </div>
+          </div>
+
+          <div className={styles.rightPanel}>
+            <div className={styles.card}>
+              <div className={styles.header}>
+                <Link to="/" className={styles.headerLogo}>
+                  <img src="/assets/images/LogoLuxCart.png" alt="LuxeCart" />
+                </Link>
+              </div>
+
+              <div className={styles.verify}>
+                <div className={styles.verifyIcon}>
+                  <CheckCircle size={48} />
+                </div>
+                <h1>Check Your Email</h1>
+                <p className={styles.verifyText}>
+                  We've sent a verification link to <strong>{unverifiedEmail}</strong>.
+                  Please verify your email address, then sign in.
+                </p>
+
+                <div className={styles.verifyActions}>
+                  <Button
+                    variant="primary"
+                    size="large"
+                    fullWidth
+                    onClick={handleBackToLogin}
+                  >
+                    Sign In <ArrowRight size={18} />
+                  </Button>
+
+                  <button
+                    type="button"
+                    className={styles.resendBtn}
+                    onClick={handleResendVerification}
+                    disabled={resending}
+                  >
+                    {resending ? 'Sending...' : 'Resend verification email'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    )
   }
 
   return (

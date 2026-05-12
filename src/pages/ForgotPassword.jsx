@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Mail, ArrowLeft, Check } from 'lucide-react'
@@ -9,12 +9,31 @@ import styles from './ForgotPassword.module.css'
 
 const ForgotPassword = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [firebaseAuth, setFirebaseAuth] = useState(null)
   const { register, handleSubmit, formState: { errors } } = useForm()
 
+  useEffect(() => {
+    import('../firebase').then(module => setFirebaseAuth(module))
+  }, [])
+
   const onSubmit = async (data) => {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    toast.success('Reset link sent to your email!')
-    setIsSubmitted(true)
+    if (firebaseAuth?.resetPassword) {
+      try {
+        await firebaseAuth.resetPassword(data.email)
+        toast.success('Reset link sent to your email!')
+        setIsSubmitted(true)
+      } catch (error) {
+        if (error.code === 'auth/user-not-found') {
+          toast.error('No account found with this email')
+        } else {
+          toast.error(error.message)
+        }
+      }
+    } else {
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      toast.success('Reset link sent to your email!')
+      setIsSubmitted(true)
+    }
   }
 
   if (isSubmitted) {

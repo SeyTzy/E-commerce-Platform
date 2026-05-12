@@ -12,7 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "axios": "^1.6.7",
-    "firebase": "^12.12.1",
+    "firebase": "^12.13.0",
     "framer-motion": "^11.0.3",
     "lucide-react": "^0.323.0",
     "react": "^18.3.1",
