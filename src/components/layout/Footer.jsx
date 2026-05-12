@@ -112,7 +112,8 @@ const Footer = () => {
               Subscribe to get special offers and exclusive deals.
             </p>
             <form className={styles.newsletterForm}>
-              <input type="email" placeholder="Enter your email" />
+              <label htmlFor="newsletter-email" className={styles.newsletterLabel}>Email Address</label>
+              <input type="email" id="newsletter-email" placeholder="Enter your email" />
               <Button variant="primary" size="medium">
                 <Send size={18} />
               </Button>

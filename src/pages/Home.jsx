@@ -10,9 +10,9 @@ import { setProducts, setCategories } from '../redux/slices/productSlice'
 import styles from './Home.module.css'
 
 const heroImages = [
+  { src: 'https://dlcdnwebimgs.asus.com/files/media/d5444a20-d912-40e3-9a48-bbacc1e3a4e6/v1/images/Strix_G18_KV_16x9.webp', alt: 'Rog Strix G18' },
   { src: 'https://images.steamusercontent.com/ugc/946219717597970362/CB88BD1F0C823F2002DDFEAC39B406D6F383196C/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false', alt: 'Rog Poster' },
-  { src: 'https://c4.wallpaperflare.com/wallpaper/98/814/561/alienware-games-abstract-software-digital-art-logo-alienware-poster-wallpaper-preview.jpg', alt: 'Alienware Poster' },
-  { src: 'https://dlcdnwebimgs.asus.com/files/media/d5444a20-d912-40e3-9a48-bbacc1e3a4e6/v1/images/Strix_G18_KV_16x9.webp', alt: 'Hero Image 3' }
+  { src: 'https://images.samsung.com/is/image/samsung/assets/us/2507/watches/WatchesPCD_FT03_Watch8Classic_D.jpg?$1440_N_JPG$', alt: 'Samsung Galaxy Watch 8' }
 ]
 
 const iconMap = {

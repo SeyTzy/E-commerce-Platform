@@ -10,6 +10,7 @@ import { selectTheme, toggleTheme } from '../../redux/slices/uiSlice'
 import { setSearchQuery } from '../../redux/slices/productSlice'
 import { useUI } from '../../contexts/UIContext'
 import styles from './Header.module.css'
+import { AnimatePresence as Presence } from 'framer-motion'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -107,7 +108,12 @@ useEffect(() => {
   ]
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+    <motion.header
+      className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    >
       <div className={styles.container}>
         <button className={styles.menuButton} onClick={() => setMobileMenuOpen(true)} aria-label="Toggle menu">
           <Menu size={24} />
@@ -118,93 +124,172 @@ useEffect(() => {
         </Link>
 
         <nav className={styles.nav}>
-          {navLinks.map(link => {
+          {navLinks.map((link, i) => {
             const Icon = link.icon
             return (
-              <Link 
-                key={link.path} 
-                to={link.path} 
-                className={`${styles.navLink} ${location.pathname === link.path ? styles.navLinkActive : ''}`}
+              <motion.div
+                key={link.path}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05, duration: 0.3 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <Icon size={18} />
-                <span>{link.name}</span>
-              </Link>
+                <Link
+                  to={link.path}
+                  className={`${styles.navLink} ${location.pathname === link.path ? styles.navLinkActive : ''}`}
+                >
+                  <motion.div
+                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}
+                    whileHover={{ x: 3 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Icon size={18} />
+                    <span>{link.name}</span>
+                  </motion.div>
+                </Link>
+              </motion.div>
             )
           })}
         </nav>
 
         <div className={styles.actions}>
-          <button className={styles.iconButton} onClick={() => setSearchOpen(!searchOpen)} aria-label="Search">
+          <motion.button
+            className={styles.iconButton}
+            onClick={() => setSearchOpen(!searchOpen)}
+            aria-label="Search"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <Search size={20} />
-          </button>
+          </motion.button>
 
-          <button className={styles.iconButton} onClick={() => dispatch(toggleTheme())} aria-label="Toggle theme">
+          <motion.button
+            className={styles.iconButton}
+            onClick={() => dispatch(toggleTheme())}
+            aria-label="Toggle theme"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          </motion.button>
 
-          <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">
-            <Heart size={20} />
-            {wishlistCount > 0 && <span className={styles.badge}>{wishlistCount}</span>}
-          </Link>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">
+              <Heart size={20} />
+              {wishlistCount > 0 && <motion.span
+                className={styles.badge}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              >{wishlistCount}</motion.span>}
+            </Link>
+          </motion.div>
 
-          <Link to="/cart" className={styles.iconButton} aria-label="Cart">
-            <ShoppingBag size={20} />
-            {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
-          </Link>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link to="/cart" className={styles.iconButton} aria-label="Cart">
+              <ShoppingBag size={20} />
+              {cartCount > 0 && <motion.span
+                className={styles.badge}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              >{cartCount}</motion.span>}
+            </Link>
+          </motion.div>
 
           {isAuthenticated ? (
             <div className={styles.userMenu} ref={userMenuRef}>
-              <button 
+              <motion.button
                 className={styles.userButton}
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {user?.photoURL ? (
-                  <img 
-                    src={user.photoURL} 
+                  <motion.img
+                    src={user.photoURL}
                     alt={user.name}
                     className={styles.avatar}
+                    whileHover={{ scale: 1.1 }}
                   />
                 ) : (
                   <User size={20} />
                 )}
-                <ChevronDown size={14} className={userMenuOpen ? styles.chevronUp : ''} />
-              </button>
+                <ChevronDown size={14} className={`${styles.chevron} ${userMenuOpen ? styles.chevronUp : ''}`} />
+              </motion.button>
               <AnimatePresence>
                 {userMenuOpen && (
-                  <motion.div
-                    className={styles.dropdown}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                  >
-                    <div className={styles.dropdownHeader}>
-                      <span className={styles.dropdownName}>{user?.name}</span>
-                      <span className={styles.dropdownEmail}>{user?.email}</span>
-                    </div>
-                    <div className={styles.dropdownDivider} />
-                    <Link to="/account" onClick={() => setUserMenuOpen(false)}>
-                      <Settings size={16} /> My Account
-                    </Link>
-                    <Link to="/orders" onClick={() => setUserMenuOpen(false)}>
-                      <Package size={16} /> My Orders
-                    </Link>
-                    {isAdmin && (
-                      <Link to="/admin" onClick={() => setUserMenuOpen(false)}>
-                        <LayoutDashboard size={16} /> Admin Dashboard
-                      </Link>
-                    )}
-                    <div className={styles.dropdownDivider} />
-                    <button 
-                      onClick={() => { 
-                        dispatch(logout())
-                        setUserMenuOpen(false)
-                        navigate('/')
-                      }}
-                      className={styles.logoutBtn}
-                    >
-                      <LogOut size={16} /> Sign Out
-                    </button>
-                  </motion.div>
+                   <motion.div
+                     className={styles.dropdown}
+                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                     animate={{ opacity: 1, y: 0, scale: 1 }}
+                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                     transition={{ duration: 0.2 }}
+                   >
+                     <motion.div
+                       className={styles.dropdownHeader}
+                       initial={{ opacity: 0 }}
+                       animate={{ opacity: 1 }}
+                       transition={{ delay: 0.05 }}
+                     >
+                       <span className={styles.dropdownName}>{user?.name}</span>
+                       <span className={styles.dropdownEmail}>{user?.email}</span>
+                     </motion.div>
+                     <div className={styles.dropdownDivider} />
+                     <motion.div
+                       initial={{ opacity: 0, x: -10 }}
+                       animate={{ opacity: 1, x: 0 }}
+                       transition={{ delay: 0.1 }}
+                     >
+                       <Link to="/account" onClick={() => setUserMenuOpen(false)}>
+                         <Settings size={16} /> My Account
+                       </Link>
+                     </motion.div>
+                     <motion.div
+                       initial={{ opacity: 0, x: -10 }}
+                       animate={{ opacity: 1, x: 0 }}
+                       transition={{ delay: 0.15 }}
+                     >
+                       <Link to="/orders" onClick={() => setUserMenuOpen(false)}>
+                         <Package size={16} /> My Orders
+                       </Link>
+                     </motion.div>
+                     {isAdmin && (
+                       <motion.div
+                         initial={{ opacity: 0, x: -10 }}
+                         animate={{ opacity: 1, x: 0 }}
+                         transition={{ delay: 0.2 }}
+                       >
+                         <Link to="/admin" onClick={() => setUserMenuOpen(false)}>
+                           <LayoutDashboard size={16} /> Admin Dashboard
+                         </Link>
+                       </motion.div>
+                     )}
+                     <div className={styles.dropdownDivider} />
+                     <motion.div
+                       initial={{ opacity: 0 }}
+                       animate={{ opacity: 1 }}
+                       transition={{ delay: 0.25 }}
+                     >
+                       <button
+                         onClick={() => {
+                           dispatch(logout())
+                           setUserMenuOpen(false)
+                           navigate('/')
+                         }}
+                         className={styles.logoutBtn}
+                       >
+                         <LogOut size={16} /> Sign Out
+                       </button>
+                     </motion.div>
+                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
@@ -295,14 +380,22 @@ useEffect(() => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
+                        whileHover={{ x: 5 }}
+                        whileTap={{ scale: 0.98 }}
                       >
                         <Link
                           to={link.path}
                           className={`${styles.mobileNavLink} ${location.pathname === link.path ? styles.active : ''}`}
                           onClick={(e) => handleNavClick(e, link.path)}
                         >
-                          <Icon size={20} />
-                          <span>{link.name}</span>
+                          <motion.div
+                            style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}
+                            whileHover={{ x: 3 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                          >
+                            <Icon size={20} />
+                            <span>{link.name}</span>
+                          </motion.div>
                         </Link>
                       </motion.div>
                     )
@@ -360,8 +453,8 @@ useEffect(() => {
           </>
         )}
       </AnimatePresence>
-    </header>
-  )
-}
+     </motion.header>
+   )
+ }
 
 export default Header

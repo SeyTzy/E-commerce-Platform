@@ -1,15 +1,15 @@
 export const products = [
   {
     id: '1',
-    name: 'Premium Wireless Headphones',
+    name: 'Wireless Headphones',
     category: 'Accessories',
     price: 299.99,
     originalPrice: 399.99,
     description: 'Experience crystal-clear audio with our premium wireless headphones. Features active noise cancellation, 30-hour battery life, and ultra-comfortable ear cushions.',
     images: [
-      'https://morpheus360.com/cdn/shop/products/HP9750HDcopy.jpg?v=1660232271&width=1946',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoUnqvbo5FMJrZ0rFRffnFgAQ36KONtIoa1w&s',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNAHVaXL_rWzQ0jT1qDyV3UzeM7swE402Gqg&s'
+      'https://sony.scene7.com/is/image/sonyglobalsolutions/wh-ch520_Primary_image?$categorypdpnav$&fmt=png-alpha',
+      'https://sony.scene7.com/is/image/sonyglobalsolutions/wh-ch520_Primary_image?$categorypdpnav$&fmt=png-alpha',
+      'https://sony.scene7.com/is/image/sonyglobalsolutions/wh-ch520_Primary_image?$categorypdpnav$&fmt=png-alpha'
     ],
     rating: 4.8,
     reviews: [
@@ -22,14 +22,14 @@ export const products = [
   },
   {
     id: '2',
-    name: 'Minimalist Leather Watch',
+    name: 'iWatch',
     category: 'Accessories',
     price: 189.99,
     originalPrice: null,
     description: 'Elegant timepiece with genuine leather strap and sapphire crystal. Water resistant to 50m.',
     images: [
-      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800',
-      'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800'
+      'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/watch-card-40-compare-202509_GEO_US_FMT_WHH?wid=618&hei=900&fmt=p-jpg&qlt=95&.v=MHRQLytDVGpzanZQOHZNM1JPY0puZStCWEw0aFlCQTRuS29hNFhhLzZVZTlUcElRWllkVEsyai8yOFl3aXFEVmlKajJrWE1laEVSL0xjK1hPMUNLMkV0RmgycTRGTHI3SUVxVFVFNFI5QzgyZDIzeVIvalBlTFAyTXZ6M0owVnA',
+      'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/watch-card-40-compare-202509_GEO_US_FMT_WHH?wid=618&hei=900&fmt=p-jpg&qlt=95&.v=MHRQLytDVGpzanZQOHZNM1JPY0puZStCWEw0aFlCQTRuS29hNFhhLzZVZTlUcElRWllkVEsyai8yOFl3aXFEVmlKajJrWE1laEVSL0xjK1hPMUNLMkV0RmgycTRGTHI3SUVxVFVFNFI5QzgyZDIzeVIvalBlTFAyTXZ6M0owVnA'
     ],
     rating: 4.6,
     reviews: [
@@ -61,14 +61,14 @@ export const products = [
   },
   {
     id: '4',
-    name: 'Smart Fitness Tracker',
+    name: 'Galaxy Watch 8',
     category: 'Accessories',
-    price: 149.99,
-    originalPrice: 179.99,
+    price: 249.99,
+    originalPrice: 299.99,
     description: 'Track your health metrics 24/7 with GPS, heart rate monitoring, sleep tracking, and 7-day battery life.',
     images: [
-      'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800',
-      'https://images.unsplash.com/photo-1557438159-51eec7a6c9e8?w=800'
+      'https://www.telstra.com.au/content/dam/tcom/library/cam-campaign/CAM-DCAEG-83593-Samsung-W8-headerDesktopTall-692x500-2x.jpg',
+      'https://www.telstra.com.au/content/dam/tcom/library/cam-campaign/CAM-DCAEG-83593-Samsung-W8-headerDesktopTall-692x500-2x.jpg'
     ],
     rating: 4.5,
     reviews: [
@@ -80,16 +80,15 @@ export const products = [
   },
   {
     id: '5',
-    name: 'Designer Sunglasses',
+    name: 'Smart Glasses Ray-Ban Meta',
     category: 'Accessories',
     price: 129.99,
     originalPrice: null,
     description: 'Premium UV400 protection with polarized lenses. Lightweight titanium frame for all-day comfort.',
     images: [
-      'https://i.etsystatic.com/35084072/r/il/7eaa70/3999771282/il_570xN.3999771282_rtof.jpg',
-      'https://i.etsystatic.com/35084072/r/il/7eaa70/3999771282/il_570xN.3999771282_rtof.jpg',
-      'https://i.etsystatic.com/35084072/r/il/7eaa70/3999771282/il_570xN.3999771282_rtof.jpg',
-      'https://i.etsystatic.com/35084072/r/il/7eaa70/3999771282/il_570xN.3999771282_rtof.jpg'
+      'https://www.digitaltrends.com/tachyon/2025/05/ray-ban-meta-front.jpg?resize=1200%2C720',
+      'https://www.digitaltrends.com/tachyon/2025/05/ray-ban-meta-front.jpg?resize=1200%2C720',
+      'https://www.digitaltrends.com/tachyon/2025/05/ray-ban-meta-front.jpg?resize=1200%2C720'
     ],
     rating: 4.7,
     reviews: [
@@ -101,14 +100,14 @@ export const products = [
   },
   {
     id: '6',
-    name: 'Bluetooth Speaker',
+    name: 'AirPods Pro 2',
     category: 'Accessories',
-    price: 79.99,
-    originalPrice: 99.99,
-    description: 'Waterproof speaker with 360° sound. 12 hours playtime and rugged design for outdoor adventures.',
+    price: 189.99,
+    originalPrice: 209.99,
+    description: 'Active Noise Cancellation and Transparency mode. Adaptive Audio adjusts to your environment.',
     images: [
-      'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800',
-      'https://images.unsplash.com/photo-1558538534-82f3c9f3e9b5?w=800'
+      'https://sokly.sgp1.digitaloceanspaces.com/Accessories/Apple/Bluetooth-Earphone/Air-Pods-Pro-2nd/1-1696925372pt9Py.png',
+      'https://arystorephone.com/wp-content/uploads/2023/10/AirPods-Pro-2nd-generation-with-MagSafe-Charging-Case-USB%E2%80%91C-2.jpg?v=1764053239'
     ],
     rating: 4.4,
     reviews: [
@@ -120,14 +119,14 @@ export const products = [
   },
   {
     id: '7',
-    name: 'Canvas Backpack',
+    name: 'Rolex Watch',
     category: 'Accessories',
-    price: 69.99,
+    price: 6999.99,
     originalPrice: null,
-    description: 'Durable canvas backpack with laptop compartment. Perfect for work or travel.',
+    description: 'Elegant luxury watch with premium materials and precise movement.',
     images: [
-      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800',
-      'https://images.unsplash.com/photo-1581605405669-fcdf81165afa?w=800'
+      'https://assets.theluxuryhut.com/cms/admin/upload/1724418702secrets-of-rolex-watches.jpg',
+      'https://assets.theluxuryhut.com/cms/admin/upload/1724418702secrets-of-rolex-watches.jpg'
     ],
     rating: 4.3,
     reviews: [
@@ -158,14 +157,14 @@ export const products = [
   },
   {
     id: '9',
-    name: 'Yoga Mat Premium',
+    name: 'NEKE Air Jorden Max 90',
     category: 'Sports',
-    price: 49.99,
+    price: 249.99,
     originalPrice: null,
-    description: 'Extra thick eco-friendly yoga mat with alignment lines. Non-slip surface for perfect grip.',
+    description: 'High-quality sports equipment for your fitness routine.',
     images: [
-      'https://cdn.thewirecutter.com/wp-content/media/2024/07/yoga-mat-2048px-1629-3x2-1.jpg?auto=webp&quality=75&crop=4:3,smart&width=1024',
-      'https://www.gaiam.com/cdn/shop/products/05-64756GAIAMPREMIUMREVERSIBLELUNARWAVEYOGAMAT_B_1.jpg?v=1665154212'
+      'https://static.nike.com/a/images/t_web_pw_592_v2/f_auto/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/22e78278-d735-4cbe-b509-814f7233e32e/NIKE+AIR+MAX+PLUS+VII+PRM.png',
+      'https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e6a9f9c9-9070-4c8c-b826-fb880e2b6c18/NIKE+AIR+MAX+PLUS+VII+PRM.png'
     ],
     rating: 4.6,
     reviews: [
@@ -196,14 +195,14 @@ export const products = [
   },
   {
     id: '11',
-    name: 'Running Shoes Ultra',
+    name: 'NEKE Air Jorden 2',
     category: 'Sports',
     price: 139.99,
     originalPrice: null,
-    description: 'Lightweight running shoes with responsive cushioning. Breathable mesh upper.',
+    description: 'High-quality sports equipment for your fitness routine.',
     images: [
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800',
-      'https://images.unsplash.com/photo-1606107557195-0e29a4cb5f42?w=800'
+      'https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/1c0c434c-9802-4556-89c7-a8600b2828d8/AIR+JORDAN+1+LOW.png',
+      'https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/ec7999ad-5139-47ae-b782-adfcd30e3e7c/AIR+JORDAN+1+LOW.png'
     ],
     rating: 4.8,
     reviews: [
@@ -215,16 +214,14 @@ export const products = [
   },
   {
     id: '12',
-    name: 'Gaming Mouse RGB',
+    name: 'iWatch',
     category: 'Accessories',
-    price: 59.99,
-    originalPrice: 79.99,
-    description: 'Precision gaming mouse with customizable RGB lighting. 6 buttons and adjustable DPI.',
+    price: 259.99,
+    originalPrice: 279.99,
+    description: 'Elegant timepiece with genuine leather strap and sapphire crystal. Water resistant to 50m.',
     images: [
-      'https://electrocity.b-cdn.net/acd-cgi/img/v1/2024/07/razer-basilisk-v3-wired-rgb-gaming-mouse-black-electrocity.ie00001.jpg?quality=100&width=1500&height=1080',
-      'https://electrocity.b-cdn.net/acd-cgi/img/v1/2024/07/razer-basilisk-v3-wired-rgb-gaming-mouse-black-electrocity.ie00001.jpg?quality=100&width=1500&height=1080',
-      'https://electrocity.b-cdn.net/acd-cgi/img/v1/2024/07/razer-basilisk-v3-wired-rgb-gaming-mouse-black-electrocity.ie00001.jpg?quality=100&width=1500&height=1080',
-      'https://electrocity.b-cdn.net/acd-cgi/img/v1/2024/07/razer-basilisk-v3-wired-rgb-gaming-mouse-black-electrocity.ie00001.jpg?quality=100&width=1500&height=1080'
+      'https://cactuskh.com/public/images/apple-watch-s11-jetblack-01.webp',
+      'https://brain-images-ssl.cdn.dixons.com/1/7/10290371/l_10290371_001.jpg'
     ],
     rating: 4.5,
     reviews: [
@@ -236,16 +233,14 @@ export const products = [
   },
   {
     id: '13',
-    name: 'Keyboard Mechanical RGB',
+    name: 'Samsung Galaxy Watch 8',
     category: 'Accessories',
-    price: 89.99,
+    price: 489.99,
     originalPrice: null,
-    description: 'Mechanical keyboard with customizable RGB lighting. Quiet switches for a comfortable typing experience.',
+    description: 'Elegant timepiece with genuine leather strap and sapphire crystal. Water resistant to 50m.',
     images: [
-      'https://m.media-amazon.com/images/I/71+p3Hx03dL._AC_SL1500_.jpg',
-      'https://m.media-amazon.com/images/I/71+p3Hx03dL._AC_SL1500_.jpg',
-      'https://m.media-amazon.com/images/I/71+p3Hx03dL._AC_SL1500_.jpg',
-      'https://m.media-amazon.com/images/I/71+p3Hx03dL._AC_SL1500_.jpg'
+      'https://images.samsung.com/is/image/samsung/p6pim/ca_fr/f2507/gallery/ca-fr-galaxy-watch8-l325-sm-l325fzsaxac-thumb-547653418?$Q90_330_330_F_PNG$',
+      'https://images.samsung.com/is/image/samsung/p6pim/ca_fr/f2507/gallery/ca-fr-galaxy-watch8-l325-sm-l325fzsaxac-thumb-547653418?$Q90_330_330_F_PNG$'
     ],
     rating: 4.9,
     reviews: [
@@ -520,6 +515,82 @@ export const products = [
     stock: 20,
     isNew: false,
     sales: 150
+  },
+  {
+    id: '28',
+    name: 'NEKE Air Jorden 1', 
+    category: 'Sports',
+    price: 129.99,
+    originalPrice: 139.99,
+    description: 'High-quality sports equipment for your fitness routine.',
+    images: [
+      'https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/38364157-29a7-44c2-9f96-9ff4c1813db5/AIR+JORDAN+1+LOW.png',
+      'https://static.nike.com/a/images/t_web_pw_592_v2/f_auto/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png'
+    ],
+    rating: 4.8,
+    reviews: [
+      { id: 1, user: 'FitnessFan', rating: 5, text: 'Excellent quality and performance!', date: '2026-01-20' }
+    ],
+    stock: 50,
+    isNew: true,
+    sales: 200
+  },
+  {
+    id: '29',
+    name: 'NEKE Air Jorden Max', 
+    category: 'Sports',
+    price: 229.99,
+    originalPrice: 239.99,
+    description: 'High-quality sports equipment for your fitness routine.',
+    images: [
+      'https://static.nike.com/a/images/t_web_pw_592_v2/f_auto/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/49c3e628-1b11-444b-b05c-546e94ad6bae/AIR+MAX+90+SE.png',
+      'https://static.nike.com/a/images/t_web_pw_592_v2/f_auto/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/49c3e628-1b11-444b-b05c-546e94ad6bae/AIR+MAX+90+SE.png'
+    ],
+    rating: 4.8,
+    reviews: [
+      { id: 1, user: 'FitnessFan', rating: 5, text: 'Excellent quality and performance!', date: '2026-01-20' }
+    ],
+    stock: 50,
+    isNew: true,
+    sales: 200
+  },
+  {
+    id: '30',
+    name: 'NEKE Air Jorden Max 95', 
+    category: 'Sports',
+    price: 229.99,
+    originalPrice: 239.99,
+    description: 'High-quality sports equipment for your fitness routine.',
+    images: [
+      'https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/61af7d17-cb0d-4714-a014-ac3e4d21d22c/W+NIKE+AIR+MAX+95+BIG+BUBBLE.png',
+      'https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/dc45227e-a01b-4251-a5c0-28e0278d573c/W+NIKE+AIR+MAX+95+BIG+BUBBLE.png'
+    ],
+    rating: 4.8,
+    reviews: [
+      { id: 1, user: 'FitnessFan', rating: 5, text: 'Excellent quality and performance!', date: '2026-01-20' }
+    ],
+    stock: 50,
+    isNew: true,
+    sales: 200
+  },
+  {
+    id: '31',
+    name: 'NEKE Free Metcon 7', 
+    category: 'Sports',
+    price: 229.99,
+    originalPrice: 239.99,
+    description: 'High-quality sports equipment for your fitness routine.',
+    images: [
+      'https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/664c0ff8-c3d3-4d56-a203-c4bc67a25011/NIKE+FREE+METCON+7.png',
+      'https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/ff42cfe7-9b5d-47c8-a1d7-063353c02b55/NIKE+FREE+METCON+7.png'
+    ],
+    rating: 4.8,
+    reviews: [
+      { id: 1, user: 'FitnessFan', rating: 5, text: 'Excellent quality and performance!', date: '2026-01-20' }
+    ],
+    stock: 50,
+    isNew: true,
+    sales: 200
   }
 ]
 
