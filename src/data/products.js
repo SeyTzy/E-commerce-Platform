@@ -1,15 +1,15 @@
 export const products = [
   {
     id: '1',
-    name: 'Wireless Headphones',
+    name: 'AirPods Pro 2',
     category: 'Accessories',
     price: 299.99,
     originalPrice: 399.99,
-    description: 'Experience crystal-clear audio with our premium wireless headphones. Features active noise cancellation, 30-hour battery life, and ultra-comfortable ear cushions.',
+    description: 'Active Noise Cancellation and Transparency mode. Adaptive Audio adjusts to your environment.',
     images: [
-      'https://sony.scene7.com/is/image/sonyglobalsolutions/wh-ch520_Primary_image?$categorypdpnav$&fmt=png-alpha',
-      'https://sony.scene7.com/is/image/sonyglobalsolutions/wh-ch520_Primary_image?$categorypdpnav$&fmt=png-alpha',
-      'https://sony.scene7.com/is/image/sonyglobalsolutions/wh-ch520_Primary_image?$categorypdpnav$&fmt=png-alpha'
+      'https://m.media-amazon.com/images/I/41QztOA1UuL._AC_SL1200_.jpg',
+      'https://m.media-amazon.com/images/I/41bBMMwTXlL._AC_SL1200_.jpg',
+      'https://m.media-amazon.com/images/I/31nbbihqBzL._AC_SL1200_.jpg'
     ],
     rating: 4.8,
     reviews: [
@@ -80,19 +80,19 @@ export const products = [
   },
   {
     id: '5',
-    name: 'Smart Glasses Ray-Ban Meta',
+    name: 'Galaxy Watch 8',
     category: 'Accessories',
-    price: 129.99,
+    price: 229.99,
     originalPrice: null,
-    description: 'Premium UV400 protection with polarized lenses. Lightweight titanium frame for all-day comfort.',
+    description: 'Elegant timepiece with genuine leather strap and sapphire crystal. Water resistant to 50m.',
     images: [
-      'https://www.digitaltrends.com/tachyon/2025/05/ray-ban-meta-front.jpg?resize=1200%2C720',
-      'https://www.digitaltrends.com/tachyon/2025/05/ray-ban-meta-front.jpg?resize=1200%2C720',
-      'https://www.digitaltrends.com/tachyon/2025/05/ray-ban-meta-front.jpg?resize=1200%2C720'
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiHbmkxw03ZVF0SPIpwA_z52BKa0YUPt7wlw&s',
+      'https://arystorephone.com/wp-content/uploads/2025/07/Galaxy-Watch-8-Graphite-Graphite-44mm.jpg',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMjwaVFWc60RZHY-SEjAw8PMdEMWFeAAemnw&s'
     ],
     rating: 4.7,
     reviews: [
-      { id: 1, user: 'Alex P.', rating: 5, text: 'Very stylish!', date: '2024-01-11' }
+      { id: 1, user: 'Alex', rating: 5, text: 'Very stylish!', date: '2024-01-11' }
     ],
     stock: 20,
     isNew: false,
@@ -100,7 +100,7 @@ export const products = [
   },
   {
     id: '6',
-    name: 'AirPods Pro 2',
+    name: 'AirPods Pro',
     category: 'Accessories',
     price: 189.99,
     originalPrice: 209.99,
@@ -138,14 +138,14 @@ export const products = [
   },
   {
     id: '8',
-    name: 'Ceramic Vase Set',
+    name: 'Pillow Set',
     category: 'Home',
     price: 89.99,
     originalPrice: 119.99,
-    description: 'Set of 3 handcrafted ceramic vases in modern geometric shapes. Perfect for any interior.',
+    description: 'Luxurious pillow set with hypoallergenic materials and adjustable fill for personalized comfort.',
     images: [
-      'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=800',
-      'https://images.unsplash.com/photo-1612196808214-b8e1d80470f5?w=800'
+      'https://5.imimg.com/data5/SELLER/Default/2025/4/500316321/WD/SA/FJ/238823163/710mikabvwl-sl1500.jpg',
+      'https://5.imimg.com/data5/SELLER/Default/2025/4/500316321/WD/SA/FJ/238823163/710mikabvwl-sl1500.jpg'
     ],
     rating: 4.8,
     reviews: [
@@ -178,8 +178,8 @@ export const products = [
     id: '10',
     name: 'Pillow',
     category: 'Home',
-    price: 23.99,
-    originalPrice: 25.99,
+    price: 79.99,
+    originalPrice: 99.99,
     description: 'Comfortable and supportive pillow for a good nights sleep.',
     images: [
       'https://m.media-amazon.com/images/I/813+9DJ+VaL._AC_UF894,1000_QL80_.jpg',
@@ -187,7 +187,7 @@ export const products = [
     ],
     rating: 4.7,
     reviews: [
-      { id: 1, user: 'Mark H.', rating: 5, text: 'Perfect morning coffee!', date: '2024-01-14' }
+      { id: 1, user: 'Mark', rating: 5, text: 'Perfect morning coffee!', date: '2024-01-14' }
     ],
     stock: 14,
     isNew: false,
