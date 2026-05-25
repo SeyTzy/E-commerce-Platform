@@ -45,8 +45,8 @@ const About = () => {
             <span className={styles.heroLabel}>
               <Sparkles size={16} /> Our Story
             </span>
-            <h1>About LuxeCart</h1>
-            <p>Your destination for premium products with exceptional service</p>
+            <h1>អំពី LuxeCart</h1>
+            <p>ទីកន្លែងដ៏ស័ក្តិសមបំផុតសម្រាប់ផលិតផលលំដាប់ប្រីមៀម និងសេវាកម្មដ៏ល្អឥតខ្ចោះ</p>
           </motion.div>
         </div>
       </section>
@@ -60,30 +60,26 @@ const About = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className={styles.sectionTag}>Our Beginning</span>
+              <span className={styles.sectionTag}>ការចាប់ផ្តើមរបស់យើង</span>
               <h2>Building a Vision</h2>
               <p>
-                Founded in 2019, LuxeCart began with a simple mission: to make premium products 
-                accessible to everyone. What started as a small online shop has grown into a trusted 
-                destination for thousands of customers seeking quality products.
+                LuxeCart ត្រូវបានបង្កើតឡើងក្នុងឆ្នាំ 2026 បានចាប់ផ្តើមឡើងជាមួយនឹងបេសកកម្មដ៏សាមញ្ញមួយ គឺការនាំយកផលិតផលលំដាប់ប្រីមៀមជូនដល់អ្នករាល់គ្នា។ អ្វីដែលបានចាប់ផ្តើមចេញពីហាងអនឡាញតូចមួយ បានរីកចម្រើនក្លាយជាទីកន្លែងដ៏គួរឱ្យទុកចិត្តសម្រាប់អតិថិជនរាប់ពាន់នាក់ដែលស្វែងរកផលិតផលមានគុណភាព។
               </p>
               <p>
-                We believe in exceptional customer service, fast shipping, and products that stand 
-                the test of time. Every item in our collection is carefully curated to meet our high 
-                standards of quality and design.
+                យើងជឿជាក់លើការផ្តល់ជូនសេវាកម្មអតិថិជនដ៏ល្អឥតខ្ចោះ ការដឹកជញ្ជូនរហ័ស និងផលិតផលដែលមានភាពធន់គង់វង្សតាមពេលវេលា។ រាល់ទំនិញនីមួយៗនៅក្នុងការប្រមូលផ្ដុំរបស់យើង ត្រូវបានជ្រើសរើសយ៉ាងសម្រិតសម្រាំងបំផុត ដើម្បីឱ្យស្របតាមស្តង់ដារខ្ពស់នៃគុណភាព និងការរចនារបស់យើង។
               </p>
               <div className={styles.storyFeatures}>
                 <div className={styles.storyFeature}>
                   <Target size={20} />
-                  <span>Customer-Focused</span>
+                  <span>ការយកចិត្តទុកដាក់លើអតិថិជនជាចម្បង</span>
                 </div>
                 <div className={styles.storyFeature}>
                   <Gem size={20} />
-                  <span>Premium Quality</span>
+                  <span>គុណភាពល្អ</span>
                 </div>
                 <div className={styles.storyFeature}>
                   <Leaf size={20} />
-                  <span>Eco-Friendly</span>
+                  <span>សេដ្ឋកិច្ច</span>
                 </div>
               </div>
             </motion.div>
@@ -97,7 +93,7 @@ const About = () => {
               <div className={styles.imageOverlay} />
               <div className={styles.imageBadge}>
                 <span className={styles.badgeNumber}>5+</span>
-                <span className={styles.badgeText}>Years of Excellence</span>
+                <span className={styles.badgeText}>ឆ្នាំនៃការបង្កើតឧត្តមភាព</span>
               </div>
             </motion.div>
           </div>
@@ -136,9 +132,9 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className={styles.sectionTag}>What We Stand For</span>
-            <h2>Our Core Values</h2>
-            <p>The principles that guide everything we do</p>
+            <span className={styles.sectionTag}>គោលការណ៍ដែលយើងប្រកាន់ខ្ជាប់</span>
+            <h2>គោលការណ៍របស់យើង</h2>
+            <p>គោលការណ៍ណែនាំនៃគ្រប់សកម្មភាពរបស់យើង</p>
           </motion.div>
           <div className={styles.valuesGrid}>
             {values.map((value, i) => (
@@ -176,9 +172,9 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className={styles.sectionTag}>The People Behind</span>
-            <h2>Meet Our Team</h2>
-            <p>Passionate individuals driving our success</p>
+            <span className={styles.sectionTag}>អ្នកដែលមានសកម្មភាព</span>
+            <h2>ជួបគ្នាទីកន្លែងរបស់យើង</h2>
+            <p>អ្នកដែលមានចិត្តសាធារណៈ ដែលធ្វើឱ្យយើងជោគជ័យ</p>
           </motion.div>
           <div className={styles.teamGrid}>
             {team.map((member, i) => (
@@ -214,11 +210,11 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2>Ready to Start Shopping?</h2>
-            <p>Join thousands of satisfied customers and discover premium products today</p>
+            <h2>ចាប់ផ្តើមទិញទំនិញឥឡូវនេះ?</h2>
+            <p>ចូលរួមជាមួយអតិថិជនរបស់យើង និងរក្សាទំនិញល្អៗថ្មីៗឥឡូវនេះ</p>
             <Link to="/shop">
               <Button variant="primary" size="large" className={styles.ctaButton}>
-                Browse Products <ArrowRight size={18} />
+                ស្វែងរកផលិតផល <ArrowRight size={18} />
               </Button>
             </Link>
           </motion.div>

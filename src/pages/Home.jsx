@@ -56,10 +56,10 @@ const Home = () => {
   }
 
   const features = [
-    { icon: <Truck size={24} />, title: 'Free Shipping', desc: 'On orders over $100' },
-    { icon: <Shield size={24} />, title: 'Secure Payment', desc: '100% secure checkout' },
-    { icon: <RefreshCw size={24} />, title: 'Easy Returns', desc: '30-day return policy' },
-    { icon: <Star size={24} />, title: 'Quality Guarantee', desc: 'Premium products only' }
+    { icon: <Truck size={24} />, title: 'ដឹកជញ្ជូនឥតគិតថ្លៃ', desc: 'រាល់ការកុម្ម៉ង់ចាប់ពី $100 ឡើងទៅ' },
+    { icon: <Shield size={24} />, title: 'ការទូទាត់ប្រាក់', desc: 'ប្រកបដោយសុវត្ថិភាព100%' },
+    { icon: <RefreshCw size={24} />, title: 'ប្តូរទំនិញវិញងាយស្រួល', desc: 'អាចប្តូរវិញបានក្នុងរយៈពេល 30 ថ្ងៃ' },
+    { icon: <Star size={24} />, title: 'ការធានាលើគុណភាព', desc: 'ផលិតផលគុណភាពខ្ពស់' }
   ]
 
   return (
@@ -88,7 +88,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  New Accessory 2026
+                  គ្រឿងអាសេសេីរីថ្មីៗ
                 </motion.span>
                 <motion.h1 
                   className={styles.heroTitle}
@@ -96,7 +96,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  Buy Everything <span>You Want</span>
+                  ទិញទំនិញគ្រប់យ៉ាង <span>ដែលអ្នកចង់បាន</span>
                 </motion.h1>
                 <motion.p 
                   className={styles.heroDesc}
@@ -104,7 +104,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  Explore our curated Accessories of premium products designed to elevate your lifestyle.
+                  ស្វែងរកផលិតផលដែលអ្នកចង់បាន​ ជាងរាប់ពាន់មុខ។
                 </motion.p>
                 <motion.div 
                   className={styles.heroActions}
@@ -114,12 +114,12 @@ const Home = () => {
                 >
                   <Link to="/shop">
                     <Button variant="primary" size="large">
-                      Shop Now <ArrowRight size={20} />
+                      កម្មង់ឥឡូវនេះ <ArrowRight size={20} />
                     </Button>
                   </Link>
                   <Link to="/categories">
                     <Button variant="secondary" size="large">
-                      Browse Categories
+                      រកមើលប្រភេទផលិតផល
                     </Button>
                   </Link>
                 </motion.div>
@@ -172,8 +172,8 @@ const Home = () => {
       <section className={styles.categories}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2>Shop by Category</h2>
-            <Link to="/categories">View All <ArrowRight size={16} /></Link>
+            <h2>ទិញទំនិញតាមប្រភេទ</h2>
+            <Link to="/categories">មើលទាំងអស់ <ArrowRight size={16} /></Link>
           </div>
           <div className={styles.categoryGrid}>
             {categories.map((cat, i) => (
@@ -207,9 +207,9 @@ const Home = () => {
 
       <section className={styles.products}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2>Featured Products</h2>
-            <Link to="/shop">View All <ArrowRight size={16} /></Link>
+          <div className={styles.sectionHeader}>           
+            <h2>ផលិតផលណែនាំ</h2>
+            <Link to="/shop">មើលទាំងអស់ <ArrowRight size={16} /></Link>
           </div>
           <div className={styles.productGrid}>
             {featuredProducts.map((product, i) => (
@@ -222,8 +222,8 @@ const Home = () => {
       <section className={styles.newArrivals}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2>New Arrivals</h2>
-            <Link to="/shop?sort=newest">View All <ArrowRight size={16} /></Link>
+            <h2>ថ្មីៗ</h2>
+            <Link to="/shop?sort=newest">មើលទាំងអស់ <ArrowRight size={16} /></Link>
           </div>
           <div className={styles.productGrid}>
             {newArrivals.map((product, i) => (
@@ -236,12 +236,12 @@ const Home = () => {
       <section className={styles.banner}>
         <div className={styles.container}>
           <div className={styles.bannerContent}>
-            <span className={styles.bannerTag}>Limited Time Offer</span>
-            <h2>Get 20% Off Your First Order</h2>
-            <p>Use code WELCOME at checkout</p>
+            <span className={styles.bannerTag}>ការផ្តល់ជូនមានកំណត់</span>
+            <h2>ទទួលបានការបញ្ចុះតម្លៃ 20% សម្រាប់ការកុម្ម៉ង់លើកដំបូង</h2>
+            <p>សូមប្រើប្រាស់កូដ WELCOME នៅពេលទូទាត់ប្រាក់</p>
             <Link to="/shop">
               <Button variant="primary" size="large">
-                Shop Now
+                កម្មង់ឥឡូវនេះ
               </Button>
             </Link>
           </div>
@@ -250,12 +250,12 @@ const Home = () => {
 
       <section className={styles.testimonials}>
         <div className={styles.container}>
-          <h2 className={styles.testimonialTitle}>What Our Customers Say</h2>
+          <h2 className={styles.testimonialTitle}>ចំណាប់អារម្មណ៍ពីអតិថិជនរបស់យើង</h2>
           <div className={styles.testimonialGrid}>
             {[
-              { name: 'Sarah Johnson', text: 'Amazing quality and fast shipping!', rating: 5 },
-              { name: 'Michael Chen', text: 'Best online shopping experience ever.', rating: 5 },
-              { name: 'Emily Davis', text: 'Love the product variety and prices.', rating: 5 }
+              { name: 'Phanna', text: 'គុណភាពអេមខ្លាំង ហើយដឹកជញ្ជូនលឿនទៀត', rating: 5 },
+              { name: 'Visa', text: 'ការទិញទំនិញអនឡាញដ៏ល្អបំផុតមិនធ្លាប់មាន', rating: 5 },
+              { name: 'Reaksa', text: 'សេវាកម្មល្អបំផុត ហើយផលិតផលច្បាស់ប្រាកដ', rating: 5 }
             ].map((testimonial, i) => (
               <motion.div 
                 key={testimonial.name}

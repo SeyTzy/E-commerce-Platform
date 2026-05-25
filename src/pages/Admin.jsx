@@ -19,10 +19,10 @@ const Admin = () => {
       <div className={styles.admin}>
         <div className={styles.container}>
           <div className={styles.restricted}>
-            <h2>Admin Access Required</h2>
-            <p>You need admin privileges to view this page</p>
+            <h2>ទាមទារការអនុញ្ញាតពី Admin</h2>
+            <p>អ្នកត្រូវការសិទ្ធិ admin ដើម្បីមើលទំព័រនេះ</p>
             <Link to="/">
-              <Button variant="primary">Go Home</Button>
+              <Button variant="primary">ទំព័រដើម</Button>
             </Link>
           </div>
         </div>
@@ -99,8 +99,8 @@ const Admin = () => {
                   <tbody>
                     <tr>
                       <td>#ORD-001</td>
-                      <td>John Doe</td>
-                      <td><Badge variant="success">Processing</Badge></td>
+                      <td>Dara</td>
+                      <td><Badge variant="success">កំពុងដំណើរការ...</Badge></td>
                       <td>$299.99</td>
                     </tr>
                   </tbody>
@@ -156,7 +156,7 @@ const Admin = () => {
 
           {activeTab === 'orders' && (
             <div className={styles.tableContainer}>
-              <h3>Orders</h3>
+              <h3>កម្មង់</h3>
               <table className={styles.table}>
                 <thead>
                   <tr>
@@ -171,11 +171,11 @@ const Admin = () => {
                 <tbody>
                   <tr>
                     <td>#ORD-001</td>
-                    <td>John Doe</td>
+                    <td>Dara</td>
                     <td>2 items</td>
                     <td>$299.99</td>
-                    <td><Badge variant="success">Processing</Badge></td>
-                    <td>Jan 15, 2024</td>
+                    <td><Badge variant="success">កំពុងដំណើរការ...</Badge></td>
+                    <td>Jan 15, 2026</td>
                   </tr>
                 </tbody>
               </table>
@@ -184,14 +184,14 @@ const Admin = () => {
 
           {activeTab === 'users' && (
             <div className={styles.tableContainer}>
-              <h3>Users</h3>
+              <h3>អ្នកប្រើប្រាស់</h3>
               <table className={styles.table}>
                 <thead>
                   <tr>
-                    <th>User</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Joined</th>
+                    <th>អ្នកប្រើប្រាស់</th>
+                    <th>អ៊ីមែល</th>
+                    <th>តួនាទី</th>
+                    <th>ចូលរួម</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -199,13 +199,13 @@ const Admin = () => {
                     <td>Admin</td>
                     <td>admin@luxecart.com</td>
                     <td><Badge variant="primary">Admin</Badge></td>
-                    <td>Jan 1, 2024</td>
+                    <td>Jan 1, 2026</td>
                   </tr>
                   <tr>
                     <td>Demo User</td>
                     <td>demo@luxecart.com</td>
                     <td><Badge>User</Badge></td>
-                    <td>Jan 5, 2024</td>
+                    <td>Jan 5, 2026</td>
                   </tr>
                 </tbody>
               </table>

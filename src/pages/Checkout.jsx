@@ -2,14 +2,23 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { CreditCard, Truck as ShippingIcon, Check, ArrowLeft } from 'lucide-react'
+import {
+  CreditCard, Truck, Check, ArrowLeft, Shield, MapPin,
+  ChevronRight, ChevronLeft, Package, Percent, Smartphone
+} from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
-import { Button, Input, Select } from '../components/common'
+import { Button, Input } from '../components/common'
 import { selectCartItems, selectCartTotal, selectCartOriginalTotal, clearCart } from '../redux/slices/cartSlice'
 import { addOrder } from '../redux/slices/orderSlice'
 import { coupons } from '../data/products'
 import styles from './Checkout.module.css'
+
+const STEPS = [
+  { num: 1, icon: MapPin, label: 'Shipping' },
+  { num: 2, icon: CreditCard, label: 'Payment' },
+  { num: 3, icon: Check, label: 'Review' }
+]
 
 const Checkout = () => {
   const dispatch = useDispatch()
@@ -17,6 +26,15 @@ const Checkout = () => {
   const [step, setStep] = useState(1)
   const [couponCode, setCouponCode] = useState('')
   const [appliedCoupon, setAppliedCoupon] = useState(null)
+
+  const [cardPreview, setCardPreview] = useState({
+    number: '',
+    name: '',
+    expiry: '',
+    cvv: ''
+  })
+  const [paymentMethod, setPaymentMethod] = useState('card')
+
   const { register, handleSubmit, formState: { errors } } = useForm()
 
   const items = useSelector(selectCartItems)
@@ -26,16 +44,18 @@ const Checkout = () => {
   if (items.length === 0) {
     return (
       <div className={styles.empty}>
-        <h2>Your cart is empty</h2>
+        <Package size={48} className={styles.emptyIcon} />
+        <h2>មិនទាន់មានទំនិញនៅក្នុងកន្ត្រក</h2>
+        <p>បន្ថែមទំនិញ ដើម្បីចាប់ផ្តើម</p>
         <Link to="/shop">
-          <Button>Continue Shopping</Button>
+          <Button>បន្តទិញទំនិញ</Button>
         </Link>
       </div>
     )
   }
 
   const savings = originalTotal - subtotal
-  const discount = appliedCoupon 
+  const discount = appliedCoupon
     ? (appliedCoupon.type === 'percentage' ? (subtotal * appliedCoupon.discount) / 100 : appliedCoupon.discount)
     : 0
   const shipping = subtotal > 100 ? 0 : 9.99
@@ -55,12 +75,29 @@ const Checkout = () => {
     }
   }
 
+  const formatCardNumber = (value) => {
+    const digits = value.replace(/\D/g, '').slice(0, 16)
+    return digits.replace(/(\d{4})(?=\d)/g, '$1 ')
+  }
+
+  const detectCardBrand = (number) => {
+    const clean = number.replace(/\s/g, '')
+    if (/^4/.test(clean)) return 'Visa'
+    if (/^5[1-5]/.test(clean)) return 'Mastercard'
+    if (/^3[47]/.test(clean)) return 'Amex'
+    if (/^6(?:011|5)/.test(clean)) return 'Discover'
+    return ''
+  }
+
   const onSubmit = (data) => {
+    const payment = paymentMethod === 'card'
+      ? { method: 'card', last4: cardPreview.number.replace(/\s/g, '').slice(-4) || '4242' }
+      : { method: 'qr' }
     const order = {
       id: `ORD-${Date.now()}`,
-      items: items,
+      items,
       shipping: data,
-      payment: { method: 'card', last4: '4242' },
+      payment,
       subtotal,
       discount,
       shippingCost: shipping,
@@ -68,18 +105,17 @@ const Checkout = () => {
       status: 'processing',
       createdAt: new Date().toISOString()
     }
-
     dispatch(addOrder(order))
     dispatch(clearCart())
     toast.success('Order placed successfully!')
     navigate('/orders')
   }
 
-  const steps = [
-    { num: 1, icon: <ShippingIcon size={18} />, label: 'Shipping' },
-    { num: 2, icon: <CreditCard size={18} />, label: 'Payment' },
-    { num: 3, icon: <Check size={18} />, label: 'Review' }
-  ]
+  const slideVariants = {
+    enter: { opacity: 0, x: 30 },
+    center: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -30 }
+  }
 
   return (
     <div className={styles.checkout}>
@@ -89,15 +125,29 @@ const Checkout = () => {
         </Link>
 
         <div className={styles.steps}>
-          {steps.map((s, i) => (
-            <div key={s.num} className={`${styles.step} ${step >= s.num ? styles.active : ''}`}>
-              <div className={styles.stepNum}>
-                {step > s.num ? <Check size={16} /> : s.num}
+          {STEPS.map((s, i) => {
+            const Icon = s.icon
+            const isActive = step >= s.num
+            const isComplete = step > s.num
+            return (
+              <div key={s.num} className={`${styles.step} ${isActive ? styles.active : ''} ${isComplete ? styles.complete : ''}`}>
+                <div className={styles.stepIndicator}>
+                  {isComplete ? (
+                    <div className={styles.stepCheck}><Check size={16} /></div>
+                  ) : (
+                    <Icon size={18} />
+                  )}
+                </div>
+                <div className={styles.stepInfo}>
+                  <span className={styles.stepLabel}>Step {s.num}</span>
+                  <span className={styles.stepTitle}>{s.label}</span>
+                </div>
+                {i < STEPS.length - 1 && (
+                  <div className={`${styles.stepConnector} ${isComplete ? styles.connectorActive : ''}`} />
+                )}
               </div>
-              <span>{s.label}</span>
-              {i < steps.length - 1 && <div className={styles.stepLine} />}
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <div className={styles.content}>
@@ -106,12 +156,17 @@ const Checkout = () => {
               {step === 1 && (
                 <motion.div
                   key="shipping"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
-                  <h2>Shipping Information</h2>
-                  <form className={styles.form}>
+                  <div className={styles.sectionHeader}>
+                    <Truck size={22} />
+                    <h2>អាសយដ្ឋានទទួលទំនិញ</h2>
+                  </div>
+                  <div className={styles.form}>
                     <div className={styles.row}>
                       <Input
                         label="First Name"
@@ -154,96 +209,260 @@ const Checkout = () => {
                         {...register('phone', { required: 'Phone is required' })}
                       />
                     </div>
-                    <Button variant="primary" size="large" fullWidth onClick={() => setStep(2)}>
-                      Continue to Payment
-                    </Button>
-                  </form>
+                    <div className={styles.formActions}>
+                      <span />
+                      <Button variant="primary" size="large" onClick={() => setStep(2)}>
+                        បន្តទៅការបង់ប្រាក់ <ChevronRight size={18} />
+                      </Button>
+                    </div>
+                  </div>
                 </motion.div>
               )}
 
               {step === 2 && (
                 <motion.div
                   key="payment"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
-                  <h2>Payment Method</h2>
+                  <div className={styles.sectionHeader}>
+                    <CreditCard size={22} />
+                    <h2>ជ្រើសរើសវិធីបង់ប្រាក់</h2>
+                  </div>
+
                   <div className={styles.paymentMethods}>
-                    <div className={styles.paymentMethod}>
-                      <input type="radio" name="payment" id="card" defaultChecked />
-                      <label htmlFor="card">
-                        <CreditCard size={20} />
-                        Credit/Debit Card
-                      </label>
+                    <div
+                      className={`${styles.paymentMethod} ${paymentMethod === 'card' ? styles.paymentMethodActive : ''}`}
+                      onClick={() => setPaymentMethod('card')}
+                    >
+                      <div className={styles.paymentMethodIcon}>
+                        <CreditCard size={24} />
+                      </div>
+                      <div className={styles.paymentMethodInfo}>
+                        <span className={styles.paymentMethodTitle}>Visa Card</span>
+                        <span className={styles.paymentMethodDesc}>បង់ប្រាក់តាមកាតឥណទាន ឬឥណពន្ធ</span>
+                      </div>
+                      <div className={`${styles.paymentRadio} ${paymentMethod === 'card' ? styles.paymentRadioActive : ''}`} />
+                    </div>
+
+                    <div
+                      className={`${styles.paymentMethod} ${paymentMethod === 'qr' ? styles.paymentMethodActive : ''}`}
+                      onClick={() => setPaymentMethod('qr')}
+                    >
+                      <div className={styles.paymentMethodIcon}>
+                        <Smartphone size={24} />
+                      </div>
+                      <div className={styles.paymentMethodInfo}>
+                        <span className={styles.paymentMethodTitle}>Scan QR</span>
+                        <span className={styles.paymentMethodDesc}>ស្កេន QR ដើម្បីបង់ប្រាក់</span>
+                      </div>
+                      <div className={`${styles.paymentRadio} ${paymentMethod === 'qr' ? styles.paymentRadioActive : ''}`} />
                     </div>
                   </div>
-                  <form className={styles.form}>
-                    <Input
-                      label="Card Number"
-                      placeholder="1234 5678 9012 3456"
-                      {...register('cardNumber', { required: 'Card number is required' })}
-                    />
-                    <div className={styles.row}>
-                      <Input
-                        label="Expiry Date"
-                        placeholder="MM/YY"
-                        {...register('expiry', { required: 'Expiry is required' })}
-                      />
-                      <Input
-                        label="CVV"
-                        placeholder="123"
-                        {...register('cvv', { required: 'CVV is required' })}
-                      />
+
+                  {paymentMethod === 'card' ? (
+                    <>
+                      <div className={styles.cardPreview}>
+                        <div className={styles.cardArt}>
+                          <div className={styles.cardChip} />
+                          <div className={styles.cardBrand}>
+                            {detectCardBrand(cardPreview.number) || 'Card'}
+                          </div>
+                          <div className={styles.cardNumber}>
+                            {cardPreview.number || '•••• •••• •••• ••••'}
+                          </div>
+                          <div className={styles.cardFooter}>
+                            <div>
+                              <span className={styles.cardLabel}>Card Holder</span>
+                              <span className={styles.cardValue}>{cardPreview.name || 'Your Name'}</span>
+                            </div>
+                            <div>
+                              <span className={styles.cardLabel}>Expiry</span>
+                              <span className={styles.cardValue}>{cardPreview.expiry || 'MM/YY'}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={styles.form}>
+                        <div className={styles.cardBrandRow}>
+                          {['Visa', 'Mastercard', 'Amex', 'Discover'].map(brand => (
+                            <div
+                              key={brand}
+                              className={`${styles.brandBadge} ${detectCardBrand(cardPreview.number) === brand ? styles.brandActive : ''}`}
+                            >
+                              {brand}
+                            </div>
+                          ))}
+                        </div>
+                        <Input
+                          label="Card Number"
+                          placeholder="1234 5678 9012 3456"
+                          value={cardPreview.number}
+                          onChange={(e) => setCardPreview(prev => ({ ...prev, number: formatCardNumber(e.target.value) }))}
+                          error={errors.cardNumber?.message}
+                          {...register('cardNumber', { required: 'Card number is required' })}
+                        />
+                        <div className={styles.row}>
+                          <Input
+                            label="Expiry Date"
+                            placeholder="MM/YY"
+                            value={cardPreview.expiry}
+                            onChange={(e) => setCardPreview(prev => ({ ...prev, expiry: e.target.value }))}
+                            error={errors.expiry?.message}
+                            {...register('expiry', { required: 'Expiry is required' })}
+                          />
+                          <Input
+                            label="CVV"
+                            placeholder="123"
+                            value={cardPreview.cvv}
+                            onChange={(e) => setCardPreview(prev => ({ ...prev, cvv: e.target.value }))}
+                            error={errors.cvv?.message}
+                            {...register('cvv', { required: 'CVV is required' })}
+                            type="password"
+                          />
+                        </div>
+                        <Input
+                          label="Name on Card"
+                          value={cardPreview.name}
+                          onChange={(e) => setCardPreview(prev => ({ ...prev, name: e.target.value }))}
+                          error={errors.cardName?.message}
+                          {...register('cardName', { required: 'Name is required' })}
+                        />
+                        <div className={styles.secureBadge}>
+                          <Shield size={16} />
+                          <span>ព័ត៌មានបង់ប្រាក់របស់អ្នកត្រូវបានថេរក្សា និងមានសុវត្ថិភាពខ្ពស់</span>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className={styles.qrDisplay}>
+                      <div className={styles.qrCode}>
+                        <img src="/assets/images/QR.jpg" alt="Scan QR to pay" className={styles.qrImage} />
+                      </div>
+                      <div className={styles.qrInstructions}>
+                        <h3>ស្កេន QR ដើម្បីបង់ប្រាក់</h3>
+                        <p>ប្រើកម្មវិធីធនាគាររបស់អ្នកដើម្បីស្កេន QR ខាងលើ</p>
+                      </div>
+                      <div className={styles.qrSteps}>
+                        <div className={styles.qrStep}>
+                          <span className={styles.qrStepNum}>1</span>
+                          <span>បើកកម្មវិធីធនាគាររបស់អ្នក</span>
+                        </div>
+                        <div className={styles.qrStep}>
+                          <span className={styles.qrStepNum}>2</span>
+                          <span>ជ្រើសរើស "ស្កេន QR"</span>
+                        </div>
+                        <div className={styles.qrStep}>
+                          <span className={styles.qrStepNum}>3</span>
+                          <span>ស្កេន QR នេះ និងបញ្ជាក់ការបង់ប្រាក់</span>
+                        </div>
+                      </div>
+                      <div className={styles.qrNote}>
+                        <Shield size={14} />
+                        <span>ការទូទាត់របស់អ្នកត្រូវបានអ៊ិនគ្រីប និងមានសុវត្ថិភាព</span>
+                      </div>
                     </div>
-                    <Input
-                      label="Name on Card"
-                      {...register('cardName', { required: 'Name is required' })}
-                    />
-                    <div className={styles.formActions}>
-                      <Button variant="secondary" onClick={() => setStep(1)}>Back</Button>
-                      <Button variant="primary" size="large" onClick={() => setStep(3)}>
-                        Review Order
-                      </Button>
-                    </div>
-                  </form>
+                  )}
+
+                  <div className={styles.formActions}>
+                    <Button variant="secondary" onClick={() => setStep(1)}>
+                      <ChevronLeft size={18} /> ត្រឡប់ក្រោយ
+                    </Button>
+                    <Button variant="primary" size="large" onClick={() => setStep(3)}>
+                      ពិនិត្យការបញ្ជាទិញឡើងវិញ <ChevronRight size={18} />
+                    </Button>
+                  </div>
                 </motion.div>
               )}
 
               {step === 3 && (
                 <motion.div
                   key="review"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
-                  <h2>Review Your Order</h2>
-                  <div className={styles.review}>
-                    <h3>Shipping Address</h3>
-                    <p>John Doe</p>
-                    <p>123 Main Street</p>
-                    <p>New York, NY 10001</p>
+                  <div className={styles.sectionHeader}>
+                    <Check size={22} />
+                    <h2>ពិនិត្យការបញ្ជាទិញ</h2>
                   </div>
-                  <div className={styles.review}>
-                    <h3>Payment Method</h3>
-                    <p>Card ending in 4242</p>
-                  </div>
-                  <div className={styles.review}>
-                    <h3>Items ({items.length})</h3>
-                    {items.map(item => (
-                      <div key={item.id} className={styles.reviewItem}>
-                        <img src={item.image} alt={item.name} />
-                        <div>
-                          <p>{item.name}</p>
-                          <span>Qty: {item.quantity}</span>
-                        </div>
-                        <span>${(item.price * item.quantity).toFixed(2)}</span>
+
+                  <div className={styles.reviewSection}>
+                    <div className={styles.reviewHeader}>
+                      <div className={styles.reviewHeaderLeft}>
+                        <MapPin size={16} />
+                        <h3>អាសយដ្ឋានទទួលទំនិញ</h3>
                       </div>
-                    ))}
+                      <button className={styles.editBtn} onClick={() => setStep(1)}>Edit</button>
+                    </div>
+                    <div className={styles.reviewBody}>
+                      <p><strong>Sok Dara</strong></p>
+                      <p>120 Main Street</p>
+                      <p>Phnom Penh, Cambodia 10001</p>
+                      <p>+855 12 345 678</p>
+                    </div>
                   </div>
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <Button variant="primary" size="large" fullWidth type="submit">
-                      Place Order (${total.toFixed(2)})
+
+                  <div className={styles.reviewSection}>
+                    <div className={styles.reviewHeader}>
+                      <div className={styles.reviewHeaderLeft}>
+                        <CreditCard size={16} />
+                        <h3>ជម្រើសបង់ប្រាក់</h3>
+                      </div>
+                      <button className={styles.editBtn} onClick={() => setStep(2)}>Edit</button>
+                    </div>
+                    <div className={styles.reviewBody}>
+                      {paymentMethod === 'card' ? (
+                        <>
+                          <p>
+                            {detectCardBrand(cardPreview.number) || 'Card'} ending in {cardPreview.number.replace(/\s/g, '').slice(-4) || '4242'}
+                          </p>
+                          <p className={styles.reviewSub}>Expires {cardPreview.expiry || '12/26'}</p>
+                        </>
+                      ) : (
+                        <>
+                          <p>QR Code Payment</p>
+                          <p className={styles.reviewSub}>Scan QR with your banking app</p>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className={styles.reviewSection}>
+                    <div className={styles.reviewHeader}>
+                      <div className={styles.reviewHeaderLeft}>
+                        <Package size={16} />
+                        <h3>ទំនិញ ({items.length})</h3>
+                      </div>
+                    </div>
+                    <div className={styles.reviewBody}>
+                      {items.map(item => (
+                        <div key={item.id} className={styles.reviewItem}>
+                          <img src={item.image} alt={item.name} />
+                          <div className={styles.reviewItemInfo}>
+                            <h4>{item.name}</h4>
+                            <span>ចំនួន: {item.quantity}</span>
+                          </div>
+                          <span className={styles.reviewItemPrice}>
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <form onSubmit={handleSubmit(onSubmit)} className={styles.reviewActions}>
+                    <Button variant="secondary" onClick={() => setStep(2)}>
+                      <ChevronLeft size={18} /> ត្រឡប់ក្រោយ
+                    </Button>
+                    <Button variant="primary" size="large" type="submit">
+                      Place Order — ${total.toFixed(2)}
                     </Button>
                   </form>
                 </motion.div>
@@ -252,15 +471,15 @@ const Checkout = () => {
           </div>
 
           <div className={styles.summary}>
-            <h3>Order Summary</h3>
-            
+            <h3>សរុបការបញ្ជាទិញ</h3>
+
             <div className={styles.summaryItems}>
               {items.map(item => (
                 <div key={item.id} className={styles.summaryItem}>
                   <img src={item.image} alt={item.name} />
                   <div>
                     <h4>{item.name}</h4>
-                    <span>Qty: {item.quantity}</span>
+                    <span>ចំនួន: {item.quantity}</span>
                   </div>
                   <span>${(item.price * item.quantity).toFixed(2)}</span>
                 </div>
@@ -268,9 +487,10 @@ const Checkout = () => {
             </div>
 
             <div className={styles.coupon}>
+              <Percent size={16} />
               <input
                 type="text"
-                placeholder="Coupon code"
+                placeholder="Enter coupon code"
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value)}
               />
@@ -279,25 +499,30 @@ const Checkout = () => {
               </Button>
             </div>
 
+            <div className={styles.summaryDivider} />
             <div className={styles.summaryRow}>
-              <span>Subtotal</span>
+              <span>សរុប</span>
               <span>${subtotal.toFixed(2)}</span>
             </div>
-            
+            {savings > 0 && (
+              <div className={`${styles.summaryRow} ${styles.savings}`}>
+                <span>សន្សំសម្ចៃ</span>
+                <span>-${savings.toFixed(2)}</span>
+              </div>
+            )}
             {discount > 0 && (
               <div className={`${styles.summaryRow} ${styles.discount}`}>
-                <span>Discount</span>
+                <span>បញ្ចុះតំលៃ ({appliedCoupon?.code})</span>
                 <span>-${discount.toFixed(2)}</span>
               </div>
             )}
-            
             <div className={styles.summaryRow}>
-              <span>Shipping</span>
+              <span>ដឹកជញ្ជួន</span>
               <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
             </div>
-
+            <div className={styles.summaryDivider} />
             <div className={styles.summaryTotal}>
-              <span>Total</span>
+              <span>សរុប</span>
               <span>${total.toFixed(2)}</span>
             </div>
           </div>

@@ -591,15 +591,34 @@ export const products = [
     stock: 50,
     isNew: true,
     sales: 200
+  },
+  {
+    id: '32',
+    name: 'Office Table', 
+    category: 'Furniture',
+    price: 229.99,
+    originalPrice: 239.99,
+    description: 'High-quality furniture for your office space.',
+    images: [
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ12Ullupa8BFFPphxbfnzgedg8oiNUTkulLQ&s',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ12Ullupa8BFFPphxbfnzgedg8oiNUTkulLQ&s'
+    ],
+    rating: 4.8,
+    reviews: [
+      { id: 1, user: 'FitnessFan', rating: 5, text: 'Excellent quality and performance!', date: '2026-01-20' }
+    ],
+    stock: 50,
+    isNew: true,
+    sales: 200
   }
 ]
 
 export const categories = [
-  { id: 'electronics', name: 'Electronics', icon: 'laptop', count: 4 },
-  { id: 'accessories', name: 'Accessories', icon: 'watch', count: 3 },
-  { id: 'furniture', name: 'Furniture', icon: 'sofa', count: 1 },
-  { id: 'home', name: 'Home', icon: 'lamp', count: 2 },
-  { id: 'sports', name: 'Sports', icon: 'dumbbell', count: 2 }
+  { id: 'electronics', name: 'អេឡិចត្រូនិច', icon: 'laptop', count: 4 },
+  { id: 'accessories', name: 'អាក់សេស៊ូរី', icon: 'watch', count: 3 },
+  { id: 'furniture', name: 'គ្រឿងបសង្ហារឹម', icon: 'sofa', count: 1 },
+  { id: 'home', name: 'សម្រាប់ផ្ទះ', icon: 'lamp', count: 2 },
+  { id: 'sports', name: 'កីឡា', icon: 'dumbbell', count: 2 }
 ]
 
 export const categoryIcons = {

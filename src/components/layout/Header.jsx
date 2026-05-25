@@ -100,11 +100,11 @@ useEffect(() => {
   }, [])
 
   const navLinks = [
-    { name: 'Home', path: '/', icon: Home },
-    { name: 'Shop', path: '/shop', icon: Grid },
-    { name: 'Categories', path: '/categories', icon: Tags },
-    { name: 'About', path: '/about', icon: Info },
-    { name: 'Contact', path: '/contact', icon: Mail }
+    { name: 'ទំព័រដើម', path: '/', icon: Home },
+    { name: 'ទំនិញ', path: '/shop', icon: Grid },
+    { name: 'ប្រភេទទំនិញ', path: '/categories', icon: Tags },
+    { name: 'អំពីយើង', path: '/about', icon: Info },
+    { name: 'ទំនាក់ទំនង', path: '/contact', icon: Mail }
   ]
 
   return (
@@ -313,7 +313,7 @@ useEffect(() => {
               <Search size={20} />
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="ស្វែងរកទំនិញ..."
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 autoFocus

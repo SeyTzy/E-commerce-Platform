@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ArrowRight, Laptop, Watch, Sofa, Lamp, Dumbbell } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { ProductCard } from '../components/features'
 import { selectFilteredProducts, setFilter, applyFilters } from '../redux/slices/productSlice'
-import { products, categories, categoryIcons } from '../data/products'
+import { products, categories } from '../data/products'
 import styles from './Categories.module.css'
 
 const iconMap = {
@@ -27,6 +28,15 @@ const Categories = () => {
   const dispatch = useDispatch()
   const filteredProducts = useSelector(selectFilteredProducts)
 
+  const categoryCounts = useMemo(() => {
+    const counts = {}
+    products.forEach(p => {
+      const key = p.category.toLowerCase()
+      counts[key] = (counts[key] || 0) + 1
+    })
+    return counts
+  }, [])
+
   const handleCategoryClick = (categoryId) => {
     dispatch(setFilter({ key: 'category', value: categoryId }))
     dispatch(applyFilters())
@@ -47,9 +57,9 @@ const Categories = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.heroLabel}>Explore</span>
-            <h1>Shop by Category</h1>
-            <p>Discover our curated collection across five unique categories</p>
+            <span className={styles.heroLabel}>ស្វែងរក</span>
+            <h1>ទិញទំនិញតាមប្រភេទ</h1>
+            <p>រីករាយទស្សនាបណ្តុំផលិតផលពិសេសៗរបស់យើង ដែលបែងចែកជា ៥ ប្រភេទប្លែកពីគ្នា។</p>
           </motion.div>
         </div>
       </div>
@@ -79,9 +89,9 @@ const Categories = () => {
                     <div className={styles.iconGlow} />
                   </div>
                   <h3>{cat.name}</h3>
-                  <p>{cat.count} products</p>
+                  <p>{categoryCounts[cat.id]} products</p>
                   <span className={styles.link}>
-                    Shop Now <ArrowRight size={16} />
+                    ទិញឥឡូវនេះ <ArrowRight size={16} />
                   </span>
                   <div className={styles.cardGlow} style={{ background: gradient }} />
                 </Link>
@@ -97,7 +107,7 @@ const Categories = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              Featured Products
+              ផលិតផលពិសេស
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -105,7 +115,7 @@ const Categories = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              Handpicked items just for you
+              ផលិតផលសម្រិតសម្រាំង សម្រាប់អ្នកជាពិសេស
             </motion.p>
           </div>
           <div className={styles.products}>

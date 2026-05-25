@@ -32,16 +32,16 @@ const Orders = () => {
   return (
     <div className={styles.orders}>
       <div className={styles.container}>
-        <h1>My Orders</h1>
+        <h1>ការកម្មង់</h1>
 
         {orders.length === 0 ? (
           <div className={styles.empty}>
             <Package size={64} strokeWidth={1.5} />
-            <h2>No orders yet</h2>
-            <p>Start shopping to see your orders here</p>
+            <h2>មិនទាន់មានការកម្មង់</h2>
+            <p>ចាប់ផ្តើមទិញសទំនិញនៅទីនេះ</p>
             <Link to="/shop">
               <Button variant="primary" size="large">
-                Start Shopping
+                ទិញទំនិញ
               </Button>
             </Link>
           </div>
@@ -84,7 +84,7 @@ const Orders = () => {
                   </div>
                   <Link to={`/orders/${order.id}`}>
                     <Button variant="ghost" size="small">
-                      View Details <ChevronRight size={16} />
+                      មេីលលម្អិត <ChevronRight size={16} />
                     </Button>
                   </Link>
                 </div>

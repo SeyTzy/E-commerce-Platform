@@ -92,9 +92,9 @@ const Account = () => {
     return (
       <div className={styles.account}>
         <div className={styles.container}>
-          <h1>Please sign in to view your account</h1>
+          <h1>សូមចូលគណនីរបស់អ្នក ដើម្បីមើលព័ត៌មាន</h1>
           <Link to="/auth">
-            <Button variant="primary">Sign In</Button>
+            <Button variant="primary">ចូលគណនី</Button>
           </Link>
         </div>
       </div>
@@ -172,13 +172,13 @@ const Account = () => {
 
         <div className={styles.tabs}>
           <button className={activeTab === 'overview' ? styles.active : ''} onClick={() => setActiveTab('overview')}>
-            Overview
+            ការគ្រប់គ្រង
           </button>
           <button className={activeTab === 'orders' ? styles.active : ''} onClick={() => setActiveTab('orders')}>
-            Orders
+            ការបញ្ជាទិញ
           </button>
           <button className={activeTab === 'settings' ? styles.active : ''} onClick={() => setActiveTab('settings')}>
-            Settings
+            ការកំណត់
           </button>
         </div>
 

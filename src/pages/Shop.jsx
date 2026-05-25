@@ -1,10 +1,18 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Search, SlidersHorizontal, X, Grid, List } from 'lucide-react'
+import { Search, SlidersHorizontal, X, Grid, List, Laptop, Watch, Sofa, Lamp, Dumbbell } from 'lucide-react'
 import { ProductCard } from '../components/features'
 import { Button, Select } from '../components/common'
 import { products, categories } from '../data/products'
 import styles from './Shop.module.css'
+
+const iconMap = {
+  laptop: Laptop,
+  watch: Watch,
+  sofa: Sofa,
+  lamp: Lamp,
+  dumbbell: Dumbbell
+}
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -168,17 +176,21 @@ const Shop = () => {
                   />
                   All Categories
                 </label>
-                {categories.map(cat => (
-                  <label key={cat.id} className={styles.filterOption}>
-                    <input
-                      type="radio"
-                      name="category"
-                      checked={category === cat.id}
-                      onChange={() => handleCategoryChange(cat.id)}
-                    />
-                    {cat.icon} {cat.name}
-                  </label>
-                ))}
+                {categories.map(cat => {
+                  const Icon = iconMap[cat.icon]
+                  return (
+                    <label key={cat.id} className={styles.filterOption}>
+                      <input
+                        type="radio"
+                        name="category"
+                        checked={category === cat.id}
+                        onChange={() => handleCategoryChange(cat.id)}
+                      />
+                      {Icon && <Icon size={16} style={{ marginRight: 6 }} />}
+                      {cat.name}
+                    </label>
+                  )
+                })}
               </div>
             </div>
 

@@ -8,27 +8,27 @@ const Footer = () => {
 
   const footerLinks = {
     shop: [
-      { name: 'New Arrivals', path: '/shop?sort=newest' },
-      { name: 'Best Sellers', path: '/shop?sort=popular' },
-      { name: 'Sale', path: '/shop?sale=true' },
-      { name: 'All Products', path: '/shop' }
+      { name: 'ថ្មីៗ', path: '/shop?sort=newest' },
+      { name: 'អ្នកទិញច្រើន', path: '/shop?sort=popular' },
+      { name: 'ការលក់', path: '/shop?sale=true' },
+      { name: 'ផលិតផលទាំងអស់', path: '/shop' }
     ],
     company: [
-      { name: 'About Us', path: '/about' },
-      { name: 'Careers', path: '/careers' },
-      { name: 'Press', path: '/press' },
-      { name: 'Blog', path: '/blog' }
+      { name: 'អំពីយើង', path: '/about' },
+      { name: 'ការងារ', path: '/careers' },
+      { name: 'ព័ត៌មាន', path: '/press' },
+      { name: 'ប្លុក', path: '/blog' }
     ],
     support: [
-      { name: 'Help Center', path: '/help' },
-      { name: 'Shipping', path: '/shipping' },
-      { name: 'Returns', path: '/returns' },
-      { name: 'Track Order', path: '/track' }
+      { name: 'ជំនួយ', path: '/help' },
+      { name: 'ការដឹកជញ្ជូន', path: '/shipping' },
+      { name: 'ការត្រឡប់', path: '/returns' },
+      { name: 'តាមដានការបញ្ជា', path: '/track' }
     ],
     legal: [
-      { name: 'Privacy Policy', path: '/privacy' },
-      { name: 'Terms of Service', path: '/terms' },
-      { name: 'Cookie Policy', path: '/cookies' }
+      { name: 'គោលការណ៍ឯកជនភាព', path: '/privacy' },
+      { name: 'លក្ខខណ្ឌសេវាកម្ម', path: '/terms' },
+      { name: 'គោលការណ៍ប្រើប្រាស់', path: '/cookies' }
     ]
   }
 
@@ -41,13 +41,12 @@ const Footer = () => {
               <img src="/assets/images/LogoLuxCart.png" alt="LuxeCart" className={styles.logoImg} />
             </Link>
             <p className={styles.description}>
-              Your destination for premium products with exceptional service. 
-              Shop the latest trends with confidence.
+              គោលដៅនៃផលិតផលលំដាប់ប្រីមៀម និងសេវាកម្មដ៏ល្អឥតខ្ចោះ។ ទិញទំនិញតាមទំនោរនិយមចុងក្រោយបង្អស់ដោយក្តីទំនុកចិត្ត។
             </p>
             <div className={styles.contact}>
               <a href="tel:+885 99649877" className={styles.contactItem}>
                 <Phone size={18} />
-                <span>+885 99649877</span>
+                <span>+885 99 649 877</span>
               </a>
               <a href="mailto:thoeurnseyhat@gmail.com" className={styles.contactItem}>
                 <Mail size={18} />
@@ -55,7 +54,7 @@ const Footer = () => {
               </a>
               <div className={styles.contactItem}>
                 <MapPin size={18} />
-                <span>Teuk Laak1, Toul Kork, Phnom Penh</span>
+                <span>សង្កាត់ទឹកល្អក់ទី១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ</span>
               </div>
             </div>
           </div>
@@ -107,22 +106,23 @@ const Footer = () => {
           </div>
 
           <div className={styles.newsletter}>
-            <h4 className={styles.linkTitle}>Stay Updated</h4>
+            <h4 className={styles.linkTitle}>ទទួលបានព័ត៌មានថ្មីៗ</h4>
             <p className={styles.newsletterText}>
-              Subscribe to get special offers and exclusive deals.
+              ភ្ជាប់ទំនាក់ទំនងជាមួយយើង ដើម្បីទទួលបានប្រូម៉ូសិនពិសេសៗ និងការផ្តល់ជូនផ្តាច់មុខ។
             </p>
             <form className={styles.newsletterForm}>
-              <label htmlFor="newsletter-email" className={styles.newsletterLabel}>Email Address</label>
-              <input type="email" id="newsletter-email" placeholder="Enter your email" />
+              <label htmlFor="newsletter-email" className={styles.newsletterLabel}>អាសយដ្ឋានអ៊ីមែល</label>
+              <input type="email" id="newsletter-email" placeholder="បញ្ចូលអាសយដ្ឋានអ៊ីមែលរបស់អ្នក" />
               <Button variant="primary" size="medium">
                 <Send size={18} />
               </Button>
             </form>
             <div className={styles.social}>
-              <a href="#" aria-label="Facebook"><Facebook size={20} /></a>
-              <a href="#" aria-label="Twitter"><Twitter size={20} /></a>
-              <a href="#" aria-label="Instagram"><Instagram size={20} /></a>
-              <a href="#" aria-label="Youtube"><Youtube size={20} /></a>
+              <a href="https://www.facebook.com/seytzy/" aria-label="Facebook"><Facebook size={20} /></a>
+              <a href="https://twitter.com/seytzy" aria-label="Twitter"><Twitter size={20} /></a>
+              <a href="https://www.instagram.com/@seyhatbadboy/" aria-label="Instagram"><Instagram size={20} /></a>
+              <a href="https://www.youtube.com/@SeyTzy-168" aria-label="YouTube"><Youtube size={20} /></a>
+              <a href="https://www.linkedin.com/in/thoeurn-seyhat-19123a402/" aria-label="LinkedIn"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style={{ width: 20, height: 20 }} /></a>  
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@ const Footer = () => {
         <div className={styles.bottom}>
           <p>&copy; {currentYear} LuxeCart. All rights reserved.</p>
           <div className={styles.payments}>
-            <span>We accept:</span>
+            <span>យើងទទួលបាន:</span>
             <div className={styles.paymentIcons}>
               <div className={styles.paymentIcon} title="Visa">
                 <img src="https://raw.githubusercontent.com/slaterjohn/payment-logos/master/Square%20Corners/PNG/medium/visa.png" alt="Visa" />

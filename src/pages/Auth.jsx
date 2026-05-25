@@ -225,7 +225,7 @@ const Auth = () => {
                     fullWidth
                     onClick={handleBackToLogin}
                   >
-                    Sign In <ArrowRight size={18} />
+                    ចូលគណនី <ArrowRight size={18} />
                   </Button>
 
                   <button

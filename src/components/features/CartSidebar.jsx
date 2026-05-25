@@ -37,7 +37,7 @@ const CartSidebar = () => {
             <div className={styles.header}>
               <h3 className={styles.title}>
                 <ShoppingBag size={20} />
-                Your Cart ({count})
+                កន្ត្រកទំនិញ ({count})
               </h3>
               <button className={styles.closeBtn} onClick={handleClose}>
                 <X size={20} />
@@ -48,9 +48,9 @@ const CartSidebar = () => {
               {items.length === 0 ? (
                 <div className={styles.empty}>
                   <ShoppingBag size={48} strokeWidth={1.5} />
-                  <p>Your cart is empty</p>
+                  <p>មិនមានទំនិញក្នុងកន្ត្រក</p>
                   <Button variant="secondary" onClick={handleClose}>
-                    Continue Shopping
+                    ទិញទំនិញបន្ត
                   </Button>
                 </div>
               ) : (
@@ -105,7 +105,7 @@ const CartSidebar = () => {
                   </Button>
                 </Link>
                 <Link to="/cart" className={styles.viewCart} onClick={handleClose}>
-                  View Cart
+                  មើលកន្ត្រក
                 </Link>
               </div>
             )}

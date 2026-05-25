@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { ArrowLeft, Package, Truck, Check, Clock, MapPin, CreditCard, X } from 'lucide-react'
+import { ArrowLeft, Package, Truck, Check, Clock, MapPin, CreditCard, Smartphone, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button, Badge } from '../components/common'
 import { selectOrders } from '../redux/slices/orderSlice'
@@ -50,7 +50,7 @@ const OrderDetail = () => {
 
         <div className={styles.header}>
           <div>
-            <h1>Order #{order.id}</h1>
+            <h1>កម្មង់ #{order.id}</h1>
             <p>Placed on {new Date(order.createdAt).toLocaleDateString('en-US', { 
               weekday: 'long', 
               year: 'numeric', 
@@ -113,8 +113,12 @@ const OrderDetail = () => {
             </div>
 
             <div className={styles.detailCard}>
-              <h4><CreditCard size={18} /> Payment Method</h4>
-              <p>Card ending in {order.payment?.last4 || '****'}</p>
+              <h4>{order.payment?.method === 'qr' ? <Smartphone size={18} /> : <CreditCard size={18} />} Payment Method</h4>
+              {order.payment?.method === 'qr' ? (
+                <p>QR Code Payment</p>
+              ) : (
+                <p>Card ending in {order.payment?.last4 || '****'}</p>
+              )}
               <p>Status: <Badge variant="success">Paid</Badge></p>
             </div>
 

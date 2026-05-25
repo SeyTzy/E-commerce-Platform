@@ -26,16 +26,16 @@ const Wishlist = () => {
   return (
     <div className={styles.wishlist}>
       <div className={styles.container}>
-        <h1>My Wishlist</h1>
+        <h1>បញ្ជីទំនិញដែលបានរក្សាទុក</h1>
 
         {items.length === 0 ? (
           <div className={styles.empty}>
             <Heart size={64} strokeWidth={1.5} />
-            <h2>Your wishlist is empty</h2>
-            <p>Save items you love by clicking the heart icon</p>
+            <h2>បញ្ជីទំនិញដែលបានរក្សាទុករបស់អ្នកទទេ</h2>
+            <p>ចុចរូបបេះដូង ដើម្បីរក្សាទុកទំនិញ</p>
             <Link to="/shop">
               <Button variant="primary" size="large">
-                Start Shopping
+                ចាប់ផ្តើមការទិញ
               </Button>
             </Link>
           </div>

@@ -110,28 +110,28 @@ const ProductDetail = () => {
               <div className={styles.feature}>
                 <Truck size={20} />
                 <div>
-                  <h4>Free Shipping</h4>
-                  <p>On orders over $100</p>
+                  <h4>ដឹកជញ្ជួនឥតគិតថ្លៃ</h4>
+                  <p>រាល់ការកម្មង់ចាប់ពី $100 ឡេីងទៅ</p>
                 </div>
               </div>
               <div className={styles.feature}>
                 <Shield size={20} />
                 <div>
-                  <h4>Secure Payment</h4>
-                  <p>100% secure checkout</p>
+                  <h4>ទូរទាត់ប្រកបដោយសុវត្ថិភាព</h4>
+                  <p>សុវត្ថិភាព 100%</p>
                 </div>
               </div>
               <div className={styles.feature}>
                 <RefreshCw size={20} />
                 <div>
-                  <h4>Easy Returns</h4>
-                  <p>30-day return policy</p>
+                  <h4>មិនចិត្តប្តូរវិញបាន</h4>
+                  <p>ប្តូរទំនិញបានក្នុងរយៈពេល ៣០ ថ្ងៃ</p>
                 </div>
               </div>
             </div>
 
             <div className={styles.quantityRow}>
-              <span>Quantity</span>
+              <span>ចំនួន</span>
               <div className={styles.quantity}>
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>
                   <Minus size={18} />
@@ -145,7 +145,7 @@ const ProductDetail = () => {
 
             <div className={styles.actions}>
               <Button variant="primary" size="large" fullWidth onClick={handleAddToCart}>
-                <ShoppingBag size={20} /> Add to Cart
+                <ShoppingBag size={20} /> បន្ថែមទៅក្នុងកន្ត្រក់
               </Button>
               <Button 
                 variant={isInWishlist ? 'primary' : 'secondary'} 
@@ -159,10 +159,10 @@ const ProductDetail = () => {
             <div className={styles.stock}>
               {product.stock > 0 ? (
                 <span className={styles.inStock}>
-                  <span className={styles.stockDot} /> In Stock ({product.stock} available)
+                  <span className={styles.stockDot} /> នៅស្តុក ({product.stock} available)
                 </span>
               ) : (
-                <span className={styles.outOfStock}>Out of Stock</span>
+                <span className={styles.outOfStock}>អស់ស្តុក</span>
               )}
             </div>
           </div>
@@ -174,19 +174,19 @@ const ProductDetail = () => {
               className={activeTab === 'description' ? styles.active : ''}
               onClick={() => setActiveTab('description')}
             >
-              Description
+              ការពិពណ៌នា
             </button>
             <button 
               className={activeTab === 'specs' ? styles.active : ''}
               onClick={() => setActiveTab('specs')}
             >
-              Specifications
+              លក្ខណៈសម្បត្តិ
             </button>
             <button 
               className={activeTab === 'reviews' ? styles.active : ''}
               onClick={() => setActiveTab('reviews')}
             >
-              Reviews ({product.reviews?.length || 0})
+              មតិពីអតិថិជន ({product.reviews?.length || 0})
             </button>
           </div>
 
@@ -195,9 +195,7 @@ const ProductDetail = () => {
               <div className={styles.descriptionTab}>
                 <p>{product.description}</p>
                 <p>
-                  Experience premium quality with our carefully crafted product. Each item is inspected to ensure 
-                  the highest standards of craftsmanship and durability. Perfect for everyday use 
-                  with a design that stands the test of time.
+                  រីករាយជាមួយបទពិសោធន៍ដ៏ល្អឥតខ្ចោះនៃផលិតផលលំដាប់ខ្ពស់ ដែលត្រូវបានច្នៃប្រឌិតឡើងយ៉ាងសម្រិតសម្រាំងរបស់យើង។ រាល់ទំនិញនីមួយៗ ត្រូវបានឆ្លងកាត់ការត្រួតពិនិត្យយ៉ាងម៉ត់ចត់ ដើម្បីធានាបាននូវស្តង់ដារខ្ពស់បំផុតទាំងគុណភាពនៃការច្នៃម៉ូដ និងភាពធន់រឹងមាំ។ វាពិតជាល្អឥតខ្ចោះសម្រាប់ការប្រើប្រាស់ប្រចាំថ្ងៃ ជាមួយនឹងរចនាបថដែលមិនចេះហួសសម័យ។
                 </p>
               </div>
             )}
@@ -207,19 +205,19 @@ const ProductDetail = () => {
                 <table>
                   <tbody>
                     <tr>
-                      <td>Category</td>
+                      <td>ប្រភេទទំនិញ</td>
                       <td>{product.category}</td>
                     </tr>
                     <tr>
-                      <td>Rating</td>
+                      <td>វាយតម្លៃ</td>
                       <td>{product.rating} / 5</td>
                     </tr>
                     <tr>
-                      <td>Total Sales</td>
+                      <td>ការលក់សរុប</td>
                       <td>{product.sales}+</td>
                     </tr>
                     <tr>
-                      <td>Stock</td>
+                      <td>ស្តុក</td>
                       <td>{product.stock} units</td>
                     </tr>
                   </tbody>

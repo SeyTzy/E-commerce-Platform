@@ -19,16 +19,16 @@ const Cart = () => {
   return (
     <div className={styles.cart}>
       <div className={styles.container}>
-        <h1>Shopping Cart</h1>
+        <h1>កន្រ្តក់</h1>
 
         {items.length === 0 ? (
           <div className={styles.empty}>
             <ShoppingBag size={64} strokeWidth={1.5} />
-            <h2>Your cart is empty</h2>
-            <p>Looks like you haven't added any items yet.</p>
+            <h2>កន្រ្តក់ទទេ</h2>
+            <p>មិនទាន់មានទំនិញនៅក្នុងរទេះនៅឡើយទេ។</p>
             <Link to="/shop">
               <Button variant="primary" size="large">
-                Continue Shopping
+                បន្តការទិញទំនិញ <ArrowRight size={18} />
               </Button>
             </Link>
           </div>
@@ -36,10 +36,10 @@ const Cart = () => {
           <div className={styles.content}>
             <div className={styles.items}>
               <div className={styles.header}>
-                <span>Product</span>
-                <span>Price</span>
-                <span>Quantity</span>
-                <span>Total</span>
+                <span>ទំនិញ</span>
+                <span>តម្លៃ</span>
+                <span>បរិមាណ</span>
+                <span>សរុប</span>
               </div>
               
               {items.map((item, i) => (
@@ -78,56 +78,56 @@ const Cart = () => {
 
               <div className={styles.footer}>
                 <Button variant="ghost" onClick={() => dispatch(clearCart())}>
-                  Clear Cart
+                  Clear កន្រ្តក់
                 </Button>
                 <Link to="/shop">
                   <Button variant="secondary">
-                    Continue Shopping
+                    បន្តការទិញទំនិញ <ArrowRight size={18} />
                   </Button>
                 </Link>
               </div>
             </div>
 
             <div className={styles.summary}>
-              <h3>Order Summary</h3>
+              <h3>សេចក្តីសង្ខេបការបញ្ជាទិញ</h3>
               
               <div className={styles.summaryRow}>
-                <span>Subtotal</span>
+                <span>សរុប</span>
                 <span>${subtotal.toFixed(2)}</span>
               </div>
               
               {savings > 0 && (
                 <div className={`${styles.summaryRow} ${styles.savings}`}>
-                  <span>Savings</span>
+                  <span>សេវាកម្ម</span>
                   <span>-${savings.toFixed(2)}</span>
                 </div>
               )}
               
               <div className={styles.summaryRow}>
-                <span>Shipping</span>
+                <span>រំលង</span>
                 <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
               </div>
               
               <div className={styles.summaryRow}>
-                <span>Tax</span>
+                <span>ពន្ធ</span>
                 <span>$0.00</span>
               </div>
 
               <div className={styles.divider} />
               
               <div className={`${styles.summaryRow} ${styles.total}`}>
-                <span>Total</span>
+                <span>សរុប</span>
                 <span>${total.toFixed(2)}</span>
               </div>
 
               <Link to="/checkout">
                 <Button variant="primary" fullWidth size="large">
-                  Proceed to Checkout <ArrowRight size={18} />
+                  បន្តទៅកាន់ការទូទាត់ប្រាក់ <ArrowRight size={18} />
                 </Button>
               </Link>
 
               <div className={styles.coupons}>
-                <h4>Available Coupons</h4>
+                <h4>គូប៉ុងដែលមានស្រាប់</h4>
                 <div className={styles.couponList}>
                   {coupons.map(coupon => (
                     <div key={coupon.code} className={styles.coupon}>

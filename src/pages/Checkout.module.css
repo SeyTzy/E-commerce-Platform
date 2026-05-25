@@ -13,89 +13,171 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-6);
+  gap: var(--space-4);
   min-height: 60vh;
   text-align: center;
+}
+
+.emptyIcon {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+.empty h2 {
+  font-size: var(--font-size-xl);
+}
+
+.empty p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
 }
 
 .back {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 .back:hover {
   color: var(--color-primary);
 }
 
+/* Steps */
 .steps {
   display: flex;
   justify-content: center;
-  gap: var(--space-2);
-  margin-bottom: var(--space-12);
+  align-items: flex-start;
+  gap: 0;
+  margin-bottom: var(--space-10);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .step {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
+  position: relative;
+  flex: 1;
 }
 
-.stepNum {
+.stepIndicator {
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-muted);
-  background-color: var(--color-surface-elevated);
   border-radius: 50%;
-}
-
-.step.active .stepNum {
-  background-color: var(--color-primary);
-  color: var(--color-text-inverse);
-}
-
-.step span {
-  font-size: var(--font-size-sm);
+  background: var(--color-surface-elevated);
   color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-border);
 }
 
-.step.active span {
-  color: var(--color-text-primary);
+.step.active .stepIndicator {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.step.complete .stepIndicator {
+  background: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
+}
+
+.stepCheck {
+  display: flex;
+}
+
+.stepInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stepLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
   font-weight: var(--font-weight-medium);
 }
 
-.stepLine {
-  width: 60px;
-  height: 2px;
-  margin-left: var(--space-2);
-  background-color: var(--color-border);
+.step.active .stepLabel {
+  color: var(--color-primary);
 }
 
+.step.complete .stepLabel {
+  color: var(--color-success);
+}
+
+.stepTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.step.active .stepTitle {
+  color: var(--color-text-primary);
+}
+
+.step.complete .stepTitle {
+  color: var(--color-text-primary);
+}
+
+.stepConnector {
+  flex: 1;
+  height: 2px;
+  background: var(--color-border);
+  margin: 0 var(--space-4);
+  margin-top: -20px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.connectorActive {
+  background: var(--color-success);
+}
+
+/* Content layout */
 .content {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 380px;
   gap: var(--space-8);
   align-items: start;
 }
 
+/* Form section */
 .formSection {
   padding: var(--space-8);
-  background-color: var(--color-surface);
+  background: var(--color-surface);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
-.formSection h2 {
-  font-size: var(--font-size-xl);
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sectionHeader h2 {
+  font-size: var(--font-size-lg);
+  margin: 0;
 }
 
 .form {
@@ -110,7 +192,139 @@
   gap: var(--space-4);
 }
 
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Card Preview */
+.cardPreview {
+  margin-bottom: var(--space-6);
+}
+
+.cardArt {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1.586;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.cardArt::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cardChip {
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border-radius: 4px;
+  position: relative;
+}
+
+.cardChip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.cardBrand {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 1px;
+}
+
+.cardNumber {
+  font-family: 'Courier New', monospace;
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  margin: var(--space-2) 0;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.cardFooter > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cardLabel {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cardValue {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Card brand badges */
+.cardBrandRow {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.brandBadge {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  transition: all 0.2s;
+}
+
+.brandActive {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  color: var(--color-primary);
+}
+
+/* Payment method selector */
 .paymentMethods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
   margin-bottom: var(--space-6);
 }
 
@@ -119,88 +333,304 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4);
-  background-color: var(--color-surface-elevated);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
 }
 
-.paymentMethod input {
-  accent-color: var(--color-primary);
+.paymentMethod:hover {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 5%, transparent);
 }
 
-.paymentMethod label {
+.paymentMethodActive {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+
+.paymentMethodIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-elevated);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.paymentMethodActive .paymentMethodIcon {
+  background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  color: var(--color-primary);
+}
+
+.paymentMethodInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.paymentMethodTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.paymentMethodDesc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.paymentRadio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.paymentRadioActive {
+  border-color: var(--color-primary);
+}
+
+.paymentRadioActive::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* QR display */
+.qrDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+  background: var(--color-surface-elevated);
+  border-radius: var(--radius-lg);
+}
+
+.qrCode {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.qrImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.qrInstructions {
+  text-align: center;
+}
+
+.qrInstructions h3 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--space-1);
+}
+
+.qrInstructions p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.qrSteps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 320px;
+}
+
+.qrStep {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.qrStepNum {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+.qrNote {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  cursor: pointer;
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--color-success) 10%, transparent);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-success);
+  width: 100%;
+  justify-content: center;
 }
 
-.formActions {
+/* Secure badge */
+.secureBadge {
   display: flex;
-  gap: var(--space-4);
-  margin-top: var(--space-4);
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--color-success) 10%, transparent);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-success);
 }
 
-.review {
-  padding: var(--space-4);
-  background-color: var(--color-surface-elevated);
+/* Review sections */
+.reviewSection {
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-4);
+  overflow: hidden;
 }
 
-.review h3 {
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-elevated);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.reviewHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.reviewHeaderLeft h3 {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--space-2);
+  margin: 0;
 }
 
-.review p {
+.editBtn {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+
+.editBtn:hover {
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+.reviewBody {
+  padding: var(--space-4);
+}
+
+.reviewBody p {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.reviewSub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
 }
 
 .reviewItem {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   padding: var(--space-3) 0;
   border-bottom: 1px solid var(--color-border);
 }
 
 .reviewItem:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 .reviewItem img {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   object-fit: cover;
   border-radius: var(--radius-sm);
 }
 
-.reviewItem h4 {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+.reviewItemInfo {
+  flex: 1;
 }
 
-.reviewItem span {
+.reviewItemInfo h4 {
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+
+.reviewItemInfo span {
+  font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
 
-.reviewItem > span:last-child {
-  margin-left: auto;
+.reviewItemPrice {
   font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
 }
 
-/* Summary */
+.reviewActions {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.reviewActions > button:last-child {
+  flex: 1;
+}
+
+/* Summary sidebar */
 .summary {
   position: sticky;
   top: calc(var(--header-height) + var(--space-4));
   padding: var(--space-6);
-  background-color: var(--color-surface);
+  background: var(--color-surface);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .summary h3 {
@@ -209,7 +639,7 @@
 }
 
 .summaryItems {
-  max-height: 200px;
+  max-height: 240px;
   overflow-y: auto;
   margin-bottom: var(--space-4);
 }
@@ -222,8 +652,8 @@
 }
 
 .summaryItem img {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   object-fit: cover;
   border-radius: var(--radius-sm);
 }
@@ -232,6 +662,7 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   line-height: 1.3;
+  margin: 0;
 }
 
 .summaryItem span {
@@ -247,22 +678,33 @@
 
 .coupon {
   display: flex;
+  align-items: center;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  padding: var(--space-3);
+  background: var(--color-surface-elevated);
+  border-radius: var(--radius-md);
 }
 
 .coupon input {
   flex: 1;
-  height: 36px;
-  padding: 0 var(--space-3);
+  height: 32px;
+  padding: 0 var(--space-2);
   font-size: var(--font-size-sm);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-background);
+  border: none;
+  background: transparent;
   color: var(--color-text-primary);
   outline: none;
+}
+
+.coupon input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.summaryDivider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-3) 0;
 }
 
 .summaryRow {
@@ -273,8 +715,12 @@
   margin-bottom: var(--space-2);
 }
 
-.summaryRow.discount {
+.summaryRow.savings {
   color: var(--color-success);
+}
+
+.summaryRow.discount {
+  color: var(--color-primary);
 }
 
 .summaryTotal {
@@ -282,9 +728,7 @@
   justify-content: space-between;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  padding-top: var(--space-4);
-  margin-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
 }
 
 .summaryTotal span:last-child {
@@ -298,6 +742,21 @@
 
   .summary {
     position: static;
+    order: -1;
+  }
+
+  .steps {
+    padding: var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .stepInfo {
+    display: none;
+  }
+
+  .stepConnector {
+    margin-top: 0;
+    margin: 0 var(--space-2);
   }
 }
 
@@ -306,20 +765,29 @@
     padding: 0 var(--space-4);
   }
 
-  .steps {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .stepLine {
-    display: none;
-  }
-
   .row {
     grid-template-columns: 1fr;
   }
 
   .formActions {
     flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .formActions > button {
+    width: 100%;
+  }
+
+  .reviewActions {
+    flex-direction: column;
+  }
+
+  .cardNumber {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .cardArt {
+    padding: var(--space-4);
   }
 }
