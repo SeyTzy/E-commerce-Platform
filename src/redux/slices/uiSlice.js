@@ -14,8 +14,19 @@ const getStoredTheme = () => {
   }
 }
 
+const getStoredLanguage = () => {
+  try {
+    const lang = localStorage.getItem('luxecart_lang')
+    if (lang === 'km' || lang === 'en') return lang
+    return 'km'
+  } catch {
+    return 'km'
+  }
+}
+
 const initialState = {
   theme: getStoredTheme(),
+  language: getStoredLanguage(),
   isSidebarOpen: false,
   isMobileMenuOpen: false,
   isQuickViewOpen: false,
@@ -38,6 +49,22 @@ const uiSlice = createSlice({
       state.theme = action.payload
       localStorage.setItem('luxecart_theme', state.theme)
       document.documentElement.setAttribute('data-theme', state.theme)
+    },
+    setLanguage: (state, action) => {
+      state.language = action.payload
+      try {
+        localStorage.setItem('luxecart_lang', action.payload)
+      } catch {}
+      document.documentElement.setAttribute('lang', action.payload)
+      document.documentElement.setAttribute('data-lang', action.payload)
+    },
+    toggleLanguage: (state) => {
+      state.language = state.language === 'km' ? 'en' : 'km'
+      try {
+        localStorage.setItem('luxecart_lang', state.language)
+      } catch {}
+      document.documentElement.setAttribute('lang', state.language)
+      document.documentElement.setAttribute('data-lang', state.language)
     },
     toggleSidebar: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen
@@ -87,6 +114,8 @@ const uiSlice = createSlice({
 export const {
   toggleTheme,
   setTheme,
+  setLanguage,
+  toggleLanguage,
   toggleSidebar,
   setSidebarOpen,
   toggleMobileMenu,
@@ -104,6 +133,7 @@ export const {
 export default uiSlice.reducer
 
 export const selectTheme = (state) => state.ui.theme
+export const selectLanguage = (state) => state.ui.language
 export const selectIsSidebarOpen = (state) => state.ui.isSidebarOpen
 export const selectIsMobileMenuOpen = (state) => state.ui.isMobileMenuOpen
 export const selectIsQuickViewOpen = (state) => state.ui.isQuickViewOpen

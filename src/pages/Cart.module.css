@@ -42,7 +42,9 @@ h1 {
 
 .items {
   background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -52,9 +54,12 @@ h1 {
   gap: var(--space-4);
   padding: var(--space-4) var(--space-6);
   background-color: var(--color-surface-elevated);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .item {
@@ -64,6 +69,11 @@ h1 {
   align-items: center;
   padding: var(--space-6);
   border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+.item:hover {
+  background-color: rgba(99, 102, 241, 0.02);
 }
 
 .product {
@@ -73,15 +83,16 @@ h1 {
 }
 
 .product img {
-  width: 80px;
-  height: 80px;
+  width: 84px;
+  height: 84px;
   object-fit: cover;
   border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
 }
 
 .product h4 {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
+  font-size: 1.05rem;
+  font-weight: var(--font-weight-semibold);
 }
 
 .product span {
@@ -91,6 +102,8 @@ h1 {
 
 .price {
   font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
 }
 
@@ -106,10 +119,10 @@ h1 {
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: none;
+  background: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
@@ -123,7 +136,7 @@ h1 {
 .quantity span {
   min-width: 32px;
   text-align: center;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
 }
 
 .total {
@@ -134,7 +147,9 @@ h1 {
 
 .total > span:first-child {
   font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
 }
 
 .total button {
@@ -143,17 +158,20 @@ h1 {
   border: none;
   color: var(--color-text-muted);
   cursor: pointer;
-  transition: color var(--transition-fast);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
 }
 
 .total button:hover {
   color: var(--color-error);
+  background: var(--color-error-light);
 }
 
 .footer {
   display: flex;
   justify-content: space-between;
   padding: var(--space-4) var(--space-6);
+  background-color: var(--color-surface);
 }
 
 .footer a {
@@ -166,7 +184,9 @@ h1 {
   top: calc(var(--header-height) + var(--space-4));
   padding: var(--space-6);
   background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
 }
 
 .summary h3 {

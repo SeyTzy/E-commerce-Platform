@@ -1,13 +1,19 @@
 .card {
   position: relative;
   background-color: var(--color-surface);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: all var(--transition-base);
+  box-shadow: var(--shadow-card);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(99, 102, 241, 0.3);
 }
 
 .imageWrapper {
@@ -22,23 +28,27 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover .image {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .discount {
   position: absolute;
   top: var(--space-3);
   left: var(--space-3);
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
 }
 
 .newBadge {
   position: absolute;
   top: var(--space-3);
   right: var(--space-3);
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.35);
 }
 
 .overlay {
@@ -47,10 +57,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
-  background: rgba(0, 0, 0, 0.3);
+  gap: var(--space-3);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.05) 60%, transparent 100%);
   opacity: 0;
-  transition: opacity var(--transition-base);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover .overlay {
@@ -64,13 +76,23 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  background-color: var(--color-surface);
-  border: none;
-  border-radius: var(--radius-sm);
-  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-full);
+  color: #0F172A;
   cursor: pointer;
-  transition: all var(--transition-fast);
-  transform: translateY(10px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(12px);
+}
+
+[data-theme="dark"] .quickView,
+[data-theme="dark"] .wishlistBtn {
+  background: rgba(18, 20, 31, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #F8FAFC;
 }
 
 .card:hover .quickView,
@@ -78,38 +100,52 @@
   transform: translateY(0);
 }
 
-.quickView:hover,
-.wishlistBtn:hover {
+.quickView:hover {
   background-color: var(--color-primary);
+  border-color: var(--color-primary);
   color: var(--color-text-inverse);
+  transform: translateY(-2px) scale(1.08);
+}
+
+.wishlistBtn:hover {
+  background-color: #EF4444;
+  border-color: #EF4444;
+  color: #FFFFFF;
+  transform: translateY(-2px) scale(1.08);
 }
 
 .wishlistBtn.active {
-  color: var(--color-error);
+  background-color: #EF4444;
+  border-color: #EF4444;
+  color: #FFFFFF;
 }
 
 .content {
-  padding: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .category {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .category:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-hover);
 }
 
 .title {
   display: block;
-  margin-top: var(--space-1);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
+  margin-top: 4px;
+  font-size: 1.025rem;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
@@ -133,32 +169,33 @@
 
 .stars {
   display: flex;
-  gap: 2px;
+  gap: 3px;
 }
 
 .filled {
-  fill: var(--color-secondary);
-  color: var(--color-secondary);
+  fill: #F59E0B;
+  color: #F59E0B;
 }
 
 .priceRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-3);
   gap: var(--space-2);
 }
 
 .price {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--space-2);
   flex-wrap: wrap;
 }
 
 .currentPrice {
   font-family: var(--font-mono);
-  font-size: var(--font-size-base);
+  font-size: 1.15rem;
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
@@ -174,20 +211,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 var(--space-2);
-  background-color: var(--color-primary);
-  border: none;
-  border-radius: var(--radius-sm);
-  color: var(--color-text-inverse);
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #4338CA 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  color: #FFFFFF;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
 }
 
 .addToCart:hover {
-  background-color: var(--color-primary-hover);
-  transform: scale(1.05);
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.5);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.addToCart:active {
+  transform: translateY(0) scale(0.96);
 }
 
 /* Mobile Responsive */
@@ -208,34 +251,18 @@
     display: none;
   }
 
-  .priceRow {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2);
-  }
-
-  .price {
-    width: 100%;
-  }
-
   .currentPrice {
     font-size: var(--font-size-sm);
   }
 
   .addToCart {
-    width: 100%;
-    height: 32px;
-    font-size: var(--font-size-xs);
+    width: 36px;
+    height: 36px;
   }
 
   .quickView,
   .wishlistBtn {
-    width: 40px;
-    height: 40px;
-  }
-
-  .quickView span,
-  .wishlistBtn span {
-    display: none;
+    width: 38px;
+    height: 38px;
   }
 }

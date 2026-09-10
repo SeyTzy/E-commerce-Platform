@@ -5,16 +5,22 @@
   gap: var(--space-2);
   font-family: var(--font-primary);
   font-weight: var(--font-weight-semibold);
-  border: none;
-  border-radius: var(--radius-sm);
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base);
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
 }
 
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .button:focus-visible {
@@ -24,28 +30,39 @@
 
 /* Variants */
 .primary {
-  background-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, #4338CA 100%);
   color: var(--color-text-inverse);
+  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+  box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.45);
+  transform: translateY(-2px);
 }
 
 .primary:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
 }
 
 .secondary {
-  background-color: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: var(--color-primary);
-  color: var(--color-text-inverse);
+  background-color: var(--color-primary-subtle);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.secondary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
 }
 
 .ghost {
@@ -59,21 +76,27 @@
 }
 
 .danger {
-  background-color: var(--color-error);
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
   color: var(--color-text-inverse);
+  box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.3);
 }
 
 .danger:hover:not(:disabled) {
-  background-color: #DC2626;
+  background: linear-gradient(135deg, #F87171 0%, #DC2626 100%);
+  box-shadow: 0 6px 20px 0 rgba(239, 68, 68, 0.4);
+  transform: translateY(-2px);
 }
 
 .success {
-  background-color: var(--color-success);
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
   color: var(--color-text-inverse);
+  box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.3);
 }
 
 .success:hover:not(:disabled) {
-  background-color: #16A34A;
+  background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+  box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.4);
+  transform: translateY(-2px);
 }
 
 /* Sizes */

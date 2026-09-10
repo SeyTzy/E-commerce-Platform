@@ -1,0 +1,560 @@
+/* ==========================================================================
+   Language Switcher Styles - Luxury Dropdown & Adaptive Modes
+   ========================================================================== */
+
+/* Flag Base Styling */
+.flagSvg {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==========================================================================
+   1. Luxury Dropdown Variant (Default Header Style)
+   ========================================================================== */
+.dropdownWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+/* Dropdown Trigger Capsule Button */
+.dropdownTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 12px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  outline: none;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 
+    0 2px 5px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .dropdownTrigger {
+  background: var(--color-surface-elevated);
+  border-color: rgba(75, 85, 99, 0.6);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.dropdownTrigger:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary);
+  box-shadow: 
+    0 4px 14px rgba(99, 102, 241, 0.18),
+    0 0 0 1px rgba(99, 102, 241, 0.2);
+}
+
+.dropdownTrigger:hover .flagSvg {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.dropdownTriggerOpen {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 
+    0 4px 16px rgba(99, 102, 241, 0.24),
+    0 0 0 2px rgba(99, 102, 241, 0.25);
+}
+
+.triggerFlagWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.triggerCode {
+  font-weight: 700;
+  line-height: 1;
+}
+
+.chevronWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+
+.chevronIcon {
+  display: block;
+}
+
+/* Dropdown Floating Panel */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 236px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 8px;
+  box-shadow: 
+    0 16px 36px rgba(0, 0, 0, 0.14),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: var(--z-dropdown);
+  transform-origin: top right;
+}
+
+[data-theme="dark"] .dropdownMenu {
+  background: rgba(26, 26, 36, 0.96);
+  border-color: rgba(75, 85, 99, 0.55);
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.5),
+    0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px 8px;
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: 6px;
+}
+
+.dropdownHeaderTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.headerGlobeIcon {
+  color: var(--color-primary-light);
+}
+
+.activeCodeBadge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .activeCodeBadge {
+  background: rgba(99, 102, 241, 0.25);
+  color: var(--color-primary-light);
+}
+
+.dropdownList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Individual Dropdown Item */
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 12px;
+  background: transparent;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdownItem:hover {
+  background: var(--color-surface-elevated);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.dropdownItem:hover .flagSvg {
+  transform: scale(1.15) rotate(4deg);
+}
+
+.dropdownItemActive {
+  background: linear-gradient(135deg, rgba(67, 56, 202, 0.08) 0%, rgba(99, 102, 241, 0.14) 100%);
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.1);
+}
+
+[data-theme="dark"] .dropdownItemActive {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.22) 0%, rgba(99, 102, 241, 0.3) 100%);
+  border-color: var(--color-primary-light);
+}
+
+.itemLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemFlagWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemFlagGlow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.45);
+  filter: blur(5px);
+  z-index: -1;
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemNative {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.itemSub {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+.itemRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4338CA 0%, #6366F1 100%);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(67, 56, 202, 0.4);
+}
+
+.uncheckCircle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border);
+  transition: border-color 0.2s ease;
+}
+
+.dropdownItem:hover .uncheckCircle {
+  border-color: var(--color-primary-light);
+}
+
+/* ==========================================================================
+   2. Mobile Drawer Card Variant
+   ========================================================================== */
+.mobileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-2);
+}
+
+.mobileTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.mobileTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.mobileCurrentBadge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  background: rgba(99, 102, 241, 0.1);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.mobileGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.mobileOptionCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobileOptionCard:hover {
+  border-color: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.mobileOptionActive {
+  background: linear-gradient(135deg, rgba(67, 56, 202, 0.08) 0%, rgba(99, 102, 241, 0.14) 100%);
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 10px rgba(79, 70, 229, 0.12);
+}
+
+[data-theme="dark"] .mobileOptionActive {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.22) 0%, rgba(99, 102, 241, 0.3) 100%);
+  border-color: var(--color-primary-light);
+}
+
+.mobileOptionLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.flagWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flagActiveGlow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.4);
+  filter: blur(4px);
+  z-index: -1;
+}
+
+.mobileOptionText {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNativeName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.mobileSubName {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+.radioIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  color: #FFFFFF;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.radioIndicatorActive {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, #4338CA, #6366F1);
+  box-shadow: 0 1px 6px rgba(67, 56, 202, 0.4);
+}
+
+/* ==========================================================================
+   3. Dual Pill Variant
+   ========================================================================== */
+.pillContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.pillTrack {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  background: rgba(243, 244, 246, 0.9);
+  border: 1px solid rgba(209, 213, 219, 0.8);
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.04),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .pillTrack {
+  background: rgba(30, 32, 42, 0.85);
+  border-color: rgba(75, 85, 99, 0.5);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.pillTrack:hover {
+  border-color: var(--color-primary-light);
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.2),
+    0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.pillButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 10px;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  outline: none;
+  z-index: 1;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.pillButton:hover {
+  color: var(--color-text-primary);
+}
+
+.pillButton:hover .flagSvg {
+  transform: scale(1.18) rotate(5deg);
+}
+
+.pillButton:active {
+  transform: scale(0.96);
+}
+
+.pillButtonActive {
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.activeIndicator {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #4338CA 0%, #6366F1 50%, #4F46E5 100%);
+  box-shadow:
+    0 2px 10px rgba(67, 56, 202, 0.42),
+    0 1px 2px rgba(0, 0, 0, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  z-index: -1;
+  overflow: hidden;
+}
+
+.activeIndicator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 9999px 9999px 0 0;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .activeIndicator {
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 60%, #818CF8 100%);
+  box-shadow:
+    0 2px 12px rgba(99, 102, 241, 0.55),
+    0 0 16px rgba(99, 102, 241, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.pillContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pillFlag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pillLabel {
+  line-height: 1;
+  font-weight: 700;
+}
+
+.activeDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FBBF24;
+  box-shadow: 0 0 6px #F59E0B;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}

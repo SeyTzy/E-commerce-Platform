@@ -172,9 +172,9 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className={styles.sectionTag}>អ្នកដែលមានសកម្មភាព</span>
-            <h2>ជួបគ្នាទីកន្លែងរបស់យើង</h2>
-            <p>អ្នកដែលមានចិត្តសាធារណៈ ដែលធ្វើឱ្យយើងជោគជ័យ</p>
+            <span className={styles.sectionTag}>សមាជិកក្រុមរបស់យើង</span>
+            <h2>សមាជិកក្រុមរបស់យើង</h2>
+            <p>អ្នកដែលធ្វេី​ឱ្យក្រុមហ៊ុន​ យើងជោគជ័យ</p>
           </motion.div>
           <div className={styles.teamGrid}>
             {team.map((member, i) => (

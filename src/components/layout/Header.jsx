@@ -9,6 +9,8 @@ import { selectIsAuthenticated, selectCurrentUser, selectIsAdmin, logout } from 
 import { selectTheme, toggleTheme } from '../../redux/slices/uiSlice'
 import { setSearchQuery } from '../../redux/slices/productSlice'
 import { useUI } from '../../contexts/UIContext'
+import { useLanguage } from '../../contexts/LanguageContext'
+import { LanguageSwitch } from '../common'
 import styles from './Header.module.css'
 import { AnimatePresence as Presence } from 'framer-motion'
 
@@ -17,6 +19,7 @@ const Header = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { mobileMenuOpen, setMobileMenuOpen } = useUI()
+  const { t } = useLanguage()
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const [scrolled, setScrolled] = useState(false)
@@ -69,7 +72,7 @@ const Header = () => {
     return () => window.removeEventListener('popstate', handleNavigation)
   }, [])
 
-useEffect(() => {
+  useEffect(() => {
     if (searchValue) {
       dispatch(setSearchQuery(searchValue))
     }
@@ -100,11 +103,11 @@ useEffect(() => {
   }, [])
 
   const navLinks = [
-    { name: 'ទំព័រដើម', path: '/', icon: Home },
-    { name: 'ទំនិញ', path: '/shop', icon: Grid },
-    { name: 'ប្រភេទទំនិញ', path: '/categories', icon: Tags },
-    { name: 'អំពីយើង', path: '/about', icon: Info },
-    { name: 'ទំនាក់ទំនង', path: '/contact', icon: Mail }
+    { name: t('nav.home'), path: '/', icon: Home },
+    { name: t('nav.shop'), path: '/shop', icon: Grid },
+    { name: t('nav.categories'), path: '/categories', icon: Tags },
+    { name: t('nav.about'), path: '/about', icon: Info },
+    { name: t('nav.contact'), path: '/contact', icon: Mail }
   ]
 
   return (
@@ -154,10 +157,12 @@ useEffect(() => {
         </nav>
 
         <div className={styles.actions}>
+          <LanguageSwitch variant="dropdown" />
+
           <motion.button
             className={styles.iconButton}
             onClick={() => setSearchOpen(!searchOpen)}
-            aria-label="Search"
+            aria-label={t('common.search')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -167,7 +172,7 @@ useEffect(() => {
           <motion.button
             className={styles.iconButton}
             onClick={() => dispatch(toggleTheme())}
-            aria-label="Toggle theme"
+            aria-label={theme === 'dark' ? t('header.lightMode') : t('header.darkMode')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -178,7 +183,7 @@ useEffect(() => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">
+            <Link to="/wishlist" className={styles.iconButton} aria-label={t('nav.wishlist')}>
               <Heart size={20} />
               {wishlistCount > 0 && <motion.span
                 className={styles.badge}
@@ -193,7 +198,7 @@ useEffect(() => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="/cart" className={styles.iconButton} aria-label="Cart">
+            <Link to="/cart" className={styles.iconButton} aria-label={t('nav.cart')}>
               <ShoppingBag size={20} />
               {cartCount > 0 && <motion.span
                 className={styles.badge}
@@ -249,7 +254,7 @@ useEffect(() => {
                        transition={{ delay: 0.1 }}
                      >
                        <Link to="/account" onClick={() => setUserMenuOpen(false)}>
-                         <Settings size={16} /> My Account
+                         <Settings size={16} /> {t('header.myAccount')}
                        </Link>
                      </motion.div>
                      <motion.div
@@ -258,7 +263,7 @@ useEffect(() => {
                        transition={{ delay: 0.15 }}
                      >
                        <Link to="/orders" onClick={() => setUserMenuOpen(false)}>
-                         <Package size={16} /> My Orders
+                         <Package size={16} /> {t('header.myOrders')}
                        </Link>
                      </motion.div>
                      {isAdmin && (
@@ -268,7 +273,7 @@ useEffect(() => {
                          transition={{ delay: 0.2 }}
                        >
                          <Link to="/admin" onClick={() => setUserMenuOpen(false)}>
-                           <LayoutDashboard size={16} /> Admin Dashboard
+                           <LayoutDashboard size={16} /> {t('header.adminDashboard')}
                          </Link>
                        </motion.div>
                      )}
@@ -286,7 +291,7 @@ useEffect(() => {
                          }}
                          className={styles.logoutBtn}
                        >
-                         <LogOut size={16} /> Sign Out
+                         <LogOut size={16} /> {t('header.signOut')}
                        </button>
                      </motion.div>
                    </motion.div>
@@ -295,7 +300,7 @@ useEffect(() => {
             </div>
           ) : (
             <Link to="/auth" className={styles.ctaButton}>
-              Sign In
+              {t('header.signIn')}
             </Link>
           )}
         </div>
@@ -313,7 +318,7 @@ useEffect(() => {
               <Search size={20} />
               <input
                 type="text"
-                placeholder="ស្វែងរកទំនិញ..."
+                placeholder={t('header.searchPlaceholder')}
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 autoFocus
@@ -403,12 +408,14 @@ useEffect(() => {
                 </nav>
 
                 <div className={styles.mobileActions}>
+                  <LanguageSwitch variant="card" />
+
                   <button 
                     className={styles.mobileActionButton}
                     onClick={() => { dispatch(toggleTheme()); setMobileMenuOpen(false) }}
                   >
                     {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                    <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                    <span>{theme === 'dark' ? t('header.lightMode') : t('header.darkMode')}</span>
                   </button>
                   <Link 
                     to="/cart" 
@@ -416,7 +423,7 @@ useEffect(() => {
                     onClick={(e) => handleNavClick(e, '/cart')}
                   >
                     <ShoppingBag size={20} />
-                    <span>Cart ({cartCount})</span>
+                    <span>{t('nav.cart')} ({cartCount})</span>
                   </Link>
                   <Link 
                     to="/wishlist" 
@@ -424,7 +431,7 @@ useEffect(() => {
                     onClick={(e) => handleNavClick(e, '/wishlist')}
                   >
                     <Heart size={20} />
-                    <span>Wishlist ({wishlistCount})</span>
+                    <span>{t('nav.wishlist')} ({wishlistCount})</span>
                   </Link>
                 </div>
 
@@ -439,12 +446,12 @@ useEffect(() => {
                       className={styles.mobileLogoutButton}
                     >
                       <LogOut size={18} />
-                      <span>Sign Out</span>
+                      <span>{t('header.signOut')}</span>
                     </button>
                   ) : (
                     <Link to="/auth" className={styles.mobileCtaButton} onClick={(e) => handleNavClick(e, '/auth')}>
                       <User size={18} />
-                      <span>Sign In</span>
+                      <span>{t('header.signIn')}</span>
                     </Link>
                   )}
                 </div>

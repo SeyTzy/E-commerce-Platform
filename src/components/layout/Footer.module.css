@@ -2,12 +2,18 @@
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
   margin-top: auto;
+  position: relative;
+}
+
+[data-theme="dark"] .footer {
+  background-color: #0B0D14;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-16) var(--space-6) var(--space-8);
+  padding: var(--space-20) var(--space-6) var(--space-10);
 }
 
 .top {
@@ -30,10 +36,16 @@
 }
 
 .logoImg {
-  height: 36px;
+  height: 42px;
   width: auto;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo:hover .logoImg {
+  transform: scale(1.05);
 }
 
 .logoText {
@@ -60,11 +72,12 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   text-decoration: none;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .contactItem:hover {
   color: var(--color-primary);
+  transform: translateX(3px);
 }
 
 .links {
@@ -78,9 +91,11 @@
 
 .linkTitle {
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-4);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
 }
 
 .linkList {
@@ -94,11 +109,12 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   text-decoration: none;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .linkList a:hover {
   color: var(--color-primary);
+  transform: translateX(4px);
 }
 
 .newsletter {
@@ -107,13 +123,15 @@
   gap: var(--space-4);
   padding: var(--space-6);
   background-color: var(--color-surface-elevated);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .newsletterText {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
+  line-height: 1.5;
 }
 
 .newsletterForm {
@@ -133,12 +151,12 @@
 
 .newsletterForm input {
   flex: 1;
-  height: 48px;
+  height: 46px;
   padding: 0 var(--space-4);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   color: var(--color-text-primary);
-  background-color: var(--color-surface-elevated);
-  border: 2px solid var(--color-border);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   outline: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -146,7 +164,7 @@
 
 .newsletterForm input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .newsletterForm input::placeholder {
@@ -154,13 +172,13 @@
 }
 
 .newsletterForm button {
-  padding: 0 var(--space-6);
-  height: 48px;
+  padding: 0 var(--space-5);
+  height: 46px;
 }
 
 .social {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-2);
   margin-top: var(--space-2);
 }
 
@@ -168,17 +186,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   color: var(--color-text-secondary);
-  background-color: var(--color-surface-elevated);
-  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
 }
 
 .social a:hover {
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
   background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
 }
 
 .bottom {

@@ -4,6 +4,7 @@ import { Layout } from './components/layout'
 import { CartSidebar } from './components/features'
 import { Spinner } from './components/common'
 import { UIProvider } from './contexts/UIContext'
+import { LanguageProvider } from './contexts/LanguageContext'
 
 const Home = lazy(() => import('./pages/Home'))
 const Shop = lazy(() => import('./pages/Shop'))
@@ -34,30 +35,32 @@ const Loading = () => (
 
 function App() {
   return (
-    <UIProvider>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="shop" element={<Shop />} />
-            <Route path="product/:id" element={<ProductDetail />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="wishlist" element={<Wishlist />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="orders/:id" element={<OrderDetail />} />
-            <Route path="account" element={<Account />} />
-            <Route path="auth" element={<Auth />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="categories" element={<Categories />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-          </Route>
-          <Route path="admin" element={<Admin />} />
-        </Routes>
-      </Suspense>
-      <CartSidebar />
-    </UIProvider>
+    <LanguageProvider>
+      <UIProvider>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="shop" element={<Shop />} />
+              <Route path="product/:id" element={<ProductDetail />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="wishlist" element={<Wishlist />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="orders/:id" element={<OrderDetail />} />
+              <Route path="account" element={<Account />} />
+              <Route path="auth" element={<Auth />} />
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="about" element={<About />} />
+              <Route path="contact" element={<Contact />} />
+            </Route>
+            <Route path="admin" element={<Admin />} />
+          </Routes>
+        </Suspense>
+        <CartSidebar />
+      </UIProvider>
+    </LanguageProvider>
   )
 }
 

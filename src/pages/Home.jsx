@@ -7,6 +7,7 @@ import { Button } from '../components/common'
 import { ProductCard } from '../components/features'
 import { products, categories, categoryIcons } from '../data/products'
 import { setProducts, setCategories } from '../redux/slices/productSlice'
+import { useLanguage } from '../contexts/LanguageContext'
 import styles from './Home.module.css'
 
 const heroImages = [
@@ -25,6 +26,7 @@ const iconMap = {
 
 const Home = () => {
   const dispatch = useDispatch()
+  const { t, language } = useLanguage()
   const featuredProducts = products.slice(0, 8)
   const newArrivals = products.filter(p => p.isNew).slice(0, 4)
   const [currentImage, setCurrentImage] = useState(0)
@@ -56,10 +58,28 @@ const Home = () => {
   }
 
   const features = [
-    { icon: <Truck size={24} />, title: 'ដឹកជញ្ជូនឥតគិតថ្លៃ', desc: 'រាល់ការកុម្ម៉ង់ចាប់ពី $100 ឡើងទៅ' },
-    { icon: <Shield size={24} />, title: 'ការទូទាត់ប្រាក់', desc: 'ប្រកបដោយសុវត្ថិភាព100%' },
-    { icon: <RefreshCw size={24} />, title: 'ប្តូរទំនិញវិញងាយស្រួល', desc: 'អាចប្តូរវិញបានក្នុងរយៈពេល 30 ថ្ងៃ' },
-    { icon: <Star size={24} />, title: 'ការធានាលើគុណភាព', desc: 'ផលិតផលគុណភាពខ្ពស់' }
+    { icon: <Truck size={24} />, title: t('features.freeShipping'), desc: t('features.freeShippingDesc') },
+    { icon: <Shield size={24} />, title: t('features.securePayment'), desc: t('features.securePaymentDesc') },
+    { icon: <RefreshCw size={24} />, title: t('features.easyReturns'), desc: t('features.easyReturnsDesc') },
+    { icon: <Star size={24} />, title: t('features.qualityGuarantee'), desc: t('features.qualityGuaranteeDesc') }
+  ]
+
+  const testimonials = [
+    {
+      name: 'Phanna',
+      text: language === 'km' ? 'គុណភាពអេមខ្លាំង ហើយដឹកជញ្ជូនលឿនទៀត' : 'Outstanding product quality and lightning-fast delivery!',
+      rating: 5
+    },
+    {
+      name: 'Visa',
+      text: language === 'km' ? 'ការទិញទំនិញអនឡាញដ៏ល្អបំផុតមិនធ្លាប់មាន' : 'The best premium online shopping experience in Cambodia.',
+      rating: 5
+    },
+    {
+      name: 'Reaksa',
+      text: language === 'km' ? 'សេវាកម្មល្អបំផុត ហើយផលិតផលច្បាស់ប្រាកដ' : 'Exceptional customer service and 100% genuine authentic products.',
+      rating: 5
+    }
   ]
 
   return (
@@ -88,7 +108,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  គ្រឿងអាសេសេីរីថ្មីៗ
+                  {t('hero.tag')}
                 </motion.span>
                 <motion.h1 
                   className={styles.heroTitle}
@@ -96,7 +116,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  ទិញទំនិញគ្រប់យ៉ាង <span>ដែលអ្នកចង់បាន</span>
+                  {t('hero.title')} <span>{t('hero.titleHighlight')}</span>
                 </motion.h1>
                 <motion.p 
                   className={styles.heroDesc}
@@ -104,7 +124,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  ស្វែងរកផលិតផលដែលអ្នកចង់បាន​ ជាងរាប់ពាន់មុខ។
+                  {t('hero.subtitle')}
                 </motion.p>
                 <motion.div 
                   className={styles.heroActions}
@@ -114,12 +134,12 @@ const Home = () => {
                 >
                   <Link to="/shop">
                     <Button variant="primary" size="large">
-                      កម្មង់ឥឡូវនេះ <ArrowRight size={20} />
+                      {t('hero.shopNow')} <ArrowRight size={20} />
                     </Button>
                   </Link>
                   <Link to="/categories">
                     <Button variant="secondary" size="large">
-                      រកមើលប្រភេទផលិតផល
+                      {t('hero.exploreCategories')}
                     </Button>
                   </Link>
                 </motion.div>
@@ -127,10 +147,10 @@ const Home = () => {
             </motion.div>
           </AnimatePresence>
           
-          <button className={`${styles.sliderBtn} ${styles.prevBtn}`} onClick={prevSlide}>
+          <button className={`${styles.sliderBtn} ${styles.prevBtn}`} onClick={prevSlide} aria-label="Previous Slide">
             <ChevronLeft size={32} />
           </button>
-          <button className={`${styles.sliderBtn} ${styles.nextBtn}`} onClick={nextSlide}>
+          <button className={`${styles.sliderBtn} ${styles.nextBtn}`} onClick={nextSlide} aria-label="Next Slide">
             <ChevronRight size={32} />
           </button>
           
@@ -140,6 +160,7 @@ const Home = () => {
                 key={index}
                 className={`${styles.dot} ${index === currentImage ? styles.activeDot : ''}`}
                 onClick={() => setCurrentImage(index)}
+                aria-label={`Slide ${index + 1}`}
               />
             ))}
           </div>
@@ -172,35 +193,38 @@ const Home = () => {
       <section className={styles.categories}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2>ទិញទំនិញតាមប្រភេទ</h2>
-            <Link to="/categories">មើលទាំងអស់ <ArrowRight size={16} /></Link>
+            <h2>{t('home.browseCategories')}</h2>
+            <Link to="/categories">{t('common.viewAll')} <ArrowRight size={16} /></Link>
           </div>
           <div className={styles.categoryGrid}>
-            {categories.map((cat, i) => (
-              <motion.div
-                key={cat.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <Link to={`/shop?category=${cat.id}`} className={styles.categoryCard}>
-                  {(() => {
-                    const { Icon, iconStyle } = getCategoryIcon(cat.icon)
-                    return (
-                      <span 
-                        className={styles.categoryIcon}
-                        style={{ backgroundColor: iconStyle.bg, color: iconStyle.color }}
-                      >
-                        <Icon size={28} />
-                      </span>
-                    )
-                  })()}
-                  <h4>{cat.name}</h4>
-                  <span>{cat.count} Products</span>
-                </Link>
-              </motion.div>
-            ))}
+            {categories.map((cat, i) => {
+              const categoryTitle = t(`categories.${cat.id}`, cat.name)
+              return (
+                <motion.div
+                  key={cat.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <Link to={`/shop?category=${cat.id}`} className={styles.categoryCard}>
+                    {(() => {
+                      const { Icon, iconStyle } = getCategoryIcon(cat.icon)
+                      return (
+                        <span 
+                          className={styles.categoryIcon}
+                          style={{ backgroundColor: iconStyle.bg, color: iconStyle.color }}
+                        >
+                          <Icon size={28} />
+                        </span>
+                      )
+                    })()}
+                    <h4>{categoryTitle}</h4>
+                    <span>{cat.count} {t('common.items')}</span>
+                  </Link>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -208,8 +232,8 @@ const Home = () => {
       <section className={styles.products}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>           
-            <h2>ផលិតផលណែនាំ</h2>
-            <Link to="/shop">មើលទាំងអស់ <ArrowRight size={16} /></Link>
+            <h2>{t('home.featuredTitle')}</h2>
+            <Link to="/shop">{t('common.viewAll')} <ArrowRight size={16} /></Link>
           </div>
           <div className={styles.productGrid}>
             {featuredProducts.map((product, i) => (
@@ -222,8 +246,8 @@ const Home = () => {
       <section className={styles.newArrivals}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2>ថ្មីៗ</h2>
-            <Link to="/shop?sort=newest">មើលទាំងអស់ <ArrowRight size={16} /></Link>
+            <h2>{t('home.newArrivalsTitle')}</h2>
+            <Link to="/shop?sort=newest">{t('common.viewAll')} <ArrowRight size={16} /></Link>
           </div>
           <div className={styles.productGrid}>
             {newArrivals.map((product, i) => (
@@ -236,12 +260,12 @@ const Home = () => {
       <section className={styles.banner}>
         <div className={styles.container}>
           <div className={styles.bannerContent}>
-            <span className={styles.bannerTag}>ការផ្តល់ជូនមានកំណត់</span>
-            <h2>ទទួលបានការបញ្ចុះតម្លៃ 20% សម្រាប់ការកុម្ម៉ង់លើកដំបូង</h2>
-            <p>សូមប្រើប្រាស់កូដ WELCOME នៅពេលទូទាត់ប្រាក់</p>
+            <span className={styles.bannerTag}>{language === 'km' ? 'ការផ្តល់ជូនមានកំណត់' : 'Limited Time Exclusive'}</span>
+            <h2>{t('home.bannerTitle')}</h2>
+            <p>{t('home.bannerSubtitle')}</p>
             <Link to="/shop">
               <Button variant="primary" size="large">
-                កម្មង់ឥឡូវនេះ
+                {t('hero.shopNow')}
               </Button>
             </Link>
           </div>
@@ -250,13 +274,11 @@ const Home = () => {
 
       <section className={styles.testimonials}>
         <div className={styles.container}>
-          <h2 className={styles.testimonialTitle}>ចំណាប់អារម្មណ៍ពីអតិថិជនរបស់យើង</h2>
+          <h2 className={styles.testimonialTitle}>
+            {language === 'km' ? 'ចំណាប់អារម្មណ៍ពីអតិថិជនរបស់យើង' : 'What Our Customers Say'}
+          </h2>
           <div className={styles.testimonialGrid}>
-            {[
-              { name: 'Phanna', text: 'គុណភាពអេមខ្លាំង ហើយដឹកជញ្ជូនលឿនទៀត', rating: 5 },
-              { name: 'Visa', text: 'ការទិញទំនិញអនឡាញដ៏ល្អបំផុតមិនធ្លាប់មាន', rating: 5 },
-              { name: 'Reaksa', text: 'សេវាកម្មល្អបំផុត ហើយផលិតផលច្បាស់ប្រាកដ', rating: 5 }
-            ].map((testimonial, i) => (
+            {testimonials.map((testimonial, i) => (
               <motion.div 
                 key={testimonial.name}
                 className={styles.testimonialCard}

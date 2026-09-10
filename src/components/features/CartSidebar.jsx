@@ -5,10 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { selectIsSidebarOpen, setSidebarOpen } from '../../redux/slices/uiSlice'
 import { selectCartItems, selectCartTotal, removeFromCart, updateQuantity, selectCartCount } from '../../redux/slices/cartSlice'
 import { Button } from '../common'
+import { useLanguage } from '../../contexts/LanguageContext'
 import styles from './CartSidebar.module.css'
 
 const CartSidebar = () => {
   const dispatch = useDispatch()
+  const { t } = useLanguage()
   const isOpen = useSelector(selectIsSidebarOpen)
   const items = useSelector(selectCartItems)
   const total = useSelector(selectCartTotal)
@@ -37,9 +39,9 @@ const CartSidebar = () => {
             <div className={styles.header}>
               <h3 className={styles.title}>
                 <ShoppingBag size={20} />
-                កន្ត្រកទំនិញ ({count})
+                {t('cart.title')} ({count})
               </h3>
-              <button className={styles.closeBtn} onClick={handleClose}>
+              <button className={styles.closeBtn} onClick={handleClose} aria-label={t('common.close')}>
                 <X size={20} />
               </button>
             </div>
@@ -48,9 +50,9 @@ const CartSidebar = () => {
               {items.length === 0 ? (
                 <div className={styles.empty}>
                   <ShoppingBag size={48} strokeWidth={1.5} />
-                  <p>មិនមានទំនិញក្នុងកន្ត្រក</p>
+                  <p>{t('cart.emptyTitle')}</p>
                   <Button variant="secondary" onClick={handleClose}>
-                    ទិញទំនិញបន្ត
+                    {t('cart.continueShopping')}
                   </Button>
                 </div>
               ) : (
@@ -82,6 +84,7 @@ const CartSidebar = () => {
                         <button
                           className={styles.removeBtn}
                           onClick={() => dispatch(removeFromCart({ id: item.id, variant: item.variant }))}
+                          aria-label={t('common.remove')}
                         >
                           <Trash2 size={16} />
                         </button>
@@ -95,17 +98,17 @@ const CartSidebar = () => {
             {items.length > 0 && (
               <div className={styles.footer}>
                 <div className={styles.subtotal}>
-                  <span>Subtotal</span>
+                  <span>{t('cart.subtotal')}</span>
                   <span className={styles.total}>${total.toFixed(2)}</span>
                 </div>
-                <p className={styles.note}>Shipping & taxes calculated at checkout</p>
+                <p className={styles.note}>{t('cart.taxesNote')}</p>
                 <Link to="/checkout" onClick={handleClose}>
                   <Button variant="primary" fullWidth size="large">
-                    Checkout <ArrowRight size={18} />
+                    {t('cart.checkout')} <ArrowRight size={18} />
                   </Button>
                 </Link>
                 <Link to="/cart" className={styles.viewCart} onClick={handleClose}>
-                  មើលកន្ត្រក
+                  {t('cart.viewCart')}
                 </Link>
               </div>
             )}

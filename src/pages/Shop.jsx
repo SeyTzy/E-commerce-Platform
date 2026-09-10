@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Search, SlidersHorizontal, X, Grid, List, Laptop, Watch, Sofa, Lamp, Dumbbell } from 'lucide-react'
 import { ProductCard } from '../components/features'
 import { Button, Select } from '../components/common'
 import { products, categories } from '../data/products'
+import { useLanguage } from '../contexts/LanguageContext'
 import styles from './Shop.module.css'
 
 const iconMap = {
@@ -16,12 +17,11 @@ const iconMap = {
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+  const { t } = useLanguage()
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [viewMode, setViewMode] = useState('grid')
   
   const [category, setCategory] = useState(searchParams.get('category') || '')
-  const [priceMin, setPriceMin] = useState(0)
-  const [priceMax, setPriceMax] = useState(1000)
   const [priceRange, setPriceRange] = useState([0, 1000])
   const [rating, setRating] = useState(0)
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'popular')
@@ -63,6 +63,9 @@ const Shop = () => {
         break
       case 'newest':
         result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0))
+        break
+      case 'rating':
+        result.sort((a, b) => (b.rating || 0) - (a.rating || 0))
         break
       case 'name':
         result.sort((a, b) => a.name.localeCompare(b.name))
@@ -106,10 +109,11 @@ const Shop = () => {
   const hasActiveFilters = category || priceRange[0] > 0 || priceRange[1] < 1000 || rating > 0 || search
 
   const sortOptions = [
-    { value: 'popular', label: 'Most Popular' },
-    { value: 'newest', label: 'Newest' },
-    { value: 'price-low', label: 'Price: Low to High' },
-    { value: 'price-high', label: 'Price: High to Low' },
+    { value: 'popular', label: t('shop.sortPopular') },
+    { value: 'newest', label: t('shop.sortNewest') },
+    { value: 'price-low', label: t('shop.sortPriceLow') },
+    { value: 'price-high', label: t('shop.sortPriceHigh') },
+    { value: 'rating', label: t('shop.sortRating') },
     { value: 'name', label: 'Name: A-Z' }
   ]
 
@@ -117,8 +121,8 @@ const Shop = () => {
     <div className={styles.shop}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1>Shop All Products</h1>
-          <p>{filteredProducts.length} products</p>
+          <h1>{t('shop.title')}</h1>
+          <p>{t('shop.showingResults', { count: filteredProducts.length, total: products.length })}</p>
         </div>
 
         <div className={styles.toolbar}>
@@ -126,7 +130,7 @@ const Shop = () => {
             <Search size={20} />
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder={t('common.searchPlaceholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -135,7 +139,7 @@ const Shop = () => {
           <div className={styles.controls}>
             <button className={styles.filterToggle} onClick={() => setMobileFiltersOpen(true)}>
               <SlidersHorizontal size={18} />
-              Filters
+              {t('shop.filters')}
             </button>
 
             <Select
@@ -145,10 +149,18 @@ const Shop = () => {
             />
 
             <div className={styles.viewToggle}>
-              <button className={viewMode === 'grid' ? styles.active : ''} onClick={() => setViewMode('grid')}>
+              <button 
+                className={viewMode === 'grid' ? styles.active : ''} 
+                onClick={() => setViewMode('grid')}
+                aria-label={t('shop.viewGrid')}
+              >
                 <Grid size={18} />
               </button>
-              <button className={viewMode === 'list' ? styles.active : ''} onClick={() => setViewMode('list')}>
+              <button 
+                className={viewMode === 'list' ? styles.active : ''} 
+                onClick={() => setViewMode('list')}
+                aria-label={t('shop.viewList')}
+              >
                 <List size={18} />
               </button>
             </div>
@@ -158,14 +170,14 @@ const Shop = () => {
         <div className={styles.content}>
           <aside className={`${styles.sidebar} ${mobileFiltersOpen ? styles.open : ''}`}>
             <div className={styles.sidebarHeader}>
-              <h3>Filters</h3>
-              <button onClick={() => setMobileFiltersOpen(false)}>
+              <h3>{t('shop.filters')}</h3>
+              <button onClick={() => setMobileFiltersOpen(false)} aria-label={t('common.close')}>
                 <X size={20} />
               </button>
             </div>
 
             <div className={styles.filterGroup}>
-              <h4>Category</h4>
+              <h4>{t('shop.categories')}</h4>
               <div className={styles.filterOptions}>
                 <label className={styles.filterOption}>
                   <input
@@ -174,10 +186,11 @@ const Shop = () => {
                     checked={!category}
                     onChange={() => handleCategoryChange('')}
                   />
-                  All Categories
+                  {t('shop.allCategories')}
                 </label>
                 {categories.map(cat => {
                   const Icon = iconMap[cat.icon]
+                  const categoryName = t(`categories.${cat.id}`, cat.name)
                   return (
                     <label key={cat.id} className={styles.filterOption}>
                       <input
@@ -187,7 +200,7 @@ const Shop = () => {
                         onChange={() => handleCategoryChange(cat.id)}
                       />
                       {Icon && <Icon size={16} style={{ marginRight: 6 }} />}
-                      {cat.name}
+                      {categoryName}
                     </label>
                   )
                 })}
@@ -195,7 +208,7 @@ const Shop = () => {
             </div>
 
             <div className={styles.filterGroup}>
-              <h4>Price Range</h4>
+              <h4>{t('shop.priceRange')}</h4>
               <div className={styles.priceDisplay}>
                 <span className={styles.priceValue}>${priceRange[0]}</span>
                 <span className={styles.priceDash}>—</span>
@@ -222,6 +235,7 @@ const Shop = () => {
                     if (val < priceRange[1]) setPriceRange([val, priceRange[1]])
                   }}
                   className={styles.sliderInput}
+                  aria-label={t('shop.minPrice')}
                 />
                 <input
                   type="range"
@@ -234,6 +248,7 @@ const Shop = () => {
                     if (val > priceRange[0]) setPriceRange([priceRange[0], val])
                   }}
                   className={styles.sliderInput}
+                  aria-label={t('shop.maxPrice')}
                 />
               </div>
               <div className={styles.priceLabels}>
@@ -243,7 +258,7 @@ const Shop = () => {
             </div>
 
             <div className={styles.filterGroup}>
-              <h4>Rating</h4>
+              <h4>{t('shop.rating')}</h4>
               <div className={styles.filterOptions}>
                 {[4, 3, 2, 1].map(r => (
                   <label key={r} className={styles.filterOption}>
@@ -253,7 +268,7 @@ const Shop = () => {
                       checked={rating === r}
                       onChange={() => setRating(rating === r ? 0 : r)}
                     />
-                    {r}+ Stars
+                    {r}+ {t('shop.starsAndUp')}
                   </label>
                 ))}
               </div>
@@ -261,7 +276,7 @@ const Shop = () => {
 
             {hasActiveFilters && (
               <Button variant="ghost" fullWidth onClick={handleClearFilters}>
-                Clear All Filters
+                {t('shop.resetFilters')}
               </Button>
             )}
           </aside>
@@ -269,9 +284,9 @@ const Shop = () => {
           <main className={styles.main}>
             {filteredProducts.length === 0 ? (
               <div className={styles.empty}>
-                <p>No products found</p>
+                <p>{t('shop.noProductsFound')}</p>
                 <Button variant="secondary" onClick={handleClearFilters}>
-                  Clear Filters
+                  {t('shop.resetFilters')}
                 </Button>
               </div>
             ) : (

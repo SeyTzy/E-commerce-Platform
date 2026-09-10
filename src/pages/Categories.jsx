@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { ProductCard } from '../components/features'
 import { selectFilteredProducts, setFilter, applyFilters } from '../redux/slices/productSlice'
 import { products, categories } from '../data/products'
+import { useLanguage } from '../contexts/LanguageContext'
 import styles from './Categories.module.css'
 
 const iconMap = {
@@ -26,6 +27,7 @@ const categoryGradients = [
 
 const Categories = () => {
   const dispatch = useDispatch()
+  const { t } = useLanguage()
   const filteredProducts = useSelector(selectFilteredProducts)
 
   const categoryCounts = useMemo(() => {
@@ -57,9 +59,9 @@ const Categories = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.heroLabel}>ស្វែងរក</span>
-            <h1>ទិញទំនិញតាមប្រភេទ</h1>
-            <p>រីករាយទស្សនាបណ្តុំផលិតផលពិសេសៗរបស់យើង ដែលបែងចែកជា ៥ ប្រភេទប្លែកពីគ្នា។</p>
+            <span className={styles.heroLabel}>{t('categories.explore')}</span>
+            <h1>{t('categories.title')}</h1>
+            <p>{t('categories.subtitle')}</p>
           </motion.div>
         </div>
       </div>
@@ -69,6 +71,7 @@ const Categories = () => {
           {categories.map((cat, i) => {
             const Icon = iconMap[cat.icon]
             const gradient = categoryGradients[i % categoryGradients.length]
+            const categoryName = t(`categories.${cat.id}`, cat.name)
             return (
               <motion.div
                 key={cat.id}
@@ -88,10 +91,10 @@ const Categories = () => {
                     {Icon && <Icon size={36} />}
                     <div className={styles.iconGlow} />
                   </div>
-                  <h3>{cat.name}</h3>
-                  <p>{categoryCounts[cat.id]} products</p>
+                  <h3>{categoryName}</h3>
+                  <p>{categoryCounts[cat.id] || 0} {t('common.items')}</p>
                   <span className={styles.link}>
-                    ទិញឥឡូវនេះ <ArrowRight size={16} />
+                    {t('hero.shopNow')} <ArrowRight size={16} />
                   </span>
                   <div className={styles.cardGlow} style={{ background: gradient }} />
                 </Link>
@@ -107,7 +110,7 @@ const Categories = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              ផលិតផលពិសេស
+              {t('home.featuredTitle')}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -115,7 +118,7 @@ const Categories = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              ផលិតផលសម្រិតសម្រាំង សម្រាប់អ្នកជាពិសេស
+              {t('home.featuredSubtitle')}
             </motion.p>
           </div>
           <div className={styles.products}>

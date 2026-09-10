@@ -5,22 +5,27 @@
   right: 0;
   z-index: var(--z-sticky);
   height: var(--header-height);
-  background: var(--color-surface);
-  border-bottom: 1px solid transparent;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--color-border);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .scrolled {
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
   border-bottom: 1px solid var(--color-border);
+  background: var(--glass-bg);
 }
 
 [data-theme="dark"] .header {
-  background: var(--color-surface);
+  background: var(--glass-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="dark"] .scrolled {
-  background: var(--color-surface);
+  box-shadow: 0 10px 35px -10px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .container {
@@ -37,10 +42,10 @@
   display: none;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   background: var(--color-surface-elevated);
-  border: none;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-primary);
   cursor: pointer;
@@ -49,6 +54,7 @@
 
 .menuButton:hover {
   background: var(--color-border);
+  color: var(--color-primary);
 }
 
 .logo {
@@ -62,11 +68,13 @@
   width: auto;
   border-radius: 50%;
   object-fit: cover;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logo:hover .logoImg {
   transform: scale(1.05);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4), var(--shadow-glow);
 }
 
 .nav {
@@ -84,43 +92,26 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   text-decoration: none;
-  border-radius: var(--radius-md);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-full);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-}
-
-.navLink::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--color-primary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateX(-50%);
 }
 
 .navLink:hover {
   color: var(--color-primary);
-}
-
-.navLink:hover::after {
-  width: 80%;
+  background: var(--color-primary-subtle);
 }
 
 .navLinkActive {
   color: var(--color-primary);
-}
-
-.navLinkActive::after {
-  width: 80%;
+  background: var(--color-primary-subtle);
+  font-weight: var(--font-weight-semibold);
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
 }
 
 .iconButton {
@@ -128,58 +119,65 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: none;
-  border: none;
+  width: 42px;
+  height: 42px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   cursor: pointer;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
 }
 
 .iconButton:hover {
   background: var(--color-surface-elevated);
-  color: var(--color-text-primary);
-  transform: scale(1.05);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
 }
 
 .badge {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
-  font-size: 10px;
+  top: -2px;
+  right: -2px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  font-size: 11px;
   font-weight: var(--font-weight-bold);
   line-height: 18px;
   text-align: center;
-  color: var(--color-text-inverse);
-  background: var(--color-secondary);
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #F59E0B, #EF4444);
+  border: 2px solid var(--color-surface);
   border-radius: var(--radius-full);
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
 }
 
 .ctaButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 42px;
   padding: 0 var(--space-5);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-inverse);
-  background: var(--color-primary);
-  border: none;
-  border-radius: var(--radius-md);
+  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #4338CA 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
   cursor: pointer;
   text-decoration: none;
-  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  transition: all var(--transition-base);
 }
 
 .ctaButton:hover {
-  background: var(--color-primary-hover);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+  transform: translateY(-2px);
 }
 
 .searchBar {
@@ -187,7 +185,9 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: var(--color-surface);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   padding: var(--space-4) var(--space-6);
@@ -198,17 +198,19 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-surface-elevated);
-  border: 2px solid transparent;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
 }
 
 .searchForm:focus-within {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), var(--shadow-md);
 }
 
 .searchForm svg {
@@ -218,6 +220,7 @@
 
 .searchForm input {
   flex: 1;
+  height: 40px;
   border: none;
   background: none;
   font-size: var(--font-size-base);
@@ -230,16 +233,21 @@
 }
 
 .searchForm button {
-  padding: var(--space-1);
+  padding: var(--space-2);
   background: none;
   border: none;
   color: var(--color-text-muted);
   cursor: pointer;
-  transition: color var(--transition-fast);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
 }
 
 .searchForm button:hover {
   color: var(--color-primary);
+  background: var(--color-primary-subtle);
 }
 
 /* User Menu */
@@ -250,30 +258,34 @@
 .userButton {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-1);
-  background: none;
-  border: none;
-  color: var(--color-text-secondary);
+  gap: var(--space-2);
+  padding: 4px 10px 4px 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
   cursor: pointer;
   border-radius: var(--radius-full);
   transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
 }
 
 .userButton:hover {
-  background: var(--color-surface-elevated);
-  transform: scale(1.02);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
+  transform: translateY(-1px);
 }
 
 .avatar {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
 }
 
 .chevron {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--color-text-muted);
 }
 
 .chevronUp {
@@ -284,9 +296,11 @@
   position: absolute;
   top: calc(100% + var(--space-2));
   right: 0;
-  width: 220px;
+  width: 240px;
   padding: var(--space-2);
-  background: var(--color-surface);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);

@@ -1,34 +1,36 @@
 import { Link } from 'react-router-dom'
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Send } from 'lucide-react'
 import { Button } from '../common'
+import { useLanguage } from '../../contexts/LanguageContext'
 import styles from './Footer.module.css'
 
 const Footer = () => {
+  const { t } = useLanguage()
   const currentYear = new Date().getFullYear()
 
   const footerLinks = {
     shop: [
-      { name: 'ថ្មីៗ', path: '/shop?sort=newest' },
-      { name: 'អ្នកទិញច្រើន', path: '/shop?sort=popular' },
-      { name: 'ការលក់', path: '/shop?sale=true' },
-      { name: 'ផលិតផលទាំងអស់', path: '/shop' }
+      { name: t('footer.newest'), path: '/shop?sort=newest' },
+      { name: t('footer.popular'), path: '/shop?sort=popular' },
+      { name: t('footer.sale'), path: '/shop?sale=true' },
+      { name: t('footer.allProducts'), path: '/shop' }
     ],
     company: [
-      { name: 'អំពីយើង', path: '/about' },
-      { name: 'ការងារ', path: '/careers' },
-      { name: 'ព័ត៌មាន', path: '/press' },
-      { name: 'ប្លុក', path: '/blog' }
+      { name: t('footer.aboutUs'), path: '/about' },
+      { name: t('footer.careers'), path: '/careers' },
+      { name: t('footer.press'), path: '/press' },
+      { name: t('footer.blog'), path: '/blog' }
     ],
     support: [
-      { name: 'ជំនួយ', path: '/help' },
-      { name: 'ការដឹកជញ្ជូន', path: '/shipping' },
-      { name: 'ការត្រឡប់', path: '/returns' },
-      { name: 'តាមដានការបញ្ជា', path: '/track' }
+      { name: t('footer.help'), path: '/help' },
+      { name: t('footer.shippingInfo'), path: '/shipping' },
+      { name: t('footer.returns'), path: '/returns' },
+      { name: t('footer.trackOrder'), path: '/track' }
     ],
     legal: [
-      { name: 'គោលការណ៍ឯកជនភាព', path: '/privacy' },
-      { name: 'លក្ខខណ្ឌសេវាកម្ម', path: '/terms' },
-      { name: 'គោលការណ៍ប្រើប្រាស់', path: '/cookies' }
+      { name: t('footer.privacyPolicy'), path: '/privacy' },
+      { name: t('footer.termsOfService'), path: '/terms' },
+      { name: t('footer.cookiePolicy'), path: '/cookies' }
     ]
   }
 
@@ -41,10 +43,10 @@ const Footer = () => {
               <img src="/assets/images/LogoLuxCart.png" alt="LuxeCart" className={styles.logoImg} />
             </Link>
             <p className={styles.description}>
-              គោលដៅនៃផលិតផលលំដាប់ប្រីមៀម និងសេវាកម្មដ៏ល្អឥតខ្ចោះ។ ទិញទំនិញតាមទំនោរនិយមចុងក្រោយបង្អស់ដោយក្តីទំនុកចិត្ត។
+              {t('footer.description')}
             </p>
             <div className={styles.contact}>
-              <a href="tel:+885 99649877" className={styles.contactItem}>
+              <a href="tel:+88599649877" className={styles.contactItem}>
                 <Phone size={18} />
                 <span>+885 99 649 877</span>
               </a>
@@ -54,14 +56,14 @@ const Footer = () => {
               </a>
               <div className={styles.contactItem}>
                 <MapPin size={18} />
-                <span>សង្កាត់ទឹកល្អក់ទី១ ខណ្ឌទួលគោក រាជធានីភ្នំពេញ</span>
+                <span>{t('contact.addressText')}</span>
               </div>
             </div>
           </div>
 
           <div className={styles.links}>
             <div className={styles.linkGroup}>
-              <h4 className={styles.linkTitle}>Shop</h4>
+              <h4 className={styles.linkTitle}>{t('footer.shop')}</h4>
               <ul className={styles.linkList}>
                 {footerLinks.shop.map(link => (
                   <li key={link.path}>
@@ -72,7 +74,7 @@ const Footer = () => {
             </div>
 
             <div className={styles.linkGroup}>
-              <h4 className={styles.linkTitle}>Company</h4>
+              <h4 className={styles.linkTitle}>{t('footer.company')}</h4>
               <ul className={styles.linkList}>
                 {footerLinks.company.map(link => (
                   <li key={link.path}>
@@ -83,7 +85,7 @@ const Footer = () => {
             </div>
 
             <div className={styles.linkGroup}>
-              <h4 className={styles.linkTitle}>Support</h4>
+              <h4 className={styles.linkTitle}>{t('footer.support')}</h4>
               <ul className={styles.linkList}>
                 {footerLinks.support.map(link => (
                   <li key={link.path}>
@@ -94,7 +96,7 @@ const Footer = () => {
             </div>
 
             <div className={styles.linkGroup}>
-              <h4 className={styles.linkTitle}>Legal</h4>
+              <h4 className={styles.linkTitle}>{t('footer.legal')}</h4>
               <ul className={styles.linkList}>
                 {footerLinks.legal.map(link => (
                   <li key={link.path}>
@@ -106,14 +108,14 @@ const Footer = () => {
           </div>
 
           <div className={styles.newsletter}>
-            <h4 className={styles.linkTitle}>ទទួលបានព័ត៌មានថ្មីៗ</h4>
+            <h4 className={styles.linkTitle}>{t('footer.newsletterTitle')}</h4>
             <p className={styles.newsletterText}>
-              ភ្ជាប់ទំនាក់ទំនងជាមួយយើង ដើម្បីទទួលបានប្រូម៉ូសិនពិសេសៗ និងការផ្តល់ជូនផ្តាច់មុខ។
+              {t('footer.newsletterText')}
             </p>
-            <form className={styles.newsletterForm}>
-              <label htmlFor="newsletter-email" className={styles.newsletterLabel}>អាសយដ្ឋានអ៊ីមែល</label>
-              <input type="email" id="newsletter-email" placeholder="បញ្ចូលអាសយដ្ឋានអ៊ីមែលរបស់អ្នក" />
-              <Button variant="primary" size="medium">
+            <form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()}>
+              <label htmlFor="newsletter-email" className={styles.newsletterLabel}>{t('footer.emailAddress')}</label>
+              <input type="email" id="newsletter-email" placeholder={t('footer.emailPlaceholder')} />
+              <Button variant="primary" size="medium" aria-label={t('footer.subscribe')}>
                 <Send size={18} />
               </Button>
             </form>
@@ -128,9 +130,9 @@ const Footer = () => {
         </div>
 
         <div className={styles.bottom}>
-          <p>&copy; {currentYear} LuxeCart. All rights reserved.</p>
+          <p>&copy; {currentYear} LuxeCart. {t('footer.allRightsReserved')}</p>
           <div className={styles.payments}>
-            <span>យើងទទួលបាន:</span>
+            <span>{t('footer.acceptedPayments')}</span>
             <div className={styles.paymentIcons}>
               <div className={styles.paymentIcon} title="Visa">
                 <img src="https://raw.githubusercontent.com/slaterjohn/payment-logos/master/Square%20Corners/PNG/medium/visa.png" alt="Visa" />
@@ -138,7 +140,7 @@ const Footer = () => {
               <div className={styles.paymentIcon} title="Mastercard">
                 <img src="https://raw.githubusercontent.com/slaterjohn/payment-logos/master/Square%20Corners/PNG/medium/mastercard.png" alt="Mastercard" />
               </div>
-              <div className={styles.paymentIcon} title="Aceleda Bank ">
+              <div className={styles.paymentIcon} title="Aceleda Bank">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAKu3K10MP_MHViP6bAUVBjWscn2KwloGMQg&s" alt="Aceleda Bank" />
               </div>
               <div className={styles.paymentIcon} title="PayPal">

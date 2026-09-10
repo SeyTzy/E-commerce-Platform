@@ -7,10 +7,12 @@ import { addToWishlist, removeFromWishlist } from '../../redux/slices/wishlistSl
 import { toggleSidebar } from '../../redux/slices/uiSlice'
 import { selectIsInWishlist } from '../../redux/slices/wishlistSlice'
 import Badge from '../common/Badge'
+import { useLanguage } from '../../contexts/LanguageContext'
 import styles from './ProductCard.module.css'
 
 const ProductCard = ({ product, index = 0 }) => {
   const dispatch = useDispatch()
+  const { t } = useLanguage()
   const isInWishlist = useSelector(selectIsInWishlist(product.id))
 
   const handleAddToCart = (e) => {
@@ -32,6 +34,8 @@ const ProductCard = ({ product, index = 0 }) => {
     ? Math.round((1 - product.price / product.originalPrice) * 100)
     : 0
 
+  const categoryName = t(`categories.${product.category.toLowerCase()}`, product.category)
+
   return (
     <motion.div
       className={styles.card}
@@ -42,15 +46,16 @@ const ProductCard = ({ product, index = 0 }) => {
       <Link to={`/product/${product.id}`} className={styles.imageWrapper}>
         <img src={product.images[0]} alt={product.name} className={styles.image} loading="lazy" />
         {discount > 0 && <Badge variant="error" className={styles.discount}>-{discount}%</Badge>}
-        {product.isNew && <Badge variant="success" className={styles.newBadge}>New</Badge>}
+        {product.isNew && <Badge variant="success" className={styles.newBadge}>{t('common.new')}</Badge>}
         
         <div className={styles.overlay}>
-          <button className={styles.quickView} onClick={(e) => { e.preventDefault() }}>
+          <button className={styles.quickView} onClick={(e) => { e.preventDefault() }} aria-label={t('common.viewDetails')}>
             <Eye size={20} />
           </button>
           <button 
             className={`${styles.wishlistBtn} ${isInWishlist ? styles.active : ''}`} 
             onClick={handleWishlist}
+            aria-label={t('nav.wishlist')}
           >
             <Heart size={20} fill={isInWishlist ? 'currentColor' : 'none'} />
           </button>
@@ -58,7 +63,7 @@ const ProductCard = ({ product, index = 0 }) => {
       </Link>
 
       <div className={styles.content}>
-        <Link to={`/product/${product.id}`} className={styles.category}>{product.category}</Link>
+        <Link to={`/product/${product.id}`} className={styles.category}>{categoryName}</Link>
         <Link to={`/product/${product.id}`} className={styles.title}>{product.name}</Link>
         
         <div className={styles.rating}>
@@ -77,7 +82,12 @@ const ProductCard = ({ product, index = 0 }) => {
               <span className={styles.originalPrice}>${product.originalPrice.toFixed(2)}</span>
             )}
           </div>
-          <button className={styles.addToCart} onClick={handleAddToCart}>
+          <button
+            className={styles.addToCart}
+            onClick={handleAddToCart}
+            aria-label={t('common.addToCart')}
+            title={t('common.addToCart')}
+          >
             <ShoppingBag size={18} />
           </button>
         </div>

@@ -5,10 +5,12 @@ import { motion } from 'framer-motion'
 import { Button } from '../components/common'
 import { selectCartItems, selectCartTotal, selectCartOriginalTotal, removeFromCart, updateQuantity, clearCart } from '../redux/slices/cartSlice'
 import { coupons } from '../data/products'
+import { useLanguage } from '../contexts/LanguageContext'
 import styles from './Cart.module.css'
 
 const Cart = () => {
   const dispatch = useDispatch()
+  const { t, language } = useLanguage()
   const items = useSelector(selectCartItems)
   const subtotal = useSelector(selectCartTotal)
   const originalTotal = useSelector(selectCartOriginalTotal)
@@ -19,16 +21,16 @@ const Cart = () => {
   return (
     <div className={styles.cart}>
       <div className={styles.container}>
-        <h1>កន្រ្តក់</h1>
+        <h1>{t('cart.title')}</h1>
 
         {items.length === 0 ? (
           <div className={styles.empty}>
             <ShoppingBag size={64} strokeWidth={1.5} />
-            <h2>កន្រ្តក់ទទេ</h2>
-            <p>មិនទាន់មានទំនិញនៅក្នុងរទេះនៅឡើយទេ។</p>
+            <h2>{t('cart.emptyTitle')}</h2>
+            <p>{t('cart.emptyDesc')}</p>
             <Link to="/shop">
               <Button variant="primary" size="large">
-                បន្តការទិញទំនិញ <ArrowRight size={18} />
+                {t('cart.continueShopping')} <ArrowRight size={18} />
               </Button>
             </Link>
           </div>
@@ -36,10 +38,10 @@ const Cart = () => {
           <div className={styles.content}>
             <div className={styles.items}>
               <div className={styles.header}>
-                <span>ទំនិញ</span>
-                <span>តម្លៃ</span>
-                <span>បរិមាណ</span>
-                <span>សរុប</span>
+                <span>{t('cart.product')}</span>
+                <span>{t('cart.price')}</span>
+                <span>{t('cart.quantity')}</span>
+                <span>{t('cart.total')}</span>
               </div>
               
               {items.map((item, i) => (
@@ -59,17 +61,26 @@ const Cart = () => {
                   </div>
                   <span className={styles.price}>${item.price.toFixed(2)}</span>
                   <div className={styles.quantity}>
-                    <button onClick={() => dispatch(updateQuantity({ id: item.id, variant: item.variant, quantity: item.quantity - 1 }))}>
+                    <button 
+                      onClick={() => dispatch(updateQuantity({ id: item.id, variant: item.variant, quantity: item.quantity - 1 }))}
+                      aria-label="Decrease quantity"
+                    >
                       <Minus size={14} />
                     </button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => dispatch(updateQuantity({ id: item.id, variant: item.variant, quantity: item.quantity + 1 }))}>
+                    <button 
+                      onClick={() => dispatch(updateQuantity({ id: item.id, variant: item.variant, quantity: item.quantity + 1 }))}
+                      aria-label="Increase quantity"
+                    >
                       <Plus size={14} />
                     </button>
                   </div>
                   <div className={styles.total}>
                     <span>${(item.price * item.quantity).toFixed(2)}</span>
-                    <button onClick={() => dispatch(removeFromCart({ id: item.id, variant: item.variant }))}>
+                    <button 
+                      onClick={() => dispatch(removeFromCart({ id: item.id, variant: item.variant }))}
+                      aria-label={t('common.remove')}
+                    >
                       <Trash2 size={16} />
                     </button>
                   </div>
@@ -78,56 +89,56 @@ const Cart = () => {
 
               <div className={styles.footer}>
                 <Button variant="ghost" onClick={() => dispatch(clearCart())}>
-                  Clear កន្រ្តក់
+                  {t('cart.clearCart')}
                 </Button>
                 <Link to="/shop">
                   <Button variant="secondary">
-                    បន្តការទិញទំនិញ <ArrowRight size={18} />
+                    {t('cart.continueShopping')} <ArrowRight size={18} />
                   </Button>
                 </Link>
               </div>
             </div>
 
             <div className={styles.summary}>
-              <h3>សេចក្តីសង្ខេបការបញ្ជាទិញ</h3>
+              <h3>{t('cart.orderSummary')}</h3>
               
               <div className={styles.summaryRow}>
-                <span>សរុប</span>
+                <span>{t('cart.subtotal')}</span>
                 <span>${subtotal.toFixed(2)}</span>
               </div>
               
               {savings > 0 && (
                 <div className={`${styles.summaryRow} ${styles.savings}`}>
-                  <span>សេវាកម្ម</span>
+                  <span>{t('cart.savings')}</span>
                   <span>-${savings.toFixed(2)}</span>
                 </div>
               )}
               
               <div className={styles.summaryRow}>
-                <span>រំលង</span>
-                <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+                <span>{t('cart.shipping')}</span>
+                <span>{shipping === 0 ? t('common.free') : `$${shipping.toFixed(2)}`}</span>
               </div>
               
               <div className={styles.summaryRow}>
-                <span>ពន្ធ</span>
+                <span>{language === 'km' ? 'ពន្ធ' : 'Tax'}</span>
                 <span>$0.00</span>
               </div>
 
               <div className={styles.divider} />
               
               <div className={`${styles.summaryRow} ${styles.total}`}>
-                <span>សរុប</span>
+                <span>{t('cart.total')}</span>
                 <span>${total.toFixed(2)}</span>
               </div>
 
               <Link to="/checkout">
                 <Button variant="primary" fullWidth size="large">
-                  បន្តទៅកាន់ការទូទាត់ប្រាក់ <ArrowRight size={18} />
+                  {t('cart.checkout')} <ArrowRight size={18} />
                 </Button>
               </Link>
 
               <div className={styles.coupons}>
-                <h4>គូប៉ុងដែលមានស្រាប់</h4>
+                <h4>{language === 'km' ? 'គូប៉ុងដែលមានស្រាប់' : 'Available Promo Coupons'}</h4>
                 <div className={styles.couponList}>
                   {coupons.map(coupon => (
                     <div key={coupon.code} className={styles.coupon}>
