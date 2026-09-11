@@ -1,20 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Mail, ArrowLeft, Check } from 'lucide-react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Button, Input } from '../components/common'
+import * as firebaseAuth from '../firebase'
 import styles from './ForgotPassword.module.css'
 
 const ForgotPassword = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [firebaseAuth, setFirebaseAuth] = useState(null)
   const { register, handleSubmit, formState: { errors } } = useForm()
-
-  useEffect(() => {
-    import('../firebase').then(module => setFirebaseAuth(module))
-  }, [])
 
   const onSubmit = async (data) => {
     if (firebaseAuth?.resetPassword) {

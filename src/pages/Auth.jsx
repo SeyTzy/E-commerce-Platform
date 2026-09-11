@@ -8,11 +8,10 @@ import toast from 'react-hot-toast'
 import { Button, Input } from '../components/common'
 import { setCredentials, setLoading, setError, selectAuthLoading, selectAuthError, selectIsAuthenticated } from '../redux/slices/authSlice'
 import { useLanguage } from '../contexts/LanguageContext'
+import * as firebaseAuth from '../firebase'
 import styles from './Auth.module.css'
 
 const isFirebaseConfigured = true
-
-let firebaseAuth = null
 
 const Auth = () => {
   const dispatch = useDispatch()
@@ -23,7 +22,6 @@ const Auth = () => {
   const redirect = searchParams.get('redirect') || location.state?.from || '/'
   const mode = searchParams.get('mode')
   const [isLogin, setIsLogin] = useState(mode !== 'register' && mode !== 'signup')
-  const [firebaseReady, setFirebaseReady] = useState(false)
   const [unverifiedEmail, setUnverifiedEmail] = useState(null)
   const [resending, setResending] = useState(false)
   const pendingCreds = useRef(null)
@@ -38,15 +36,6 @@ const Auth = () => {
       navigate(redirect, { replace: true })
     }
   }, [isAuthenticated, redirect, navigate])
-
-  useEffect(() => {
-    if (isFirebaseConfigured) {
-      import('../firebase').then(module => {
-        firebaseAuth = module
-        setFirebaseReady(true)
-      })
-    }
-  }, [])
 
   const handleGoogleSignIn = async () => {
     if (!isFirebaseConfigured || !firebaseAuth) {
