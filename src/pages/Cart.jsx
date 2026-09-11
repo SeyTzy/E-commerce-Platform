@@ -1,22 +1,35 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { Trash2, Plus, Minus, ArrowRight, ShoppingBag } from 'lucide-react'
+import { Trash2, Plus, Minus, ArrowRight, ShoppingCart, Lock } from 'lucide-react'
 import { motion } from 'framer-motion'
+import toast from 'react-hot-toast'
 import { Button } from '../components/common'
 import { selectCartItems, selectCartTotal, selectCartOriginalTotal, removeFromCart, updateQuantity, clearCart } from '../redux/slices/cartSlice'
+import { selectIsAuthenticated } from '../redux/slices/authSlice'
 import { coupons } from '../data/products'
 import { useLanguage } from '../contexts/LanguageContext'
 import styles from './Cart.module.css'
 
 const Cart = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { t, language } = useLanguage()
   const items = useSelector(selectCartItems)
   const subtotal = useSelector(selectCartTotal)
   const originalTotal = useSelector(selectCartOriginalTotal)
+  const isAuthenticated = useSelector(selectIsAuthenticated)
   const savings = originalTotal - subtotal
   const shipping = subtotal > 100 ? 0 : 9.99
   const total = subtotal + shipping
+
+  const handleProceedToCheckout = () => {
+    if (!isAuthenticated) {
+      toast.error(t('checkout.authNotice'))
+      navigate('/auth?redirect=/checkout', { state: { from: '/checkout' } })
+      return
+    }
+    navigate('/checkout')
+  }
 
   return (
     <div className={styles.cart}>
@@ -25,7 +38,7 @@ const Cart = () => {
 
         {items.length === 0 ? (
           <div className={styles.empty}>
-            <ShoppingBag size={64} strokeWidth={1.5} />
+            <ShoppingCart size={64} strokeWidth={1.5} />
             <h2>{t('cart.emptyTitle')}</h2>
             <p>{t('cart.emptyDesc')}</p>
             <Link to="/shop">
@@ -131,11 +144,15 @@ const Cart = () => {
                 <span>${total.toFixed(2)}</span>
               </div>
 
-              <Link to="/checkout">
-                <Button variant="primary" fullWidth size="large">
-                  {t('cart.checkout')} <ArrowRight size={18} />
-                </Button>
-              </Link>
+              <Button variant="primary" fullWidth size="large" onClick={handleProceedToCheckout}>
+                {t('cart.checkout')} <ArrowRight size={18} />
+              </Button>
+              {!isAuthenticated && (
+                <p className={styles.authNotice}>
+                  <Lock size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                  {t('checkout.authNoticeShort')}
+                </p>
+              )}
 
               <div className={styles.coupons}>
                 <h4>{language === 'km' ? 'គូប៉ុងដែលមានស្រាប់' : 'Available Promo Coupons'}</h4>

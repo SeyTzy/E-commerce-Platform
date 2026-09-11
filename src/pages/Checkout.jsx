@@ -4,13 +4,15 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {
   CreditCard, Truck, Check, ArrowLeft, Shield, MapPin,
-  ChevronRight, ChevronLeft, Package, Percent, Smartphone
+  ChevronRight, ChevronLeft, Package, Percent, Smartphone,
+  Lock, User
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Button, Input } from '../components/common'
 import { selectCartItems, selectCartTotal, selectCartOriginalTotal, clearCart } from '../redux/slices/cartSlice'
 import { addOrder } from '../redux/slices/orderSlice'
+import { selectIsAuthenticated, selectCurrentUser } from '../redux/slices/authSlice'
 import { coupons } from '../data/products'
 import { useLanguage } from '../contexts/LanguageContext'
 import styles from './Checkout.module.css'
@@ -37,7 +39,19 @@ const Checkout = () => {
   })
   const [paymentMethod, setPaymentMethod] = useState('card')
 
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+  const user = useSelector(selectCurrentUser)
+
+  const defaultFirstName = user?.name ? user.name.split(' ')[0] : ''
+  const defaultLastName = user?.name ? user.name.split(' ').slice(1).join(' ') : ''
+
+  const { register, handleSubmit, trigger, getValues, formState: { errors } } = useForm({
+    defaultValues: {
+      firstName: defaultFirstName,
+      lastName: defaultLastName,
+      phone: user?.phone || ''
+    }
+  })
 
   const items = useSelector(selectCartItems)
   const subtotal = useSelector(selectCartTotal)
@@ -52,6 +66,42 @@ const Checkout = () => {
         <Link to="/shop">
           <Button>{t('cart.continueShopping')}</Button>
         </Link>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className={styles.checkout}>
+        <div className={styles.container}>
+          <Link to="/cart" className={styles.back}>
+            <ArrowLeft size={18} /> {language === 'km' ? 'ត្រឡប់ទៅកន្ត្រក' : 'Back to Cart'}
+          </Link>
+
+          <div className={styles.authRequired}>
+            <div className={styles.authRequiredCard}>
+              <div className={styles.authRequiredIcon}>
+                <Lock size={44} />
+              </div>
+              <h2>{t('checkout.authRequiredTitle')}</h2>
+              <p>{t('checkout.authRequiredDesc')}</p>
+              <div className={styles.authRequiredActions}>
+                <Button
+                  variant="primary"
+                  size="large"
+                  onClick={() => navigate('/auth?redirect=/checkout', { state: { from: '/checkout' } })}
+                >
+                  <User size={18} /> {t('checkout.authRequiredBtn')}
+                </Button>
+                <Link to="/cart">
+                  <Button variant="secondary" size="large">
+                    <ArrowLeft size={18} /> {language === 'km' ? 'ត្រឡប់ទៅកន្ត្រក' : 'Back to Cart'}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -91,12 +141,22 @@ const Checkout = () => {
     return ''
   }
 
+  const handleNextStep1 = async () => {
+    const isValid = await trigger(['firstName', 'lastName', 'address', 'city', 'state', 'zip', 'phone'])
+    if (isValid) {
+      setStep(2)
+    }
+  }
+
   const onSubmit = (data) => {
     const payment = paymentMethod === 'card'
       ? { method: 'card', last4: cardPreview.number.replace(/\s/g, '').slice(-4) || '4242' }
       : { method: 'qr' }
     const order = {
       id: `ORD-${Date.now()}`,
+      userId: user?.id || null,
+      userEmail: user?.email || null,
+      customerName: user?.name || `${data.firstName} ${data.lastName}`,
       items,
       shipping: data,
       payment,
@@ -213,7 +273,7 @@ const Checkout = () => {
                     </div>
                     <div className={styles.formActions}>
                       <span />
-                      <Button variant="primary" size="large" onClick={() => setStep(2)}>
+                      <Button variant="primary" size="large" onClick={handleNextStep1}>
                         {language === 'km' ? 'បន្តទៅការបង់ប្រាក់' : 'Continue to Payment'} <ChevronRight size={18} />
                       </Button>
                     </div>
@@ -404,10 +464,18 @@ const Checkout = () => {
                       <button className={styles.editBtn} onClick={() => setStep(1)}>{t('common.edit')}</button>
                     </div>
                     <div className={styles.reviewBody}>
-                      <p><strong>Sok Dara</strong></p>
-                      <p>120 Main Street</p>
-                      <p>Phnom Penh, Cambodia 10001</p>
-                      <p>+855 12 345 678</p>
+                      {(() => {
+                        const values = getValues()
+                        return (
+                          <>
+                            <p><strong>{values.firstName || user?.name || ''} {values.lastName || ''}</strong></p>
+                            <p>{values.address || 'Address not specified'}</p>
+                            <p>{values.city || ''}{values.state ? `, ${values.state}` : ''} {values.zip || ''}</p>
+                            <p>{values.phone || user?.phone || ''}</p>
+                            {user?.email && <p className={styles.reviewSub}>{user.email}</p>}
+                          </>
+                        )
+                      })()}
                     </div>
                   </div>
 

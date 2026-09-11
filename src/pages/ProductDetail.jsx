@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { ShoppingBag, Heart, ArrowLeft, Star, Truck, Shield, RefreshCw, Minus, Plus } from 'lucide-react'
+import { ShoppingCart, Heart, ArrowLeft, Star, Truck, Shield, RefreshCw, Minus, Plus } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button, Rating, Badge } from '../components/common'
 import { selectCurrentProduct } from '../redux/slices/productSlice'
@@ -145,7 +145,7 @@ const ProductDetail = () => {
 
             <div className={styles.actions}>
               <Button variant="primary" size="large" fullWidth onClick={handleAddToCart}>
-                <ShoppingBag size={20} /> បន្ថែមទៅក្នុងកន្ត្រក់
+                <ShoppingCart size={20} /> បន្ថែមទៅក្នុងកន្ត្រក់
               </Button>
               <Button 
                 variant={isInWishlist ? 'primary' : 'secondary'} 

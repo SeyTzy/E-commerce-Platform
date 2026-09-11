@@ -1,22 +1,36 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react'
+import { X, Plus, Minus, Trash2, ShoppingCart, ArrowRight, Lock } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import toast from 'react-hot-toast'
 import { selectIsSidebarOpen, setSidebarOpen } from '../../redux/slices/uiSlice'
 import { selectCartItems, selectCartTotal, removeFromCart, updateQuantity, selectCartCount } from '../../redux/slices/cartSlice'
+import { selectIsAuthenticated } from '../../redux/slices/authSlice'
 import { Button } from '../common'
 import { useLanguage } from '../../contexts/LanguageContext'
 import styles from './CartSidebar.module.css'
 
 const CartSidebar = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { t } = useLanguage()
   const isOpen = useSelector(selectIsSidebarOpen)
   const items = useSelector(selectCartItems)
   const total = useSelector(selectCartTotal)
   const count = useSelector(selectCartCount)
+  const isAuthenticated = useSelector(selectIsAuthenticated)
 
   const handleClose = () => dispatch(setSidebarOpen(false))
+
+  const handleProceedToCheckout = () => {
+    handleClose()
+    if (!isAuthenticated) {
+      toast.error(t('checkout.authNotice'))
+      navigate('/auth?redirect=/checkout', { state: { from: '/checkout' } })
+      return
+    }
+    navigate('/checkout')
+  }
 
   return (
     <AnimatePresence>
@@ -38,7 +52,7 @@ const CartSidebar = () => {
           >
             <div className={styles.header}>
               <h3 className={styles.title}>
-                <ShoppingBag size={20} />
+                <ShoppingCart size={20} />
                 {t('cart.title')} ({count})
               </h3>
               <button className={styles.closeBtn} onClick={handleClose} aria-label={t('common.close')}>
@@ -49,7 +63,7 @@ const CartSidebar = () => {
             <div className={styles.content}>
               {items.length === 0 ? (
                 <div className={styles.empty}>
-                  <ShoppingBag size={48} strokeWidth={1.5} />
+                  <ShoppingCart size={48} strokeWidth={1.5} />
                   <p>{t('cart.emptyTitle')}</p>
                   <Button variant="secondary" onClick={handleClose}>
                     {t('cart.continueShopping')}
@@ -101,12 +115,15 @@ const CartSidebar = () => {
                   <span>{t('cart.subtotal')}</span>
                   <span className={styles.total}>${total.toFixed(2)}</span>
                 </div>
-                <p className={styles.note}>{t('cart.taxesNote')}</p>
-                <Link to="/checkout" onClick={handleClose}>
-                  <Button variant="primary" fullWidth size="large">
-                    {t('cart.checkout')} <ArrowRight size={18} />
-                  </Button>
-                </Link>
+                <Button variant="primary" fullWidth size="large" onClick={handleProceedToCheckout}>
+                  {t('cart.checkout')} <ArrowRight size={18} />
+                </Button>
+                {!isAuthenticated && (
+                  <p className={styles.authNotice}>
+                    <Lock size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+                    {t('checkout.authNoticeShort')}
+                  </p>
+                )}
                 <Link to="/cart" className={styles.viewCart} onClick={handleClose}>
                   {t('cart.viewCart')}
                 </Link>

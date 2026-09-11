@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Users, Package, ShoppingBag, DollarSign, TrendingUp, TrendingDown, Plus, Edit, Trash2 } from 'lucide-react'
+import { Users, Package, ShoppingCart, DollarSign, TrendingUp, TrendingDown, Plus, Edit, Trash2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button, Badge } from '../components/common'
 import { selectIsAdmin } from '../redux/slices/authSlice'
@@ -33,7 +33,7 @@ const Admin = () => {
   const stats = [
     { label: 'Total Users', value: '1,234', icon: <Users size={20} />, trend: '+12%', up: true },
     { label: 'Products', value: products.length, icon: <Package size={20} />, trend: '+3', up: true },
-    { label: 'Orders', value: orders.length || 24, icon: <ShoppingBag size={20} />, trend: '+8%', up: true },
+    { label: 'Orders', value: orders.length || 24, icon: <ShoppingCart size={20} />, trend: '+8%', up: true },
     { label: 'Revenue', value: '$12,345', icon: <DollarSign size={20} />, trend: '+15%', up: true }
   ]
 

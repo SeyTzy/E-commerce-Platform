@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { Search, ShoppingBag, Heart, User, Sun, Moon, Menu, X, LogOut, ChevronDown, Home, Grid, Tags, Info, Mail, Settings, Package, LayoutDashboard } from 'lucide-react'
+import { Search, ShoppingCart, Heart, User, Sun, Moon, Menu, X, LogOut, ChevronDown, Home, Grid, Tags, Info, Mail, Settings, Package, LayoutDashboard } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { selectCartCount } from '../../redux/slices/cartSlice'
 import { selectWishlistCount } from '../../redux/slices/wishlistSlice'
@@ -12,7 +13,6 @@ import { useUI } from '../../contexts/UIContext'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { LanguageSwitch } from '../common'
 import styles from './Header.module.css'
-import { AnimatePresence as Presence } from 'framer-motion'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -73,6 +73,16 @@ const Header = () => {
   }, [])
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024 && mobileMenuOpen) {
+        setMobileMenuOpen(false)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [mobileMenuOpen])
+
+  useEffect(() => {
     if (searchValue) {
       dispatch(setSearchQuery(searchValue))
     }
@@ -111,7 +121,8 @@ const Header = () => {
   ]
 
   return (
-    <motion.header
+    <>
+      <motion.header
       className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -157,7 +168,9 @@ const Header = () => {
         </nav>
 
         <div className={styles.actions}>
-          <LanguageSwitch variant="dropdown" />
+          <div className={styles.desktopAction}>
+            <LanguageSwitch variant="dropdown" />
+          </div>
 
           <motion.button
             className={styles.iconButton}
@@ -170,7 +183,7 @@ const Header = () => {
           </motion.button>
 
           <motion.button
-            className={styles.iconButton}
+            className={`${styles.iconButton} ${styles.desktopAction}`}
             onClick={() => dispatch(toggleTheme())}
             aria-label={theme === 'dark' ? t('header.lightMode') : t('header.darkMode')}
             whileHover={{ scale: 1.05 }}
@@ -199,7 +212,7 @@ const Header = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Link to="/cart" className={styles.iconButton} aria-label={t('nav.cart')}>
-              <ShoppingBag size={20} />
+              <ShoppingCart size={20} />
               {cartCount > 0 && <motion.span
                 className={styles.badge}
                 initial={{ scale: 0 }}
@@ -331,137 +344,142 @@ const Header = () => {
         )}
       </AnimatePresence>
 
-      <AnimatePresence mode="wait">
-        {mobileMenuOpen && (
-          <>
-            <motion.div
-              key="mobile-overlay"
-              className={styles.mobileOverlay}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-            />
-            <motion.nav
-              key="mobile-menu"
-              className={styles.mobileMenu}
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            >
-              <div className={styles.mobileMenuContent}>
-                <div className={styles.mobileMenuHeader}>
-                  <Link to="/" className={styles.mobileLogo} onClick={() => setMobileMenuOpen(false)}>
-                    <img src="/assets/images/LogoLuxCart.png" alt="LuxeCart" className={styles.mobileLogoImg} />
-                  </Link>
-                  <button className={styles.closeButton} onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
-                    <X size={24} />
-                  </button>
-                </div>
+      </motion.header>
 
-                {isAuthenticated && (
-                  <div className={styles.mobileUserSection}>
-                    {user?.photoURL ? (
-                      <img src={user.photoURL} alt={user.name} className={styles.mobileAvatar} />
-                    ) : (
-                      <div className={styles.mobileAvatarPlaceholder}>
-                        <User size={24} />
-                      </div>
-                    )}
-                    <div className={styles.mobileUserInfo}>
-                      <span className={styles.mobileUserName}>{user?.name}</span>
-                      <span className={styles.mobileUserEmail}>{user?.email}</span>
-                    </div>
-                  </div>
-                )}
-
-                <nav className={styles.mobileNav}>
-                  {navLinks.map((link, i) => {
-                    const Icon = link.icon
-                    return (
-                      <motion.div
-                        key={link.path}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.05 }}
-                        whileHover={{ x: 5 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Link
-                          to={link.path}
-                          className={`${styles.mobileNavLink} ${location.pathname === link.path ? styles.active : ''}`}
-                          onClick={(e) => handleNavClick(e, link.path)}
-                        >
-                          <motion.div
-                            style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}
-                            whileHover={{ x: 3 }}
-                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                          >
-                            <Icon size={20} />
-                            <span>{link.name}</span>
-                          </motion.div>
-                        </Link>
-                      </motion.div>
-                    )
-                  })}
-                </nav>
-
-                <div className={styles.mobileActions}>
-                  <LanguageSwitch variant="card" />
-
-                  <button 
-                    className={styles.mobileActionButton}
-                    onClick={() => { dispatch(toggleTheme()); setMobileMenuOpen(false) }}
-                  >
-                    {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                    <span>{theme === 'dark' ? t('header.lightMode') : t('header.darkMode')}</span>
-                  </button>
-                  <Link 
-                    to="/cart" 
-                    className={styles.mobileActionButton}
-                    onClick={(e) => handleNavClick(e, '/cart')}
-                  >
-                    <ShoppingBag size={20} />
-                    <span>{t('nav.cart')} ({cartCount})</span>
-                  </Link>
-                  <Link 
-                    to="/wishlist" 
-                    className={styles.mobileActionButton}
-                    onClick={(e) => handleNavClick(e, '/wishlist')}
-                  >
-                    <Heart size={20} />
-                    <span>{t('nav.wishlist')} ({wishlistCount})</span>
-                  </Link>
-                </div>
-
-                <div className={styles.mobileFooter}>
-                  {isAuthenticated ? (
-                    <button 
-                      onClick={() => { 
-                        dispatch(logout())
-                        setMobileMenuOpen(false)
-                        navigate('/')
-                      }}
-                      className={styles.mobileLogoutButton}
-                    >
-                      <LogOut size={18} />
-                      <span>{t('header.signOut')}</span>
-                    </button>
-                  ) : (
-                    <Link to="/auth" className={styles.mobileCtaButton} onClick={(e) => handleNavClick(e, '/auth')}>
-                      <User size={18} />
-                      <span>{t('header.signIn')}</span>
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <>
+              <motion.div
+                key="mobile-overlay"
+                className={styles.mobileOverlay}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileMenuOpen(false)}
+              />
+              <motion.nav
+                key="mobile-menu"
+                className={styles.mobileMenu}
+                initial={{ x: '-100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '-100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              >
+                <div className={styles.mobileMenuContent}>
+                  <div className={styles.mobileMenuHeader}>
+                    <Link to="/" className={styles.mobileLogo} onClick={() => setMobileMenuOpen(false)}>
+                      <img src="/assets/images/LogoLuxCart.png" alt="LuxeCart" className={styles.mobileLogoImg} />
                     </Link>
+                    <button className={styles.closeButton} onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
+                      <X size={24} />
+                    </button>
+                  </div>
+
+                  {isAuthenticated && (
+                    <div className={styles.mobileUserSection}>
+                      {user?.photoURL ? (
+                        <img src={user.photoURL} alt={user.name} className={styles.mobileAvatar} />
+                      ) : (
+                        <div className={styles.mobileAvatarPlaceholder}>
+                          <User size={24} />
+                        </div>
+                      )}
+                      <div className={styles.mobileUserInfo}>
+                        <span className={styles.mobileUserName}>{user?.name}</span>
+                        <span className={styles.mobileUserEmail}>{user?.email}</span>
+                      </div>
+                    </div>
                   )}
+
+                  <nav className={styles.mobileNav}>
+                    {navLinks.map((link, i) => {
+                      const Icon = link.icon
+                      return (
+                        <motion.div
+                          key={link.path}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.05 }}
+                          whileHover={{ x: 5 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Link
+                            to={link.path}
+                            className={`${styles.mobileNavLink} ${location.pathname === link.path ? styles.active : ''}`}
+                            onClick={(e) => handleNavClick(e, link.path)}
+                          >
+                            <motion.div
+                              style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}
+                              whileHover={{ x: 3 }}
+                              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            >
+                              <Icon size={20} />
+                              <span>{link.name}</span>
+                            </motion.div>
+                          </Link>
+                        </motion.div>
+                      )
+                    })}
+                  </nav>
+
+                  <div className={styles.mobileActions}>
+                    <LanguageSwitch variant="card" />
+
+                    <button 
+                      className={styles.mobileActionButton}
+                      onClick={() => { dispatch(toggleTheme()); setMobileMenuOpen(false) }}
+                    >
+                      {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                      <span>{theme === 'dark' ? t('header.lightMode') : t('header.darkMode')}</span>
+                    </button>
+                    <Link 
+                      to="/cart" 
+                      className={styles.mobileActionButton}
+                      onClick={(e) => handleNavClick(e, '/cart')}
+                    >
+                      <ShoppingCart size={20} />
+                      <span>{t('nav.cart')} ({cartCount})</span>
+                    </Link>
+                    <Link 
+                      to="/wishlist" 
+                      className={styles.mobileActionButton}
+                      onClick={(e) => handleNavClick(e, '/wishlist')}
+                    >
+                      <Heart size={20} />
+                      <span>{t('nav.wishlist')} ({wishlistCount})</span>
+                    </Link>
+                  </div>
+
+                  <div className={styles.mobileFooter}>
+                    {isAuthenticated ? (
+                      <button 
+                        onClick={() => { 
+                          dispatch(logout())
+                          setMobileMenuOpen(false)
+                          navigate('/')
+                        }}
+                        className={styles.mobileLogoutButton}
+                      >
+                        <LogOut size={18} />
+                        <span>{t('header.signOut')}</span>
+                      </button>
+                    ) : (
+                      <Link to="/auth" className={styles.mobileCtaButton} onClick={(e) => handleNavClick(e, '/auth')}>
+                        <User size={18} />
+                        <span>{t('header.signIn')}</span>
+                      </Link>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </motion.nav>
-          </>
-        )}
-      </AnimatePresence>
-     </motion.header>
-   )
- }
+              </motion.nav>
+            </>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
+  )
+}
 
 export default Header

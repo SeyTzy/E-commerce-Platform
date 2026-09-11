@@ -182,7 +182,12 @@ export const translations = {
       orderReview: 'ពិនិត្យមើលការបញ្ជាទិញ',
       orderSuccess: 'ការបញ្ជាទិញរបស់អ្នកទទួលបានជោគជ័យ!',
       orderSuccessDesc: 'សូមអរគុណសម្រាប់ការទិញទំនិញជាមួយ LuxeCart។ យើងបានផ្ញើវិក្កយបត្រទៅអ៊ីមែលរបស់អ្នក។',
-      backToShop: 'ត្រឡប់ទៅហាងទំនិញវិញ'
+      backToShop: 'ត្រឡប់ទៅហាងទំនិញវិញ',
+      authRequiredTitle: 'តម្រូវឱ្យចូលគណនី ឬចុះឈ្មោះ',
+      authRequiredDesc: 'ដើម្បីធានាសុវត្ថិភាព និងតាមដានការបញ្ជាទិញរបស់អ្នក សូមចូលគណនី ឬបង្កើតគណនីថ្មីមុនពេលបន្តការទូទាត់ប្រាក់។',
+      authRequiredBtn: 'ចូលគណនី / ចុះឈ្មោះ',
+      authNotice: 'សូមចូលគណនី ឬចុះឈ្មោះជាមុនសិន ដើម្បីបន្តការទូទាត់ប្រាក់',
+      authNoticeShort: 'តម្រូវឱ្យចូលគណនី ឬចុះឈ្មោះមុនទូទាត់'
     },
     wishlist: {
       title: 'បញ្ជីទំនិញដែលចង់បាន',
@@ -470,7 +475,12 @@ export const translations = {
       orderReview: 'Order Review',
       orderSuccess: 'Order Placed Successfully!',
       orderSuccessDesc: 'Thank you for choosing LuxeCart. A receipt has been sent to your email.',
-      backToShop: 'Return to Shop'
+      backToShop: 'Return to Shop',
+      authRequiredTitle: 'Sign In or Register Required',
+      authRequiredDesc: 'To ensure order security and real-time tracking, please sign in or create an account before completing your checkout.',
+      authRequiredBtn: 'Sign In / Register',
+      authNotice: 'Please sign in or register first to proceed to checkout',
+      authNoticeShort: 'Sign in or register required to checkout'
     },
     wishlist: {
       title: 'My Wishlist',

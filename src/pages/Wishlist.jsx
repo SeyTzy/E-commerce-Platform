@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { Heart, ShoppingBag, Trash2 } from 'lucide-react'
+import { Heart, ShoppingCart, Trash2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Button } from '../components/common'
@@ -60,7 +60,7 @@ const Wishlist = () => {
                   <span className={styles.price}>${item.price.toFixed(2)}</span>
                   <div className={styles.actions}>
                     <Button variant="primary" size="small" onClick={() => handleAddToCart(item)}>
-                      <ShoppingBag size={16} /> Add to Cart
+                      <ShoppingCart size={16} /> Add to Cart
                     </Button>
                     <button className={styles.remove} onClick={() => handleRemove(item.id)}>
                       <Trash2 size={16} />

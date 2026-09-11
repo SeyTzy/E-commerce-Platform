@@ -228,6 +228,17 @@ h1 {
   text-decoration: none;
 }
 
+.authNotice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-3);
+  text-align: center;
+}
+
 .coupons {
   margin-top: var(--space-6);
   padding-top: var(--space-6);

@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { Mail, Lock, User, ArrowRight, CheckCircle } from 'lucide-react'
+import { Mail, Lock, User, ArrowRight, CheckCircle, ShoppingCart } from 'lucide-react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { Button, Input } from '../components/common'
-import { setCredentials, setLoading, setError, selectAuthLoading, selectAuthError } from '../redux/slices/authSlice'
+import { setCredentials, setLoading, setError, selectAuthLoading, selectAuthError, selectIsAuthenticated } from '../redux/slices/authSlice'
+import { useLanguage } from '../contexts/LanguageContext'
 import styles from './Auth.module.css'
 
 const isFirebaseConfigured = true
@@ -16,15 +17,27 @@ let firebaseAuth = null
 const Auth = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [isLogin, setIsLogin] = useState(true)
+  const [searchParams] = useSearchParams()
+  const location = useLocation()
+  const { language } = useLanguage()
+  const redirect = searchParams.get('redirect') || location.state?.from || '/'
+  const mode = searchParams.get('mode')
+  const [isLogin, setIsLogin] = useState(mode !== 'register' && mode !== 'signup')
   const [firebaseReady, setFirebaseReady] = useState(false)
   const [unverifiedEmail, setUnverifiedEmail] = useState(null)
   const [resending, setResending] = useState(false)
   const pendingCreds = useRef(null)
+  const isAuthenticated = useSelector(selectIsAuthenticated)
   const isLoading = useSelector(selectAuthLoading)
   const authError = useSelector(selectAuthError)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(redirect, { replace: true })
+    }
+  }, [isAuthenticated, redirect, navigate])
 
   useEffect(() => {
     if (isFirebaseConfigured) {
@@ -42,7 +55,7 @@ const Auth = () => {
         token: 'demo-token-123'
       }))
       toast.success('Welcome back! (Demo Mode)')
-      navigate('/')
+      navigate(redirect, { replace: true })
       return
     }
 
@@ -60,7 +73,7 @@ const Auth = () => {
         token: user.accessToken
       }))
       toast.success('Welcome back!')
-      navigate('/')
+      navigate(redirect, { replace: true })
     } catch (error) {
       dispatch(setError(error.message))
       toast.error('Google sign in failed: ' + error.message)
@@ -96,14 +109,14 @@ const Auth = () => {
             token: 'demo-token-123'
           }))
           toast.success('Welcome back!')
-          navigate('/')
+          navigate(redirect, { replace: true })
         } else if (data.email === 'admin@gmail.com' && data.password === 'admin123') {
           dispatch(setCredentials({
             user: { id: '0', email: data.email, name: 'Admin', role: 'admin' },
             token: 'admin-token-123'
           }))
           toast.success('Welcome back, Admin!')
-          navigate('/')
+          navigate(redirect, { replace: true })
         } else {
           dispatch(setError('Invalid email or password'))
           toast.error('Invalid email or password')
@@ -114,7 +127,7 @@ const Auth = () => {
           token: 'new-user-token'
         }))
         toast.success('Account created successfully!')
-        navigate('/')
+        navigate(redirect, { replace: true })
       }
       return
     }
@@ -144,7 +157,7 @@ const Auth = () => {
           token: user.accessToken
         }))
         toast.success('Welcome back!')
-        navigate('/')
+        navigate(redirect, { replace: true })
       } else {
         const result = await firebaseAuth.signUpWithEmail(data.email, data.password)
         const user = result.user
@@ -275,6 +288,23 @@ const Auth = () => {
               </Link>
               <h1>{isLogin ? 'Welcome Back' : 'Create Account'}</h1>
               <p>{isLogin ? 'Sign in to continue shopping' : 'Join us for a better shopping experience'}</p>
+              {redirect === '/checkout' && (
+                <div className={styles.checkoutNotice}>
+                  <div className={styles.checkoutNoticeIcon}>
+                    <ShoppingCart size={18} />
+                  </div>
+                  <div className={styles.checkoutNoticeText}>
+                    <strong>
+                      {language === 'km' ? 'តម្រូវឱ្យចូលគណនី ឬចុះឈ្មោះ' : 'Sign In or Register Required'}
+                    </strong>
+                    <p>
+                      {language === 'km'
+                        ? 'សូមចូលគណនី ឬបង្កើតគណនីថ្មី ដើម្បីបន្តការទូទាត់ប្រាក់'
+                        : 'Please sign in or create an account to proceed with checkout'}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

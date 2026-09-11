@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { ShoppingBag, Heart, Eye, Star } from 'lucide-react'
+import { ShoppingCart, Heart, Eye, Star } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { addToCart } from '../../redux/slices/cartSlice'
 import { addToWishlist, removeFromWishlist } from '../../redux/slices/wishlistSlice'
@@ -88,7 +88,7 @@ const ProductCard = ({ product, index = 0 }) => {
             aria-label={t('common.addToCart')}
             title={t('common.addToCart')}
           >
-            <ShoppingBag size={18} />
+            <ShoppingCart size={18} />
           </button>
         </div>
       </div>

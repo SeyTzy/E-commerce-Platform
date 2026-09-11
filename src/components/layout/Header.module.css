@@ -44,6 +44,8 @@
   justify-content: center;
   width: 42px;
   height: 42px;
+  min-width: 42px;
+  flex-shrink: 0;
   background: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -61,6 +63,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .logoImg {
@@ -112,6 +115,12 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.desktopAction {
+  display: flex;
+  align-items: center;
 }
 
 .iconButton {
@@ -371,10 +380,17 @@
 /* Mobile Menu */
 .mobileOverlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   z-index: 9998;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .mobileMenu {
@@ -382,9 +398,13 @@
   top: 0;
   left: 0;
   bottom: 0;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
   z-index: 9999;
   width: 320px;
   max-width: 85vw;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
 .mobileMenuContent {
@@ -393,6 +413,7 @@
   height: 100%;
   background: var(--color-surface);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobileMenuHeader {
@@ -618,10 +639,17 @@
   }
 }
 
+@media (max-width: 768px) {
+  .desktopAction {
+    display: none;
+  }
+}
+
 /* Responsive - Mobile */
 @media (max-width: 639px) {
   .container {
     padding: 0 var(--space-4);
+    gap: var(--space-2);
   }
 
   .logoImg {
@@ -629,8 +657,8 @@
   }
 
   .iconButton {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
   }
 
   .badge {
